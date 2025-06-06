@@ -1,10 +1,11 @@
+![Banner etl pandas](https://github.com/user-attachments/assets/718d0ec1-dd2d-423e-881a-1243893a1f10)
 # 🔬 ETL con Pandas 🐼  
 ![image](https://github.com/user-attachments/assets/b8fba21d-d6be-4b17-a46e-f95e09458785)
 
-## 🎉 Bienvenida  
+## 🎉 Bienvenid@
 ¡Hola! 👋 Bienvenido/a a mi repositorio de **Apuntes Aprendiendo a hacer ETL**, parte del programa de especialización en **Data Science G8** ofrecido por **Alura Latam** y **Oracle Next Education**.  
 
-Aquí encontrarás los conceptos clave, ejemplos prácticos y soluciones que iré aprendiendo a lo largo de mi formación. ¡Espero que te sea útil! 📚✨  
+✨ Aquí encontrarás los conceptos clave, ejemplos prácticos y soluciones que iré aprendiendo a lo largo de mi formación. ¡Espero que te sea útil! 📚 
 
 ---
 
