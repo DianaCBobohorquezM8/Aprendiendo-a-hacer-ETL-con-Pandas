@@ -36,3 +36,55 @@ Los datasets pueden contener información de muchos tipos, como:
 En este curso, utilizaremos un **dataset de precios de manzanas** en cinco ciudades rusas durante más de siete años. Este conjunto de datos servirá como base para aplicar los procedimientos de NumPy, permitiéndonos realizar análisis estadísticos, transformaciones y cálculos matemáticos sobre los precios de las manzanas a lo largo del tiempo.
 
 ---
+## 📥 Introducción al Dataset
+
+El dataset que utilizaremos contiene información sobre el **precio de manzanas** 🍎 en cinco ciudades rusas durante un período de **siete años (2013-2020)**.  
+Es un archivo pequeño y sencillo (`apples-ts.csv`), ideal para aprender la funcionalidad de NumPy.  
+Además, se creó una **versión modificada** con los nombres de las ciudades traducidos al español.
+
+---
+
+## 💡 ¿Cómo cargar el Dataset en Google Colab?
+
+Tienes dos formas de cargarlo en tu notebook de **Google Colab**:
+
+| 🔄 Método | 📌 Descripción |
+|----------|---------------|
+| 🔗 Enlace raw desde GitHub | Cargar los datos directamente desde un _gist_ mediante un enlace en formato raw. |
+| ☁️ Desde Google Drive | Subir el archivo `manzanas.csv` a Google Drive y acceder a él desde Colab. |
+
+---
+
+## 🧩 Importación de NumPy
+
+```python
+import numpy as np
+```
+Se importa la biblioteca **NumPy** con el alias `np`, una práctica común para simplificar el uso de sus funciones.
+
+---
+
+## 📚 Lectura de Datos con `loadtxt`
+
+Se utiliza la función `np.loadtxt()` para leer los datos del archivo CSV de manera eficiente.
+
+### 🛠️ Parámetros utilizados:
+- `delimiter=","` → para indicar que los valores están separados por comas.  
+- `usecols=...` → para seleccionar **solo las columnas numéricas**, evitando errores por las etiquetas de texto.
+
+👉 También se emplea `np.arange()` para generar dinámicamente el rango de columnas numéricas a utilizar (excluyendo la primera columna con los nombres de las ciudades).
+
+---
+
+## 📦 Almacenamiento de los Datos
+
+Finalmente, los datos leídos con NumPy se almacenan en una variable llamada `datos`:
+
+```python
+datos = np.loadtxt("manzanas.csv", delimiter=",", usecols=np.arange(1, 8))
+```
+
+Así tienes un array listo para empezar el análisis.
+
+---
+
