@@ -165,5 +165,90 @@ print("⏱️ Tiempo con array:", tiempo_array)
 El uso de `NumPy` permite una **mejora significativa en rendimiento**, especialmente con grandes volúmenes de datos.
 
 ---
+# 🧮 Dimensiones y Forma de los Arrays 
+
+## 📥 Creación del Array
+
+Se creó un array a partir de un dataset y se almacenó en una variable llamada `Datos` para su posterior análisis:
+
+```python
+import numpy as np
+
+# Supongamos que este es el array de ejemplo
+Datos = np.array([
+    [100, 200, 150],
+    [110, 210, 160],
+    [120, 220, 170],
+    [130, 230, 180],
+    [140, 240, 190],
+    [150, 250, 200],
+])
+```
+
+---
+
+## 🔍 Información clave del Array
+
+### 📏 Dimensiones del Array (`.ndim`)
+
+| Atributo      | Descripción                                                                                                                |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `.ndim`       | Devuelve el número de **dimensiones** (ejes) del array.                                                                    |
+| 🛠 Aplicación | `Datos.ndim` devuelve `2`, lo que indica que el array tiene **2 dimensiones**: una para los meses y otra para los precios. |
+
+```python
+print("Dimensiones:", Datos.ndim)  # Salida: 2
+```
+
+---
+
+### 📐 Forma del Array (`.shape`)
+
+| Atributo      | Descripción                                                                 |
+| ------------- | --------------------------------------------------------------------------- |
+| `.shape`      | Devuelve una **tupla (filas, columnas)** que representa la forma del array. |
+| 🛠 Aplicación | `Datos.shape` devolvió `(6, 87)`, indicando que hay 6 filas y 87 columnas.  |
+
+```python
+print("Forma:", Datos.shape)  # Ejemplo de salida: (6, 87)
+```
+
+---
+
+### 🔄 Transposición del Array (`.T` o `transpose()`)
+
+| Atributo              | Descripción                                                                                                                               |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `.T` o `.transpose()` | Transpone el array: **intercambia filas por columnas**.                                                                                   |
+| 🛠 Aplicación         | Facilita la visualización cuando hay muchos datos por fila. Por ejemplo, convierte los **meses en columnas** y las **ciudades en filas**. |
+
+```python
+datos_transpuestos = Datos.T
+print(datos_transpuestos.shape)  # Ejemplo de salida: (87, 6)
+```
+
+---
+
+## 💾 Almacenamiento de datos transpuestos
+
+Se asignó el resultado de la transposición a una nueva variable llamada `datos_transpuestos` para facilitar análisis posteriores.
+
+```python
+# Guardar transposición para uso futuro
+datos_transpuestos = Datos.T
+```
+
+---
+
+## 🧠 Resumen General
+
+| Método/Atributo       | Qué hace 📌                                 | Ejemplo de uso                 |
+| --------------------- | ------------------------------------------- | ------------------------------ |
+| `.ndim`               | Devuelve el número de dimensiones del array | `Datos.ndim → 2`               |
+| `.shape`              | Devuelve tupla con filas y columnas         | `Datos.shape → (6, 87)`        |
+| `.T` o `.transpose()` | Transpone el array (filas ↔ columnas)       | `Datos.T.shape → (87, 6)`      |
+| Variable nueva        | Guarda el resultado para análisis futuros   | `datos_transpuestos = Datos.T` |
+
+---
 
 
