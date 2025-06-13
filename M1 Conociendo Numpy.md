@@ -85,6 +85,85 @@ datos = np.loadtxt("manzanas.csv", delimiter=",", usecols=np.arange(1, 8))
 ```
 
 Así tienes un array listo para empezar el análisis.
+---
+
+# 🧠 Ventajas de los Arrays en Python con NumPy
+
+## 🔢 ¿Qué son las listas y arrays?
+
+* **Listas**: estructuras básicas de Python que pueden contener distintos tipos de datos (`int`, `str`, otras listas...).
+* **NumPy Arrays**: estructuras optimizadas y eficientes para cálculos numéricos, provistas por la biblioteca `NumPy`.
 
 ---
+
+## 🔁 Conversión de lista a array
+
+```python
+import numpy as np
+
+# Crear una lista
+lista = [1, 2, 3, 4, 5]
+
+# Convertirla a array
+array = np.array(lista)
+
+print("Lista: ", lista)
+print("Array: ", array)
+```
+
+📤 **Salida**:
+
+```
+Lista: [1, 2, 3, 4, 5]
+Array: [1 2 3 4 5]
+```
+
+---
+
+## ✅ Ventajas de los Arrays NumPy
+
+| Ventaja                       | Descripción                                                                |
+| ----------------------------- | -------------------------------------------------------------------------- |
+| ⚡ Eficiencia de procesamiento | Más rápidos en operaciones matemáticas. Libera memoria de forma eficiente. |
+| ✍️ Código más limpio          | Operaciones matemáticas más concisas y legibles.                           |
+| 🔗 Integración                | Se integra fácilmente con librerías como **Pandas**, **Matplotlib**, etc.  |
+
+---
+
+## 🧪 Comparación de Rendimiento: Lista vs Array
+
+```python
+import numpy as np
+import time
+
+# Lista con 1 millón de elementos
+lista = list(range(1000000))
+array = np.array(lista)
+
+# Tiempo con lista
+start = time.time()
+lista_cuadrado = [i**2 for i in lista]
+tiempo_lista = time.time() - start
+
+# Tiempo con array
+start = time.time()
+array_cuadrado = array**2
+tiempo_array = time.time() - start
+
+print("⏱️ Tiempo con lista:", tiempo_lista)
+print("⏱️ Tiempo con array:", tiempo_array)
+```
+
+📤 **Salida**:
+
+```
+⏱️ Tiempo con lista: 0.2746 s
+⏱️ Tiempo con array: 0.0041 s
+```
+
+✅ **Conclusión**:
+El uso de `NumPy` permite una **mejora significativa en rendimiento**, especialmente con grandes volúmenes de datos.
+
+---
+
 
