@@ -250,5 +250,122 @@ datos_transpuestos = Datos.T
 | Variable nueva        | Guarda el resultado para análisis futuros   | `datos_transpuestos = Datos.T` |
 
 ---
+¡Claro, Diana! Aquí tienes tus apuntes transformados en un formato **Markdown**, más claro, visual y organizado, con emojis, tablas y ejemplos para facilitar el repaso y la comprensión. Ideal para tu repositorio o apuntes de estudio:
+
+---
+
+# 🍏Visualización de Datos con NumPy y Matplotlib
+
+## 🧩 Slice Notation (Notación de Segmento)
+
+La **notación de segmento** permite seleccionar partes específicas de un array:
+
+```python
+array[inicio:fin:paso]
+```
+
+| Parámetro | Descripción                       | Valor por defecto |
+| --------- | --------------------------------- | ----------------- |
+| `inicio`  | Índice de inicio (incluido)       | `0`               |
+| `fin`     | Índice final (no incluido)        | Hasta el final    |
+| `paso`    | Número de elementos que se saltan | `1`               |
+
+📌 **Ejemplo**:
+
+```python
+import numpy as np
+
+a = np.array([10, 20, 30, 40, 50, 60])
+print(a[1:5:2])  # [20 40]
+```
+
+🧠 **Relación**:
+Esencial para **manipular y extraer datos** de arrays, útil en análisis y visualización.
+
+---
+
+## 🔁 Transposición de Datos
+
+Permite **intercambiar filas por columnas**.
+
+| Método           | Descripción                        |
+| ---------------- | ---------------------------------- |
+| `.T`             | Transposición directa              |
+| `np.transpose()` | Función de transposición explícita |
+
+📌 **Ejemplo**:
+
+```python
+array = np.array([[1, 2], [3, 4]])
+print(array.T)
+# [[1 3]
+#  [2 4]]
+```
+
+🧠 **Relación**:
+La transposición cambia la estructura de los datos, **facilitando el acceso por segmentos** (ej. convertir fechas en columnas).
+
+---
+## 📈 Gráficas con Matplotlib
+
+Las **gráficas** son representaciones visuales de datos que permiten identificar patrones, tendencias y variaciones de forma intuitiva.
+
+🎯 **Objetivo**:
+Visualizar los datos manipulados con **NumPy** mediante la biblioteca **Matplotlib**, facilitando su interpretación.
+
+---
+
+### 📊 Matplotlib
+
+`Matplotlib` es una biblioteca de Python ampliamente utilizada para **crear visualizaciones** de datos.
+
+| Función        | Descripción                    |
+| -------------- | ------------------------------ |
+| `plt.plot()`   | Crea un gráfico de líneas      |
+| `plt.title()`  | Agrega un título a la gráfica  |
+| `plt.xlabel()` | Etiqueta para el eje X         |
+| `plt.ylabel()` | Etiqueta para el eje Y         |
+| `plt.show()`   | Muestra la gráfica en pantalla |
+
+📌 **Ejemplo práctico**:
+
+```python
+import matplotlib.pyplot as plt
+
+fechas = ["Ene", "Feb", "Mar"]
+precios = [100, 120, 110]
+
+plt.plot(fechas, precios)
+plt.title("Precios de Manzanas")
+plt.xlabel("Mes")
+plt.ylabel("Precio")
+plt.show()
+```
+
+---
+
+### 📉 Ejes X e Y
+
+Los **ejes** son fundamentales para dar contexto y sentido a la gráfica:
+
+| Eje | Representa          | Ejemplo                 |
+| --- | ------------------- | ----------------------- |
+| `X` | Tiempo o categorías | `["Ene", "Feb", "Mar"]` |
+| `Y` | Valores medidos     | `[100, 120, 110]`       |
+
+🧠 **Importancia**:
+Asignar correctamente los datos a cada eje es esencial para una **interpretación precisa** del gráfico.
+
+---
+## 🍏 Resumen General
+
+| Concepto       | Herramienta              | Relación clave                                  |
+| -------------- | ------------------------ | ----------------------------------------------- |
+| Slice Notation | `array[inicio:fin:paso]` | Extraer subconjuntos de datos                   |
+| Transposición  | `.T` o `transpose()`     | Cambiar orientación de los datos                |
+| Visualización  | `Matplotlib`             | Crear gráficos de líneas con `plt.plot()`       |
+| Ejes X e Y     | `xlabel()` y `ylabel()`  | Claridad en qué se mide y contra qué se compara |
+
+---
 
 
