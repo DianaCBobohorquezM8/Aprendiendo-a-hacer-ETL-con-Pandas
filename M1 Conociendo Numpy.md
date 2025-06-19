@@ -250,10 +250,6 @@ datos_transpuestos = Datos.T
 | Variable nueva        | Guarda el resultado para análisis futuros   | `datos_transpuestos = Datos.T` |
 
 ---
-¡Claro, Diana! Aquí tienes tus apuntes transformados en un formato **Markdown**, más claro, visual y organizado, con emojis, tablas y ejemplos para facilitar el repaso y la comprensión. Ideal para tu repositorio o apuntes de estudio:
-
----
-
 # 🍏Visualización de Datos con NumPy y Matplotlib
 
 ## 🧩 Slice Notation (Notación de Segmento)
@@ -341,7 +337,6 @@ plt.xlabel("Mes")
 plt.ylabel("Precio")
 plt.show()
 ```
-
 ---
 
 ### 📉 Ejes X e Y
