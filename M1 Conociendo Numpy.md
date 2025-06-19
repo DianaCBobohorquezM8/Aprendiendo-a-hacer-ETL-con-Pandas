@@ -260,11 +260,16 @@ La **notación de segmento** permite seleccionar partes específicas de un array
 array[inicio:fin:paso]
 ```
 
-| Parámetro | Descripción                       | Valor por defecto |
-| --------- | --------------------------------- | ----------------- |
-| `inicio`  | Índice de inicio (incluido)       | `0`               |
-| `fin`     | Índice final (no incluido)        | Hasta el final    |
-| `paso`    | Número de elementos que se saltan | `1`               |
+## ✂️ Slice Notation en Python y NumPy
+
+### 🧱 Estructura Básica
+
+| Parámetro | Significado                                         | Valor por defecto |
+| --------- | --------------------------------------------------- | ----------------- |
+| `inicio`  | Índice desde donde empieza la selección (incluido)  | `0`               |
+| `fin`     | Índice donde termina la selección (**no incluido**) | Hasta el final    |
+| `paso`    | Intervalo entre los elementos seleccionados         | `1`               |
+
 
 📌 **Ejemplo**:
 
@@ -274,9 +279,49 @@ import numpy as np
 a = np.array([10, 20, 30, 40, 50, 60])
 print(a[1:5:2])  # [20 40]
 ```
+---
 
-🧠 **Relación**:
-Esencial para **manipular y extraer datos** de arrays, útil en análisis y visualización.
+### 🔍 Ejemplo simple con una lista
+
+```python
+array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+| Expresión    | Resultado         | Descripción                                  |
+| ------------ | ----------------- | -------------------------------------------- |
+| `array[2:5]` | `[2, 3, 4]`       | Desde el índice 2 hasta el 4 (5 no incluido) |
+| `array[:5]`  | `[0, 1, 2, 3, 4]` | Desde el inicio hasta el índice 4            |
+| `array[5:]`  | `[5, 6, 7, 8, 9]` | Desde el índice 5 hasta el final             |
+| `array[::2]` | `[0, 2, 4, 6, 8]` | Cada 2 elementos (paso = 2)                  |
+
+---
+
+### 🧮 Aplicación en matrices (arrays 2D con NumPy)
+
+Cuando trabajas con matrices, la notación se aplica **por dimensión**:
+
+```python
+import numpy as np
+
+matriz = np.array([
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
+])
+```
+
+| Expresión          | Resultado                     | Descripción                                    |
+| ------------------ | ----------------------------- | ---------------------------------------------- |
+| `matriz[:, 1:3]`   | `[[20 30], [50 60], [80 90]]` | Todas las filas (`:`) y columnas 1 y 2 (`1:3`) |
+| `matriz[0:2, :]`   | `[[10 20 30], [40 50 60]]`    | Filas 0 y 1, todas las columnas                |
+| `matriz[::2, ::2]` | `[[10 30], [70 90]]`          | Saltando de 2 en 2 en filas y columnas         |
+
+---
+
+### 💡 Tip útil
+
+La notación de segmento es **muy poderosa** cuando se combina con otras operaciones como transposición o filtrado. Dominarla te permitirá hacer manipulaciones complejas de arrays con muy poco código.
+
 
 ---
 
