@@ -16,11 +16,6 @@ NumPy facilita el manejo de datos mediante su estructura principal, los **arrays
 | 🔢 **Álgebra lineal** | Facilita operaciones como multiplicación de matrices, resolución de sistemas de ecuaciones y cálculo de autovalores/autovectores. |
 | 🔄 **Transformación de datos** | Ofrece herramientas para modificar estructuras de datos, extraer subconjuntos y combinar múltiples arrays. |
 
-### 🏆 Ventajas de los Arrays de NumPy
-✅ Mayor velocidad en operaciones matemáticas  
-✅ Menor uso de memoria comparado con listas de Python  
-✅ Métodos especializados para álgebra lineal, estadística y cálculos complejos  
-
 ### 📂 ¿Qué es un Dataset?
 
 Un **dataset** es un conjunto de datos estructurados que se utilizan para analizar, procesar o entrenar modelos en diferentes disciplinas, como la ciencia de datos, la inteligencia artificial y la estadística. Puedes imaginarlo como una gran hoja de cálculo o una base de datos organizada, donde cada fila representa una observación y cada columna una característica.
@@ -30,10 +25,6 @@ Los datasets pueden contener información de muchos tipos, como:
 📊 Texto (nombres, categorías, descripciones)  
 📊 Fechas y horas (registro de eventos, historial de cambios)  
 📊 Imágenes, sonidos o datos geoespaciales  
-
-### 📊 Dataset de Prueba
-
-En este curso, utilizaremos un **dataset de precios de manzanas** en cinco ciudades rusas durante más de siete años. Este conjunto de datos servirá como base para aplicar los procedimientos de NumPy, permitiéndonos realizar análisis estadísticos, transformaciones y cálculos matemáticos sobre los precios de las manzanas a lo largo del tiempo.
 
 ---
 ## 📥 Introducción al Dataset
@@ -83,12 +74,6 @@ Finalmente, los datos leídos con NumPy se almacenan en una variable llamada `da
 ```python
 datos = np.loadtxt("manzanas.csv", delimiter=",", usecols=np.arange(1, 8))
 ```
-
-Así tienes un array listo para empezar el análisis.
----
-
-# 🧠 Ventajas de los Arrays en Python con NumPy
-
 ## 🔢 ¿Qué son las listas y arrays?
 
 * **Listas**: estructuras básicas de Python que pueden contener distintos tipos de datos (`int`, `str`, otras listas...).
@@ -406,6 +391,141 @@ Asignar correctamente los datos a cada eje es esencial para una **interpretació
 | Visualización  | `Matplotlib`             | Crear gráficos de líneas con `plt.plot()`       |
 | Ejes X e Y     | `xlabel()` y `ylabel()`  | Claridad en qué se mide y contra qué se compara |
 
+---
+# 📘✨ Comparación de Arrays y Visualización con Matplotlib🔍
+
+## 🟰 Comparación entre Arrays con NumPy
+
+Comparar arrays es esencial para verificar si contienen la misma información o si son **suficientemente similares** para fines prácticos.
+
+### 🧪 `numpy.array_equal(a, b)`
+
+Compara dos arrays y devuelve `True` si:
+
+* Tienen la **misma forma**
+* Tienen los **mismos elementos** en las **mismas posiciones**
+
+📌 **Ejemplo**:
+
+```python
+import numpy as np
+
+array1 = np.array([1, 2, 3])
+array2 = np.array([1, 2, 3])
+array3 = np.array([4, 5, 6])
+
+print(np.array_equal(array1, array2))  # True (idénticos)
+print(np.array_equal(array1, array3))  # False (diferentes)
+```
+
+🔒 **Nota**: Esta comparación es **estricta**, útil cuando se necesita igualdad exacta.
+
+---
+
+### 🤏`numpy.allclose(a, b, rtol=1e-05, atol=1e-08)`
+
+Permite comparar arrays con valores **aproximadamente iguales**, tolerando diferencias pequeñas (por ejemplo, por redondeo).
+
+#### 📐 Parámetros:
+
+| Parámetro | Significado                                |
+| --------- | ------------------------------------------ |
+| `a`, `b`  | Arrays a comparar                          |
+| `rtol`    | Tolerancia relativa (por defecto: `1e-05`) |
+| `atol`    | Tolerancia absoluta (por defecto: `1e-08`) |
+
+📘 **Fórmula usada**:
+
+```python
+abs(a - b) <= (atol + rtol * abs(b))
+```
+
+📌 **Ejemplo**:
+
+```python
+array1 = np.array([1.0, 2.0, 3.0])
+array2 = np.array([1.0001, 2.0002, 3.0003])
+array3 = np.array([1.1, 2.2, 3.3])
+
+print(np.allclose(array1, array2))           # True (diferencia mínima)
+print(np.allclose(array1, array3))           # False (diferencia grande)
+print(np.allclose(array1, array3, atol=0.2))  # True (si aumentamos la tolerancia)
+```
+
+✅ **Resumen**:
+
+| Función            | Uso principal                           | Tolerancia |
+| ------------------ | --------------------------------------- | ---------- |
+| `np.array_equal()` | Verifica igualdad exacta                | ❌ No       |
+| `np.allclose()`    | Compara arrays con pequeñas diferencias | ✅ Sí       |
+
+---
+
+## 📊 Visualización con Matplotlib
+
+Una parte esencial del análisis de datos es representar los resultados visualmente. `Matplotlib` permite crear gráficos para **comparar visualmente arrays**, por ejemplo, precios de manzanas por año.
+
+---
+
+### 📅Crear el eje X con `numpy.arange()`
+
+```python
+import numpy as np
+
+meses = np.arange(1, 13, 1)  # De 1 a 12 (meses del año)
+```
+
+| Parámetro | Descripción              | Ejemplo |
+| --------- | ------------------------ | ------- |
+| `start`   | Valor inicial (incluido) | `1`     |
+| `stop`    | Valor final (excluido)   | `13`    |
+| `step`    | Incremento entre valores | `1`     |
+
+---
+
+### 📈Dibujar líneas con `plt.plot(x, y)`
+
+```python
+import matplotlib.pyplot as plt
+
+precios_2013 = [100, 110, 105, 120, 115, 130, 125, 140, 135, 150, 145, 160]
+precios_2014 = [102, 112, 108, 118, 117, 132, 128, 142, 138, 152, 147, 162]
+
+plt.plot(meses, precios_2013)
+plt.plot(meses, precios_2014)
+```
+
+🔹 **`x` = meses**, **`y` = precios por mes**
+
+---
+
+### 🏷️Agregar leyenda con `plt.legend()`
+
+```python
+plt.legend(["2013", "2014"])
+```
+
+Esto muestra una **leyenda** para identificar cada línea del gráfico.
+
+---
+
+### 🎨Mostrar la gráfica completa
+
+```python
+plt.title("Precios de Manzanas por Año")
+plt.xlabel("Mes")
+plt.ylabel("Precio")
+plt.show()
+```
+
+---
+
+## 📌 Resumen del flujo completo
+
+1. **`np.arange()`** genera los valores del eje X (meses).
+2. **`plt.plot()`** dibuja líneas de precios por año.
+3. **`plt.legend()`** agrega etiquetas a cada línea.
+4. **`plt.show()`** muestra la gráfica final.
 ---
 
 
