@@ -67,9 +67,7 @@ matriz = np.array([
 ---
 
 ### 💡 Tip útil
-
 La notación de segmento es **muy poderosa** cuando se combina con otras operaciones como transposición o filtrado. Dominarla te permitirá hacer manipulaciones complejas de arrays con muy poco código.
-
 
 ---
 
@@ -404,5 +402,105 @@ print(matriz_3d.ndim)   # 3
 | **Multiplicación** | Columnas de la primera matriz deben coincidir con filas de la segunda |
 
 🧠 Por eso, conocer las **dimensiones** de una matriz es crucial antes de realizar operaciones.
+
+---
+# 🚫 Tratamiento de NaN en NumPy
+
+Los valores **NaN** (**Not a Number**) indican **datos faltantes o indefinidos**, muy comunes en datasets reales.
+
+---
+
+## ❓ ¿Qué es un NaN?
+
+* Un **NaN** representa un valor **no definido o faltante**.
+* Puede aparecer por:
+
+  * ❌ División por cero
+  * 📉 Datos no recolectados
+  * 🧪 Cálculos inválidos
+
+📌 En NumPy, los NaN son gestionados como valores flotantes especiales.
+
+---
+
+## 🔍 Identificación de NaN
+
+### 🧪 `np.isnan(array)`
+
+Devuelve un **array booleano** donde cada posición es:
+
+* `True` si el valor es `NaN`
+* `False` en caso contrario
+
+### ➕ `np.sum(np.isnan(array))`
+
+Cuenta cuántos `NaN` hay sumando los `True` (que valen `1`).
+
+```python
+import numpy as np
+
+datos = np.array([1.5, np.nan, 2.5, 3.0])
+print(np.isnan(datos))            # [False  True False False]
+print(np.sum(np.isnan(datos)))    # 1 (hay un NaN)
+```
+
+---
+
+## 🧮 Tratamiento: Interpolación de NaN
+
+La **interpolación lineal** es una técnica común para **rellenar datos faltantes** usando el **promedio de los valores adyacentes**.
+
+```python
+datos = np.array([1.5, np.nan, 2.5])
+
+# Interpolación manual
+indice_nan = np.where(np.isnan(datos))[0][0]
+valor_interp = (datos[indice_nan - 1] + datos[indice_nan + 1]) / 2
+
+datos[indice_nan] = valor_interp
+print(datos)  # [1.5, 2.0, 2.5]
+```
+
+---
+
+## 📊 Visualización con `Matplotlib`
+
+Visualizar antes y después ayuda a **verificar que el NaN fue tratado correctamente**.
+
+```python
+import matplotlib.pyplot as plt
+
+fechas = ["Ene", "Feb", "Mar"]
+datos = [1.5, 2.0, 2.5]
+
+plt.plot(fechas, datos)
+plt.title("Interpolación de datos faltantes")
+plt.xlabel("Mes")
+plt.ylabel("Precio")
+plt.show()
+```
+
+---
+
+## 🧼 Cálculos con datos limpios
+
+Una vez tratados los `NaN`, puedes realizar operaciones como:
+
+```python
+precio_promedio = np.mean(datos)
+print(precio_promedio)  # Promedio sin errores por NaN
+```
+
+---
+
+## 🧠 Resumen rápido
+
+| Acción                       | Función / Método                      |
+| ---------------------------- | ------------------------------------- |
+| Detectar `NaN`               | `np.isnan(array)`                     |
+| Contar `NaN`                 | `np.sum(np.isnan(array))`             |
+| Reemplazar con interpolación | Cálculo manual con valores adyacentes |
+| Visualizar datos             | `plt.plot(x, y)`                      |
+| Calcular promedio limpio     | `np.mean(array)`                      |
 
 ---
