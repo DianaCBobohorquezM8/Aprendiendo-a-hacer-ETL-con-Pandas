@@ -504,3 +504,58 @@ print(precio_promedio)  # Promedio sin errores por NaN
 | Calcular promedio limpio     | `np.mean(array)`                      |
 
 ---
+## 🧮 Contar valores `NaN` en un array
+
+Cuando queremos **contar cuántos valores faltantes (`NaN`) hay en un array**, usamos una combinación de funciones:
+
+### ✅ Opción correcta y más eficiente:
+
+```python
+np.sum(np.isnan(jugo_de_limon))
+```
+
+### 🔁 Alternativa posible:
+
+```python
+sum(np.isnan(jugo_de_limon))
+```
+
+---
+
+### 🧠 ¿Qué hacen estas funciones?
+
+1. **`np.isnan(jugo_de_limon)`**
+   → Devuelve un array booleano con `True` donde hay `NaN` y `False` donde no:
+
+   ```python
+   # Ejemplo
+   array = np.array([1.0, np.nan, 2.0])
+   np.isnan(array)  # Resultado: [False, True, False]
+   ```
+
+2. **`np.sum(...)`**
+   → Suma los `True` (que valen `1`) y los `False` (que valen `0`), devolviendo la **cantidad total de NaN**.
+
+---
+
+### ✅ Recomendación:
+
+| Método                  | Recomendado | Por qué                                                |
+| ----------------------- | ----------- | ------------------------------------------------------ |
+| `np.sum(np.isnan(...))` | ✅ Sí        | Funciona con arrays multidimensionales y es más rápido |
+| `sum(np.isnan(...))`    | ⚠️ A veces  | Funciona solo con arrays unidimensionales              |
+
+    ✅Unidimensional: Una sola línea de elementos.
+    ⚠️ Multidimensional: Una estructura con filas, columnas y posiblemente más dimensiones.
+---
+
+### 📌 Ejemplo completo:
+
+```python
+import numpy as np
+
+jugo_de_limon = np.array([1.0, np.nan, 2.5, np.nan])
+total_nan = np.sum(np.isnan(jugo_de_limon))
+print("Total de NaN:", total_nan)  # Output: 2
+```
+---
