@@ -290,3 +290,119 @@ plt.show()
 3. **`plt.legend()`** agrega etiquetas a cada línea.
 4. **`plt.show()`** muestra la gráfica final.
 ---
+# 🔢 Escalares, Vectores y Matrices
+
+## ⚫ Escalares
+
+Un **escalar** es un número único y simple, sin dirección, usado comúnmente en operaciones matemáticas básicas como suma o multiplicación.
+
+📌 **Ejemplos**:
+
+* Temperatura: `27 °C`
+* Peso: `70 kg`
+
+✅ Representa una **sola cantidad** → es un **dato unidimensional** (`0D` en NumPy).
+
+```python
+import numpy as np
+
+escalar = np.array(70)
+print(escalar.ndim)  # 0
+```
+
+---
+
+## 🟣 Vectores
+
+<img width="310" alt="image" src="https://github.com/user-attachments/assets/74373ac9-f5ac-41dc-9652-3a32a7d04338" />
+
+Un **vector** es una **secuencia de valores**, todos del mismo tipo, que representa múltiples cantidades relacionadas.
+
+📌 **Ejemplos**:
+
+* Pesos de boxeadores: `(70.0, 72.0, 71.2, 70.5)`
+* Posición en un plano: `(x, y) = (4, 3)`
+
+🧠 En NumPy, los vectores son arrays **unidimensionales** (`1D`):
+
+```python
+vector = np.array([70.0, 72.0, 71.2, 70.5])
+print(vector.ndim)  # 1
+```
+
+---
+
+## 🟦 Matrices
+
+<img width="138" alt="image" src="https://github.com/user-attachments/assets/e935c8c4-2dfe-4b14-94cb-82fac56895b9" />
+
+Una **matriz** es una estructura bidimensional que representa datos organizados en **filas y columnas**.
+
+📌 **Ejemplo de matriz 2D** (3 filas × 3 columnas):
+
+```python
+matriz = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+])
+print(matriz.shape)  # (3, 3)
+print(matriz.ndim)   # 2
+```
+
+---
+
+### 🧊 Matrices 3D (y más)
+
+<img width="318" alt="image" src="https://github.com/user-attachments/assets/39b7017d-78cb-442b-8eae-eaf3c840b185" />
+
+Las **matrices tridimensionales** (o más) se utilizan para representar conjuntos de matrices o datos más complejos como:
+
+* 🖼 Procesamiento de imágenes
+* 🌀 Animaciones
+* 📐 Modelos matemáticos
+
+📌 **Ejemplo de matriz 3D** (2 matrices de 3×3):
+
+```python
+matriz_3d = np.array([
+    [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]],
+    
+    [[10, 11, 12],
+     [13, 14, 15],
+     [16, 17, 18]]
+])
+print(matriz_3d.shape)  # (2, 3, 3)
+print(matriz_3d.ndim)   # 3
+```
+
+---
+
+## 📏 ¿Qué significa "dimensión"?
+
+| Dimensión | Tipo de estructura        | Varía en...            |
+| --------- | ------------------------- | ---------------------- |
+| `0D`      | Escalar                   | Ningún eje             |
+| `1D`      | Vector                    | Una dimensión (eje)    |
+| `2D`      | Matriz                    | Filas y columnas       |
+| `3D+`     | Tensor (ej: imágenes RGB) | Más de dos dimensiones |
+
+📌 **Importante**:
+
+* En NumPy: `.ndim` te dice cuántas dimensiones tiene un array.
+* `.shape` te muestra la cantidad de elementos en cada dimensión.
+
+---
+
+## ➕ ➗ Operaciones con Matrices
+
+| Operación          | Requisito                                                             |
+| ------------------ | --------------------------------------------------------------------- |
+| **Suma**           | Mismo número de **filas y columnas**                                  |
+| **Multiplicación** | Columnas de la primera matriz deben coincidir con filas de la segunda |
+
+🧠 Por eso, conocer las **dimensiones** de una matriz es crucial antes de realizar operaciones.
+
+---
