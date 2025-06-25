@@ -403,12 +403,103 @@ print(matriz_3d.ndim)   # 3
 
 🧠 Por eso, conocer las **dimensiones** de una matriz es crucial antes de realizar operaciones.
 
+
+# 🧱 Matrices Unidimensionales vs Multidimensionales
+
+Las **matrices** en NumPy son estructuras de datos que pueden tener **una o más dimensiones**, dependiendo de cómo estén organizados los datos.
+
+---
+
+## 🔹 Matrices Unidimensionales
+
+Una matriz **unidimensional** es como una **lista lineal** de elementos. También se conoce como **vector**.
+
+### 📌 Características:
+
+* Tiene **una sola dimensión**
+* Se accede con **un solo índice**
+* Representa datos **en línea recta**
+
+### 🧪 Ejemplo:
+
+```python
+import numpy as np
+
+mi_matriz = np.array([1, 2, 3, 4, 5])
+print(mi_matriz[0])  # Output: 1
+```
+
+| Índice | Valor |
+| ------ | ----- |
+| `0`    | `1`   |
+| `1`    | `2`   |
+| `2`    | `3`   |
+
+🧠 `.ndim` → `1` (una dimensión)
+
+---
+
+## 🔸 Matrices Multidimensionales
+
+Una matriz **multidimensional** contiene datos organizados en **más de una dimensión**, como una **tabla (2D)** o un **cubo (3D)**.
+
+### 📌 Matriz Bidimensional (2D)
+
+Representa una **tabla de filas y columnas**:
+
+```python
+matriz_2d = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+])
+print(matriz_2d[0, 2])  # Output: 3 (1ª fila, 3ª columna)
+```
+
+| Fila/Columna | 0   | 1   | 2   |
+| ------------ | --- | --- | --- |
+| `0`          | `1` | `2` | `3` |
+| `1`          | `4` | `5` | `6` |
+| `2`          | `7` | `8` | `9` |
+
+🧠 `.ndim` → `2` (dos dimensiones)
+
+---
+
+### 🧊 Matriz Tridimensional (3D)
+
+Usada en procesamiento de imágenes, modelos matemáticos, etc.
+Piensa en varias **tablas apiladas**, como un **cubo de datos**.
+
+```python
+matriz_3d = np.array([
+    [[1, 2], [3, 4]],
+    [[5, 6], [7, 8]]
+])
+print(matriz_3d[1, 0, 1])  # Output: 6
+```
+
+| Eje 0 (bloques) | Contenido          |
+| --------------- | ------------------ |
+| `0`             | `[[1, 2], [3, 4]]` |
+| `1`             | `[[5, 6], [7, 8]]` |
+
+🧠 `.ndim` → `3` (tres dimensiones)
+
+---
+
+## 📌 Comparación de Tipos de Matrices
+
+| Tipo           | Forma Visual     | `.ndim` | Ejemplo en NumPy                     |
+| -------------- | ---------------- | ------- | ------------------------------------ |
+| Unidimensional | Línea            | `1`     | `np.array([1, 2, 3])`                |
+| Bidimensional  | Tabla            | `2`     | `np.array([[1, 2], [3, 4]])`         |
+| Tridimensional | Cubo de matrices | `3`     | `np.array([[[1], [2]], [[3], [4]]])` |
+
 ---
 # 🚫 Tratamiento de NaN en NumPy
 
 Los valores **NaN** (**Not a Number**) indican **datos faltantes o indefinidos**, muy comunes en datasets reales.
-
----
 
 ## ❓ ¿Qué es un NaN?
 
