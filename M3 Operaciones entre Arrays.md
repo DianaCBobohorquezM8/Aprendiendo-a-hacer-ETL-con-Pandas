@@ -302,4 +302,112 @@ Tomemos esta fórmula de la pendiente:
 💼 Ideal para notebooks, informes y presentaciones técnicas.
 
 ---
+## 📐 Regresión Lineal y la Ecuación de la Recta
+
+### 📊 ¿Qué es la regresión lineal?
+
+La **regresión lineal simple** es un método estadístico que nos permite modelar la relación entre una **variable independiente** (como el mes del año) y una **variable dependiente** (como el precio de las manzanas). Utilizamos este modelo para **predecir valores** o **analizar tendencias**.
+
+---
+
+## 📏 Ecuación de la línea recta:
+
+$$
+y = ax + b
+$$
+
+| Símbolo | Significado                                                     |
+| ------- | --------------------------------------------------------------- |
+| $y$     | Valor a predecir (por ejemplo, el precio de la manzana)         |
+| $x$     | Valor conocido (por ejemplo, el número del mes)                 |
+| $a$     | Pendiente (indica cuánto varía el precio por cada mes que pasa) |
+| $b$     | Intersección (valor del precio estimado cuando $x = 0$)         |
+
+---
+
+### 🔢 Ejemplo en NumPy
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Suponiendo que los meses van del 1 al 12
+x = np.arange(1, 13)
+
+# Ecuación: y = a * x + b
+a = 1.2  # Pendiente
+b = 78   # Intersección
+y = a * x + b
+
+plt.plot(x, y, label="Modelo Lineal")
+plt.xlabel("Mes")
+plt.ylabel("Precio (COP)")
+plt.title("Predicción de precios de manzana")
+plt.legend()
+plt.show()
+```
+
+---
+
+## 🔮 Predicción de Precios
+
+Sustituimos valores de $x$ en la ecuación para **predecir precios futuros**.
+Por ejemplo, para el mes 10:
+
+```python
+mes = 10
+precio_estimado = a * mes + b
+print(precio_estimado)  # Resultado: 90.0
+```
+
+Esto nos permite estimar cuánto costaría la manzana en ese mes según la tendencia.
+
+---
+
+## ⚠️ Limitaciones del Modelo Lineal
+
+Aunque útil, una **línea recta no siempre describe bien** datos reales, especialmente si:
+
+* Hay mucha variabilidad mes a mes.
+* Los precios suben y bajan sin un patrón lineal.
+
+Esto nos lleva al concepto de:
+
+### 🧠 Overfitting (Sobreajuste)
+
+Cuando usamos **modelos demasiado complejos** (como polinomios de alto grado), podemos "forzar" que se ajusten exactamente a los datos existentes.
+Esto parece bueno, pero en realidad **pierde capacidad de generalizar** a nuevos datos.
+
+🔎 Ejemplo visual:
+
+* ✅ Una línea simple puede capturar la **tendencia general**.
+* ❌ Un polinomio de grado 10 puede capturar **cada punto**, pero fallar en futuras predicciones.
+
+---
+
+## 🧪 Alternativas con NumPy
+
+En lugar de ajustar manualmente $a$ y $b$, podemos usar:
+
+* `np.random` para **probar valores aleatorios de pendiente e intersección**
+* Técnicas como **mínimos cuadrados** o usar `np.polyfit()` para obtener el mejor ajuste automático.
+
+### Ejemplo con `np.polyfit`:
+
+```python
+# Suponiendo que x = meses, y = precios reales
+a, b = np.polyfit(x, y_real, 1)  # Ajuste automático de la mejor recta
+y_pred = a * x + b
+```
+
+---
+
+## ✅ Conclusión
+
+* La ecuación de la recta es una **herramienta clave** en análisis predictivo.
+* Nos ayuda a **visualizar y estimar** comportamientos de datos en el tiempo.
+* Pero debemos usarla con criterio: si el modelo es demasiado simple o demasiado complejo, puede **fallar**.
+* NumPy y herramientas estadísticas nos permiten encontrar el equilibrio justo con funciones automáticas como `np.polyfit`.
+
+---
 
