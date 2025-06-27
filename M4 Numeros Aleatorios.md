@@ -253,4 +253,134 @@ Si defines la semilla en una celda diferente (como en Jupyter Notebooks), puede 
 * Es muy útil en simulaciones, pruebas, aprendizaje automático, y cualquier tarea que requiera **consistencia**.
 
 ---
+## 📤 Exportación de Datos
 
+### 📌 ¿Qué es la exportación de datos?
+
+La **exportación de datos** es el proceso de guardar o transformar datos procesados (por ejemplo, arrays de NumPy) en **archivos externos**. Esto permite su uso fuera del entorno de Python, como en Excel, bases de datos, aplicaciones web o para compartir con colegas.
+
+---
+
+### 🎯 ¿Por qué es importante?
+
+| Propósito                | Descripción                                                         |
+| ------------------------ | ------------------------------------------------------------------- |
+| ✅ Interoperabilidad      | Compartir datos entre programas como Excel, R, SQL o Google Sheets. |
+| 💾 Almacenamiento        | Guardar resultados para uso futuro sin tener que recalcular.        |
+| 📊 Visualización externa | Usar herramientas gráficas como Tableau o Power BI.                 |
+| 🤝 Colaboración          | Compartir datos con otros desarrolladores, analistas o clientes.    |
+
+---
+
+## 📂 Formatos comunes de exportación
+
+| Formato | Uso principal                                                 |
+| ------- | ------------------------------------------------------------- |
+| `.csv`  | Muy usado en hojas de cálculo (Excel, Google Sheets).         |
+| `.txt`  | Archivo de texto plano, útil para lecturas simples.           |
+| `.json` | Ideal para intercambiar datos entre aplicaciones web.         |
+| `.xlsx` | Usado directamente por Microsoft Excel (requiere `openpyxl`). |
+
+---
+
+## 🔣 Delimitadores
+
+Un **delimitador** separa valores dentro de un archivo de texto plano. El delimitador correcto garantiza que los datos se lean de forma coherente.
+
+| Delimitador | Uso común                             |
+| ----------- | ------------------------------------- |
+| `,`         | CSV estándar                          |
+| `;`         | CSV europeo o compatible con Excel    |
+| `\t`        | Tabulador (archivos TSV)              |
+| espacio     | Archivos legibles sin estructura fija |
+
+---
+
+## 🧰 Herramientas de NumPy para exportación
+
+### 1️⃣ `np.column_stack()`
+
+Combina arrays **unidimensionales** en una **estructura bidimensional**, útil para crear una tabla antes de exportar.
+
+📌 **Ejemplo**:
+
+```python
+import numpy as np
+
+pendientes = np.random.uniform(0.5, 2.0, 5)
+normas = np.random.uniform(10, 20, 5)
+
+datos = np.column_stack((pendientes, normas))
+print(datos)
+```
+
+Salida:
+
+```
+[[1.2  15.3]
+ [1.8  17.1]
+ [0.9  10.5]
+ [1.5  13.6]
+ [1.0  11.8]]
+```
+
+---
+
+### 2️⃣ `np.savetxt()`
+
+Guarda un array en un archivo `.txt` o `.csv`. Permite personalizar el **delimitador**, **formato de números** y **encabezados**.
+
+📌 **Ejemplo**:
+
+```python
+np.savetxt("datos.csv", datos, delimiter=",", fmt="%.2f", header="Pendiente,Norma", comments="")
+```
+
+Esto crea un archivo `datos.csv` como este:
+
+```
+Pendiente,Norma
+1.20,15.30
+1.80,17.10
+0.90,10.50
+1.50,13.60
+1.00,11.80
+```
+
+---
+
+### 🔁 Flujo completo de exportación (caso real de clase)
+
+```python
+import numpy as np
+
+# Generación de pendientes aleatorias
+np.random.seed(0)
+pendientes = np.random.uniform(0.5, 2.0, 100)
+
+# Supongamos que tenemos X y Moscu (precios reales)
+X = np.arange(1, 13)
+Moscu = np.array([90, 91, 93, 97, 105, 107, 106, 108, 109, 111, 113, 115])
+
+# Cálculo de normas (diferencias con línea estimada)
+normas = np.array([])
+
+for i in range(100):
+    Y = pendientes[i] * X + 78  # línea estimada
+    norma = np.linalg.norm(Moscu - Y)
+    normas = np.append(normas, norma)
+
+# Combinamos y exportamos
+datos = np.column_stack((pendientes, normas))
+np.savetxt("pendientes_normas.csv", datos, delimiter=",", fmt="%.4f", header="Pendiente,Norma", comments="")
+```
+
+---
+
+### ✅ Buenas prácticas
+
+* Usa siempre nombres de archivos **claros** (`resultados_modelo.csv`, `datos_analisis.txt`, etc.).
+* Incluye un **encabezado** (`header="col1,col2"`).
+* Asegúrate de usar el **formato y delimitador** compatible con la herramienta destino (por ejemplo, Excel, Google Sheets, R).
+
+---
