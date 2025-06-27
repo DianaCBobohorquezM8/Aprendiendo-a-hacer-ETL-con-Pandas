@@ -183,3 +183,74 @@ np.random.seed(42)
 ```
 ---
 
+## 🎲 Números Pseudoaleatorios y Semillas en NumPy
+
+### 🔢 ¿Qué son los números *pseudoaleatorios*?
+
+En realidad, los números generados por `NumPy` no son verdaderamente aleatorios. Se les llama **números pseudoaleatorios** porque:
+
+* Se generan usando **algoritmos deterministas**.
+* Parecen aleatorios, pero **siempre son los mismos si se usa la misma semilla (seed)**.
+
+Esto significa que puedes tener resultados **reproducibles**, lo cual es muy útil en programación, ciencia de datos y machine learning.
+
+---
+
+### 🌱 `np.random.seed()`: Fijando el estado de aleatoriedad
+
+```python
+np.random.seed(42)
+```
+
+Esta línea establece un **estado inicial (seed)** para el generador de números aleatorios de NumPy. Esto asegura que:
+
+✅ Cada vez que ejecutes el código con esa semilla, obtendrás los **mismos números aleatorios**.
+
+---
+
+### 🧪 Ejemplo práctico
+
+```python
+import numpy as np
+
+np.random.seed(42)
+numeros = np.random.randint(0, 100, 5)
+print(numeros)  # Siempre imprimirá: [51 92 14 71 60]
+```
+
+Ahora, si ejecutas este código varias veces, siempre obtendrás exactamente los mismos números. Si **no pones la semilla**, los valores cambiarán en cada ejecución.
+
+---
+
+### 🧠 ¿Por qué es importante usar una semilla?
+
+| Situación                 | Ventaja de usar `seed()`                                              |
+| ------------------------- | --------------------------------------------------------------------- |
+| Entrenamiento de modelos  | Puedes reproducir los mismos resultados cada vez.                     |
+| Pruebas de código         | Puedes verificar si un algoritmo funciona igual con los mismos datos. |
+| Comparación de soluciones | Puedes comparar métodos usando la misma secuencia aleatoria.          |
+
+---
+
+### ⚠️ Recomendación importante
+
+Coloca siempre `np.random.seed()` **justo antes** de generar los números aleatorios para garantizar la coherencia:
+
+```python
+np.random.seed(0)
+pendientes = np.random.uniform(0.5, 2.0, 100)
+```
+
+Si defines la semilla en una celda diferente (como en Jupyter Notebooks), puede no tener efecto si luego generas números aleatorios más adelante.
+
+---
+
+### 📌 Resumen
+
+* NumPy genera **números pseudoaleatorios**, no verdaderamente aleatorios.
+* Usa `np.random.seed(valor)` para fijar la **semilla** del generador.
+* Esto permite que tu código sea **reproducible y verificable**.
+* Es muy útil en simulaciones, pruebas, aprendizaje automático, y cualquier tarea que requiera **consistencia**.
+
+---
+
