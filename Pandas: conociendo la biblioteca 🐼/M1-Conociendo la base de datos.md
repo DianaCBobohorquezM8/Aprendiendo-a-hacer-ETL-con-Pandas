@@ -1,4 +1,4 @@
-# 🐼 Conociendo la biblioteca Pandas – Módulo 1
+# 🐼 Módulo 1 : Conociendo la base de datos 
 ---
 
 ## 🧩 ¿Qué es Pandas?
