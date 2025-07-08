@@ -234,3 +234,132 @@ agrupado.sort_values(by="valor").plot(
 🎨 Aquí agrupamos, promediamos solo valores numéricos, ordenamos y visualizamos.
 
 ---
+# 📊 Análisis de Columnas, Filtrado y Visualización con Pandas
+
+## 🔢 `unique()`: Valores únicos de una columna
+
+Este método devuelve los valores únicos encontrados en una columna de un DataFrame.
+
+### ✅ Ejemplo:
+
+```python
+datos["tipo"].unique()
+````
+
+🧠 **Usos comunes**:
+
+* Identificar categorías en columnas como `tipo`, `ciudad`, `estado`.
+* Detectar errores o duplicados en etiquetas.
+
+---
+
+## 📊 `value_counts()`: Conteo de valores
+
+Este método cuenta cuántas veces aparece cada valor único en una columna.
+
+### ✅ Ejemplo:
+
+```python
+datos["tipo"].value_counts()
+```
+
+| Tipo de propiedad | Conteo |
+| ----------------- | ------ |
+| Apartamento       | 9800   |
+| Casa              | 6400   |
+| Comercial         | 1500   |
+
+---
+
+### 🎯 Con `normalize=True`: Porcentajes
+
+Agrega el parámetro `normalize=True` para obtener proporciones en lugar de conteos:
+
+```python
+datos["tipo"].value_counts(normalize=True) * 100
+```
+
+✅ **Resultado de ejemplo**:
+
+| Tipo de propiedad | Porcentaje (%) |
+| ----------------- | -------------- |
+| Apartamento       | 48.9%          |
+| Casa              | 32.0%          |
+| Comercial         | 7.5%           |
+
+---
+
+## 🔍 `query()`: Filtrar con condiciones
+
+Permite seleccionar filas según una condición, de forma legible y elegante.
+
+### ✅ Ejemplo:
+
+```python
+inmuebles_residenciales = datos.query("tipo not in @tipos_comerciales")
+```
+
+📌 Donde `tipos_comerciales` es una lista como:
+
+```python
+tipos_comerciales = ["Comercial", "Industria"]
+```
+
+---
+
+### 💡 Sintaxis especial con `query()`
+
+| Elemento               | Función                                       |
+| ---------------------- | --------------------------------------------- |
+| `@variable`            | Usar una variable externa dentro del query    |
+| `not in`               | Filtrar valores que **no están** en una lista |
+| `"columna == 'valor'"` | Condición directa de comparación              |
+
+---
+
+### 📋 Verificación con `head()`
+
+Después de filtrar, puedes verificar el resultado con:
+
+```python
+inmuebles_residenciales.head()
+```
+
+---
+
+## 📈 Visualización con `plot()`
+
+El método `plot()` te permite crear gráficos directamente desde tus datos.
+
+### ✅ Ejemplo:
+
+```python
+porcentajes = datos["tipo"].value_counts(normalize=True) * 100
+
+porcentajes.plot(
+    kind="bar", 
+    figsize=(12, 8), 
+    color="green", 
+    xlabel="Tipos de Propiedad", 
+    ylabel="Porcentajes",
+    title="Distribución de tipos de propiedades"
+)
+```
+
+---
+
+## 🎨 Parámetros comunes de `plot()`
+
+| Parámetro         | Descripción                         |
+| ----------------- | ----------------------------------- |
+| `kind='bar'`      | Tipo de gráfico (barras verticales) |
+| `figsize=(12, 8)` | Tamaño del gráfico en pulgadas      |
+| `color='green'`   | Color de las barras                 |
+| `xlabel='...'`    | Etiqueta del eje X                  |
+| `ylabel='...'`    | Etiqueta del eje Y                  |
+| `title='...'`     | Título del gráfico                  |
+
+---
+
+
+
