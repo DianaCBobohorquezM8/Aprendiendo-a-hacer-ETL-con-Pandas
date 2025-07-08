@@ -134,3 +134,103 @@ datos.sort_values(by="valor", na_position="first")
 datos.sort_values(by="valor", inplace=True)
 ```
 ---
+# 🔄 Agrupación y Agregación con `groupby()` en Pandas
+
+La función `groupby()` es una herramienta esencial en Pandas para **agrupar datos** según uno o más criterios, y aplicar operaciones estadísticas a cada grupo. Junto con ella, el parámetro `numeric_only=True` es muy útil para evitar errores cuando se mezclan tipos de datos.
+
+---
+
+## 🧠 ¿Qué hace `groupby()`?
+
+Permite dividir un **DataFrame** en **grupos** con base en:
+- Una o varias columnas (criterios de agrupación)
+- El índice del DataFrame (si se desea)
+
+Luego, puedes aplicar operaciones como:
+- `sum()`
+- `mean()`
+- `count()`
+- `std()`
+- O funciones personalizadas con `.apply()` o `.agg()`
+
+---
+
+## 🔧 Parámetros principales de `groupby()`
+
+| Parámetro   | Tipo        | Descripción |
+|-------------|-------------|-------------|
+| `by`        | str o list  | Columna(s) por las que agrupar |
+| `axis`      | int         | Eje de agrupación: `0` para filas (por defecto), `1` para columnas |
+| `sort`      | bool        | Ordenar grupos por los valores del `by`. Por defecto `True` |
+| `dropna`    | bool        | Eliminar valores nulos (`NaN`) antes de agrupar. Por defecto `True` |
+
+---
+
+## ✅ Ejemplo básico de `groupby()`
+
+```python
+agrupado = datos.groupby("tipo")["valor"].mean()
+print(agrupado)
+````
+
+🔍 Esto calcula el **promedio** de la columna `valor`, agrupado por cada tipo de propiedad (`tipo`).
+
+---
+
+## 🧮 ¿Qué es `numeric_only=True`?
+
+Este parámetro aparece en funciones como `mean()`, `sum()`, `median()`, etc., y permite aplicar operaciones **solo sobre columnas numéricas**.
+
+### 🛑 ¿Por qué es útil?
+
+Cuando tu DataFrame tiene columnas no numéricas (texto, booleanos, fechas...), estas pueden causar errores o resultados incorrectos al aplicar funciones matemáticas.
+
+---
+
+## 🎯 Ejemplo sin y con `numeric_only=True`
+
+### ⚠️ Sin usar `numeric_only`
+
+```python
+datos.groupby("tipo").mean()
+```
+
+Este comando **puede fallar** o mostrar advertencias si hay columnas no numéricas.
+
+---
+
+### ✅ Usando `numeric_only=True`
+
+```python
+datos.groupby("tipo").mean(numeric_only=True)
+```
+
+Ahora, solo se calcularán promedios sobre columnas con tipos `int`, `float`, etc.
+
+---
+
+## 📋 Comparación rápida
+
+| Situación                         | ¿Qué pasa?                         | Solución segura       |
+| --------------------------------- | ---------------------------------- | --------------------- |
+| `groupby().sum()` con texto       | Error o ignora columnas no válidas | ✅ `numeric_only=True` |
+| DataFrame mixto (texto + números) | Resultados inesperados sin filtrar | ✅ `numeric_only=True` |
+
+---
+
+## 🧪 Ejemplo completo
+
+```python
+agrupado = datos.groupby("tipo").mean(numeric_only=True)
+
+agrupado.sort_values(by="valor").plot(
+    kind="barh",
+    figsize=(8,5),
+    color="green",
+    title="Promedio de variables numéricas por tipo"
+)
+```
+
+🎨 Aquí agrupamos, promediamos solo valores numéricos, ordenamos y visualizamos.
+
+---
