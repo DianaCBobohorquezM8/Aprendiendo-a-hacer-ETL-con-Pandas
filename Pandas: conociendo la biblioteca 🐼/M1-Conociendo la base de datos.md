@@ -119,3 +119,90 @@ print(type(datos))         # Verifica tipo: <class 'pandas.core.frame.DataFrame'
 💡 Pandas permite ajustar esto fácilmente con el argumento `sep`.
 
 ---
+# 🧾 Importación de datos desde diferentes formatos en Pandas
+
+Pandas ofrece diversas funciones para **importar y exportar** datos en distintos formatos. Esto permite trabajar con múltiples fuentes de datos en proyectos de análisis, ciencia de datos y machine learning. ⚙️📊
+
+---
+
+## 📥 Funciones principales de importación
+
+A continuación se presentan las funciones más comunes para importar datos en Pandas:
+
+| 📂 Formato de archivo | 🛠️ Función de Pandas | 📄 Descripción |
+|------------------------|----------------------|----------------|
+| **CSV** (`.csv`)       | `read_csv()`         | Archivos de texto separados por comas. Ideal para datos tabulares. |
+| **Excel** (`.xls`, `.xlsx`) | `read_excel()`     | Archivos de hojas de cálculo de Excel. Permite especificar la hoja. |
+| **JSON** (`.json`)     | `read_json()`        | Archivos con datos estructurados como objetos de JavaScript. |
+| **HTML** (`.html`)     | `read_html()`        | Extrae tablas desde páginas web con estructura HTML. |
+| **Bases de Datos SQL** | `read_sql()`         | Permite leer desde bases de datos relacionales usando consultas SQL. |
+
+---
+
+## 🔎 Explicaciones y ejemplos
+
+### 📄 `read_csv()`
+
+**Descripción**: Lee archivos de texto donde los valores están separados por comas.  
+💡 Personalizable con argumentos como `delimiter`, `header`, `encoding`, etc.
+
+```python
+import pandas as pd
+
+df = pd.read_csv("archivo.csv", delimiter=",", encoding="utf-8")
+````
+
+---
+
+### 📊 `read_excel()`
+
+**Descripción**: Carga hojas de cálculo de Excel (`.xls` o `.xlsx`).
+Puedes indicar la hoja con `sheet_name`.
+
+```python
+df = pd.read_excel("datos.xlsx", sheet_name="Ventas")
+```
+
+---
+
+### 🧾 `read_json()`
+
+**Descripción**: Importa archivos `.json`, útiles cuando los datos están en estructuras jerárquicas.
+
+```python
+df = pd.read_json("datos.json")
+```
+
+---
+
+### 🌐 `read_html()`
+
+**Descripción**: Extrae automáticamente todas las tablas de una página web (requiere librerías como `lxml` o `html5lib`).
+
+```python
+url = "https://es.wikipedia.org/wiki/Anexo:Países_por_PIB"
+tablas = pd.read_html(url)
+df = tablas[0]
+```
+
+📦 Instala los paquetes necesarios:
+
+```bash
+pip install lxml html5lib
+```
+
+---
+
+### 🗄️ `read_sql()`
+
+**Descripción**: Conecta con bases de datos como **MySQL**, **PostgreSQL**, **SQLite**, entre otras.
+
+```python
+import sqlite3
+
+conn = sqlite3.connect("mi_base.db")
+df = pd.read_sql("SELECT * FROM clientes", conn)
+conn.close()
+```
+---
+
