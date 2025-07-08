@@ -205,4 +205,143 @@ df = pd.read_sql("SELECT * FROM clientes", conn)
 conn.close()
 ```
 ---
+# 🧮 Estructuras de Datos en Pandas: `Series` y `DataFrame`
+
+Cuando trabajas con Pandas, es fundamental entender sus dos estructuras de datos principales: **Serie** y **DataFrame**. Ambas te permiten organizar y analizar datos de manera eficiente en Python.
+
+---
+
+## 🔹 ¿Qué es una Serie?
+
+Una **Serie** es como una **columna individual** de una hoja de cálculo. Se trata de una estructura unidimensional con etiquetas (índices) y datos del mismo tipo.
+
+```python
+import pandas as pd
+
+serie = pd.Series([10, 20, 30], name="Edad")
+print(serie)
+````
+
+✅ **Salida**:
+
+```
+0    10
+1    20
+2    30
+Name: Edad, dtype: int64
+```
+
+🧠 **Características de una Serie**:
+
+* Contiene **valores** y **etiquetas de índice**
+* Es unidimensional
+* Puede almacenar cualquier tipo de datos (números, texto, fechas, etc.)
+
+---
+
+## 🔸 ¿Qué es un DataFrame?
+
+Un **DataFrame** es como una **hoja de cálculo completa**: una tabla compuesta por varias **Series** (columnas), todas compartiendo el mismo índice (las filas).
+
+```python
+data = {
+    "Nombre": ["Ana", "Luis", "Camila"],
+    "Edad": [25, 30, 22],
+    "Ciudad": ["Bogotá", "Medellín", "Cali"]
+}
+df = pd.DataFrame(data)
+print(df)
+```
+
+✅ **Salida**:
+
+|   | Nombre | Edad | Ciudad   |
+| - | ------ | ---- | -------- |
+| 0 | Ana    | 25   | Bogotá   |
+| 1 | Luis   | 30   | Medellín |
+| 2 | Camila | 22   | Cali     |
+
+🧠 **Características de un DataFrame**:
+
+* Estructura **bidimensional**
+* Cada columna es una Serie
+* Índice compartido entre columnas
+
+---
+
+## 📋 Comparación rápida
+
+| 📘 Característica | 🟦 Serie             | 🟨 DataFrame                 |
+| ----------------- | -------------------- | ---------------------------- |
+| Dimensiones       | 1D                   | 2D                           |
+| Contenido         | Una sola columna     | Varias columnas              |
+| Índice            | Individual           | Compartido entre columnas    |
+| Similar a         | Una columna de Excel | Una hoja de cálculo completa |
+
+---
+
+## 🔍 `datos.dtypes`: Tipos de datos por columna
+
+Este atributo devuelve el tipo de dato de cada columna del DataFrame:
+`int64` (enteros), `float64` (decimales), `object` (texto), `datetime64`, etc.
+
+```python
+print(datos.dtypes)
+```
+
+✅ **Ejemplo de salida**:
+
+```
+tipo           object
+colonia        object
+habitaciones     int64
+garajes         int64
+suites          int64
+area            int64
+valor         float64
+condominio    float64
+impuesto      float64
+dtype: object
+```
+
+🍎 **Analogía**:
+Imagina que tienes una caja con diferentes tipos de frutas:
+
+* Manzanas 🍎 → enteros (`int64`)
+* Naranjas cortadas 🍊 → decimales (`float64`)
+* Etiquetas con nombres 🏷️ → texto (`object`)
+
+`datos.dtypes` te diría qué tipo hay en cada compartimento.
+
+---
+
+## 📈 `datos.describe()`: Estadísticas Descriptivas
+
+Este método proporciona un resumen estadístico de las **columnas numéricas**:
+
+* **count**: número de datos
+* **mean**: media
+* **std**: desviación estándar
+* **min / max**: valor mínimo y máximo
+* **25% / 50% / 75%**: cuartiles
+
+```python
+print(datos.describe())
+```
+
+✅ **Ejemplo de salida**:
+
+|           | habitaciones | garajes | suites  | area    | valor   | condominio | impuesto |
+| --------- | ------------ | ------- | ------- | ------- | ------- | ---------- | -------- |
+| **count** | 25121.0      | 25121.0 | 25121.0 | 25121.0 | 25121.0 | 25121.0    | 25121.0  |
+| **mean**  | 2.50         | 1.06    | 1.03    | 150.5   | 6654.1  | 540.48     | 1245.8   |
+| **std**   | 1.17         | 0.82    | 1.16    | 374.7   | 8429.7  | 4588.17    | 3410.8   |
+| **min**   | 1.0          | 0.0     | 0.0     | 10.0    | 500.0   | 0.0        | 0.0      |
+| **25%**   | 2.0          | 1.0     | 0.0     | 58.0    | 2000.0  | 0.0        | 0.0      |
+
+🍊 **Analogía**:
+Es como obtener un reporte estadístico de una caja de frutas:
+Te dice cuántas hay, el peso promedio, cuál es la más liviana y la más pesada, etc.
+
+---
 
