@@ -455,6 +455,92 @@ df_ejemplo.rename(columns={'Tipo': 'Porcentajes'}, inplace=True)
 | Renombrar **todas** las columnas | `df.columns = [...]`       |
 
 ---
+## 🔢 `nunique()` en Pandas: Contar valores únicos
+
+La función `nunique()` de Pandas se utiliza para contar **cuántos valores únicos** existen en una **columna** o en **cada columna** de un DataFrame.
+
+---
+
+## ✅ ¿Para qué se usa?
+
+- 🔍 Saber cuántas categorías distintas hay en una columna.
+- 📊 Identificar diversidad en los datos (por ejemplo, cuántas ciudades, tipos de productos, usuarios únicos, etc.).
+- 🧼 Detectar columnas con un solo valor repetido (poco útiles para el análisis).
+
+---
+
+## 🧠 Sintaxis
+
+```python
+df['columna'].nunique()
+df.nunique()
+````
+
+| Argumento     | Descripción                                                       |
+| ------------- | ----------------------------------------------------------------- |
+| `axis`        | Eje para aplicar la función (por defecto `axis=0`, columnas).     |
+| `dropna=True` | Excluye valores nulos (`NaN`) del conteo (por defecto es `True`). |
+
+---
+
+## 📌 Ejemplos
+
+### ▶️ Contar valores únicos en una columna
+
+```python
+df['tipo'].nunique()
+```
+
+📈 Esto devuelve cuántos **tipos de propiedad** diferentes hay.
+
+---
+
+### 📊 Contar valores únicos en **todas las columnas**
+
+```python
+df.nunique()
+```
+
+🔎 Devuelve una Serie con la cantidad de valores únicos por cada columna:
+
+| Columna      | Valores únicos |
+| ------------ | -------------- |
+| tipo         | 5              |
+| ciudad       | 12             |
+| habitaciones | 8              |
+| valor        | 1900           |
+
+---
+
+### ❓ Incluir valores nulos
+
+```python
+df['ciudad'].nunique(dropna=False)
+```
+
+📍 Esto **incluye NaN** como valor único si está presente.
+
+---
+
+## 🎯 Cuándo usar `nunique()`
+
+* 🧮 Al hacer análisis exploratorio (`EDA`)
+* 🎨 Para saber si una columna puede convertirse en **variable categórica**
+* 🧹 Para decidir si una columna tiene poca variación y puede eliminarse
+
+---
+
+## 🧠 Tip adicional
+
+Puedes usarlo con `groupby()` para contar cuántos valores únicos tiene cada grupo:
+
+```python
+df.groupby("ciudad")["tipo"].nunique()
+```
+
+👆 Esto indica cuántos tipos de propiedades diferentes hay por ciudad.
+
+---
 
 
 
