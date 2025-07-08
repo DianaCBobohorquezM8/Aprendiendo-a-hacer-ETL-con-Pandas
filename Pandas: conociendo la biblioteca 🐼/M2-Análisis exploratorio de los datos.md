@@ -234,7 +234,7 @@ agrupado.sort_values(by="valor").plot(
 🎨 Aquí agrupamos, promediamos solo valores numéricos, ordenamos y visualizamos.
 
 ---
-# 📊 Análisis de Columnas, Filtrado y Visualización con Pandas
+# 📊 Análisis de Columnas, Filtrado y Visualización
 
 ## 🔢 `unique()`: Valores únicos de una columna
 
@@ -253,7 +253,7 @@ datos["tipo"].unique()
 
 ---
 
-## 📊 `value_counts()`: Conteo de valores
+## 🔢 `value_counts()`: Conteo de valores
 
 Este método cuenta cuántas veces aparece cada valor único en una columna.
 
@@ -358,6 +358,101 @@ porcentajes.plot(
 | `xlabel='...'`    | Etiqueta del eje X                  |
 | `ylabel='...'`    | Etiqueta del eje Y                  |
 | `title='...'`     | Título del gráfico                  |
+
+---
+# 🏷️ Cambiar los nombres de columnas
+
+Cuando trabajas con datos en Pandas, es común necesitar **renombrar columnas** para que tengan nombres más significativos, legibles o consistentes con tus análisis.
+
+---
+
+## 🔁 Método 1: Usando `rename()`
+
+Este método te permite **cambiar uno o varios nombres de columnas**, especificando un diccionario donde:
+
+- La **clave** es el nombre actual de la columna
+- El **valor** es el nuevo nombre que deseas asignar
+
+### ✅ Sintaxis:
+
+```python
+df.rename(columns={'columna_vieja': 'columna_nueva'}, inplace=True)
+````
+
+### 📌 Ejemplo práctico:
+
+```python
+# Crear un DataFrame de ejemplo
+import pandas as pd
+
+data = {'columna_A': [1, 2, 3],
+        'columna_B': [4, 5, 6],
+        'columna_C': [7, 8, 9]}
+df = pd.DataFrame(data)
+
+# Cambiar nombres de varias columnas
+df.rename(columns={
+    'columna_A': 'nueva_columna_A',
+    'columna_B': 'nueva_columna_B',
+    'columna_C': 'nueva_columna_C'
+}, inplace=True)
+
+print(df)
+```
+
+✅ **Resultado:**
+
+|   | nueva\_columna\_A | nueva\_columna\_B | nueva\_columna\_C |
+| - | ----------------- | ----------------- | ----------------- |
+| 0 | 1                 | 4                 | 7                 |
+| 1 | 2                 | 5                 | 8                 |
+| 2 | 3                 | 6                 | 9                 |
+
+---
+
+## 📝 ¿Qué hace `inplace=True`?
+
+* Si lo incluyes (`inplace=True`), el cambio se aplica **directamente** sobre el DataFrame.
+* Si lo omites, se devuelve un **nuevo DataFrame** con los cambios.
+
+---
+
+## 🔁 Método 2: Usando `.columns` para renombrar todas las columnas
+
+Si quieres cambiar **todos los nombres de columnas a la vez**, puedes reasignar una nueva lista con los nombres deseados.
+
+### ✅ Ejemplo:
+
+```python
+df.columns = ['ID', 'Edad', 'Ciudad']
+```
+
+🎯 Muy útil cuando estás cargando archivos con nombres genéricos o en otro idioma.
+
+---
+
+## 💡 Caso común: Renombrar una columna después de agrupar
+
+Imagina que haces esto:
+
+```python
+df_ejemplo = df['Tipo'].value_counts(normalize=True).to_frame().sort_values('Tipo')
+```
+
+El resultado tiene una sola columna llamada `"Tipo"` que contiene los porcentajes. Si deseas cambiar su nombre a `"Porcentajes"`:
+
+```python
+df_ejemplo.rename(columns={'Tipo': 'Porcentajes'}, inplace=True)
+```
+
+---
+
+## 🧠 Recuerda
+
+| Situación                        | Método recomendado         |
+| -------------------------------- | -------------------------- |
+| Renombrar 1 o varias columnas    | `df.rename(columns={...})` |
+| Renombrar **todas** las columnas | `df.columns = [...]`       |
 
 ---
 
