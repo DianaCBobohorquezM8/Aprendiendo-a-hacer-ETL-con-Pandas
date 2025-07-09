@@ -179,6 +179,102 @@ df["col"].interpolate()
 | `interpolate()` | Series numéricas con continuidad lógica        |
 
 ---
+# 🧹 Limpieza de Datos en Pandas: Identificación y Eliminación de Registros Inconsistentes
+
+La limpieza de datos es una de las tareas más importantes en el análisis de datos. Aquí aprenderás cómo identificar y eliminar registros inconsistentes utilizando `df.query()`, `.index`, `drop()`, y cómo verificar los cambios con `head()` y `sample()`.
+
+---
+
+## 🕵️‍♀️ 1. Identificación de Registros Inconsistentes
+
+Usamos `df.query()` para buscar registros **anómalos** como apartamentos con valor de **alquiler o condominio igual a cero**.
+
+### 📌 Ejemplo:
+
+```python
+inconsistentes = df.query("valor == 0 or condominio == 0")
+print(inconsistentes)
+````
+
+---
+
+## 🧾 2. Crear un Filtro con Índices
+
+Extraemos los índices de estos registros para luego eliminarlos:
+
+```python
+indices = inconsistentes.index
+```
+
+🔍 Esto devuelve una lista con los índices de las filas que cumplen con la condición.
+
+---
+
+## ❌ 3. Eliminación de Registros con `drop()`
+
+Eliminamos las filas utilizando el parámetro `axis=0` (eje de las filas) y `inplace=True` para aplicar el cambio directamente:
+
+```python
+df.drop(indices, axis=0, inplace=True)
+```
+
+---
+
+## 🧹 4. Eliminación de Columnas Innecesarias
+
+Ya que todos los registros son del mismo tipo (por ejemplo, "departamento"), podemos eliminar la columna `"tipo"`:
+
+```python
+df.drop("tipo", axis=1, inplace=True)
+```
+
+---
+
+## 🔍 5. Verificación del Resultado
+
+Utilizamos `head()` para ver las primeras filas, y `sample()` para ver una muestra aleatoria del DataFrame:
+
+```python
+df.head()     # Verifica los primeros registros
+df.sample(5)  # Muestra aleatoria de 5 filas
+```
+
+---
+
+## 🧠 Funciones y Conceptos Clave
+
+| Función        | Descripción                                           |
+| -------------- | ----------------------------------------------------- |
+| `df.query()`   | Filtra filas según condiciones lógicas                |
+| `.index`       | Devuelve los índices de las filas seleccionadas       |
+| `df.drop()`    | Elimina filas (`axis=0`) o columnas (`axis=1`)        |
+| `inplace=True` | Aplica los cambios directamente al DataFrame original |
+| `df.head()`    | Muestra las primeras 5 filas del DataFrame            |
+| `df.sample(n)` | Muestra una selección aleatoria de `n` filas          |
+
+---
+
+## 🧪 Código completo de ejemplo:
+
+```python
+# 1. Identificar registros con valores inconsistentes
+inconsistentes = df.query("valor == 0 or condominio == 0")
+
+# 2. Obtener los índices de estos registros
+indices = inconsistentes.index
+
+# 3. Eliminar los registros
+df.drop(indices, axis=0, inplace=True)
+
+# 4. Eliminar la columna innecesaria
+df.drop("tipo", axis=1, inplace=True)
+
+# 5. Verificar los cambios
+print(df.head())
+print(df.sample(5))
+```
+
+---
 
 
 
