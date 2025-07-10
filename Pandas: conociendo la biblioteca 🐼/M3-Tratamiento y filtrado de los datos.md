@@ -275,6 +275,89 @@ print(df.sample(5))
 ```
 
 ---
+# 🗑️ Método `drop()` en Pandas
+
+El método `drop()` permite **eliminar una o más filas o columnas** de un DataFrame. Esta operación puede ser **temporal** o **permanente**, dependiendo de si se usa `inplace=True`.
+
+---
+
+## 🧠 ¿Para qué se usa?
+
+- ❌ Eliminar columnas innecesarias (por ejemplo, una columna con valores iguales)
+- ❌ Eliminar filas incorrectas o inconsistentes
+- 🧼 Limpiar datos para análisis más precisos
+
+---
+
+## 🔧 Sintaxis
+
+```python
+df.drop(labels=None, axis=0, inplace=False)
+````
+
+| Parámetro | Descripción                                                                  |
+| --------- | ---------------------------------------------------------------------------- |
+| `labels`  | Nombre(s) de las filas o columnas que deseas eliminar                        |
+| `axis`    | Eje de eliminación: `0` para filas, `1` para columnas                        |
+| `inplace` | `True` para modificar el DataFrame original, `False` para devolver uno nuevo |
+
+---
+
+## 📌 Ejemplos
+
+### 🧾 Eliminar una columna
+
+```python
+df.drop("columna1", axis=1)
+```
+
+### 🧾 Eliminar varias columnas
+
+```python
+df.drop(["columna1", "columna2"], axis=1, inplace=True)
+```
+
+### 🧾 Eliminar una fila por índice
+
+```python
+df.drop(3, axis=0)
+```
+
+### 🧾 Eliminar múltiples filas
+
+```python
+df.drop([2, 4, 6], axis=0, inplace=True)
+```
+
+---
+
+## ⚠️ Importante: `inplace=True`
+
+Sin `inplace=True`, el método no modifica el DataFrame original. Debes reasignarlo:
+
+```python
+df = df.drop("columna1", axis=1)
+```
+
+Con `inplace=True`, se aplica directamente:
+
+```python
+df.drop("columna1", axis=1, inplace=True)
+```
+
+---
+
+## 📋 Tabla Resumen
+
+| Acción                   | Código                              |
+| ------------------------ | ----------------------------------- |
+| Eliminar columna         | `df.drop("col", axis=1)`            |
+| Eliminar varias columnas | `df.drop(["col1", "col2"], axis=1)` |
+| Eliminar fila            | `df.drop(3, axis=0)`                |
+| Eliminar varias filas    | `df.drop([1, 5], axis=0)`           |
+| Modificación permanente  | `inplace=True`                      |
+
+---
 
 
 
