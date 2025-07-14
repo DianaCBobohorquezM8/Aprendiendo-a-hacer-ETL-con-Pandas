@@ -358,6 +358,101 @@ df.drop("columna1", axis=1, inplace=True)
 | Modificación permanente  | `inplace=True`                      |
 
 ---
+# 💾 Guardar DataFrames con `to_csv()` en Pandas
+
+Una parte clave del análisis de datos es **guardar los resultados** correctamente. Ya sea para compartir, respaldar o continuar tu trabajo más adelante, Pandas facilita este proceso con el método `to_csv()`.
+
+---
+
+## 🧠 ¿Por qué es importante guardar los datos?
+
+- 📁 Para organizar tu cuaderno de trabajo y evitar perder avances
+- 🔄 Para reutilizar datos procesados sin repetir pasos
+- ☁️ Para almacenarlos en Google Drive de forma permanente
+
+---
+
+## 🔧 Método `to_csv()`
+
+### 🧾 Sintaxis Básica
+
+```python
+df.to_csv('nombre.csv', index=False, sep=';')
+````
+
+| Parámetro      | Función                                                    |
+| -------------- | ---------------------------------------------------------- |
+| `'nombre.csv'` | Nombre del archivo a guardar (incluye la extensión `.csv`) |
+| `index=False`  | Evita guardar la columna del índice                        |
+| `sep=';'`      | Define el separador entre columnas (`;` o `,`)             |
+
+---
+
+## ✨ Ejemplo Básico
+
+```python
+import pandas as pd
+
+# Supongamos que este es tu DataFrame
+df_inmuebles = pd.DataFrame({
+    "tipo": ["Apartamento", "Casa"],
+    "valor": [3500, 8000]
+})
+
+# Guardar el DataFrame como archivo CSV
+df_inmuebles.to_csv('inmuebles.csv', index=False, sep=';')
+```
+
+📍 Esto crea un archivo llamado `inmuebles.csv` en el entorno de ejecución de Colab.
+
+---
+
+## 📁 Ver el archivo en Google Colab
+
+1. Haz clic en el **icono de carpeta** en la barra lateral izquierda.
+2. Busca el archivo `inmuebles.csv` en la carpeta `/content`.
+
+---
+
+## ☁️ Guardar en Google Drive
+
+### 📌 Paso 1: Conectar con Drive
+
+Haz clic en el ícono de Drive 🟨📂 en la barra lateral o ejecuta:
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+```
+
+### 📌 Paso 2: Definir la ruta
+
+Ejemplo de ruta:
+
+```
+/content/drive/MyDrive/Mi_Carpeta/inmuebles.csv
+```
+
+> Asegúrate de que `Mi_Carpeta` exista en tu Google Drive o créala manualmente.
+
+### 📌 Paso 3: Guardar el archivo
+
+```python
+df_inmuebles.to_csv('/content/drive/MyDrive/Mi_Carpeta/inmuebles.csv', index=False, sep=';')
+```
+
+---
+
+## ⚠️ Consideraciones Importantes
+
+| Consideración                   | Explicación                                             |
+| ------------------------------- | ------------------------------------------------------- |
+| 📌 `index=False`                | Evita que el índice se guarde como una columna más      |
+| 🔁 Sobrescritura                | Si el archivo ya existe, se **sobrescribirá sin aviso** |
+| 🔐 Permisos                     | Verifica que tengas acceso a la carpeta en Drive        |
+| 📍 Rutas relativas vs absolutas | Puedes usar rutas relativas si trabajas fuera de Colab  |
+
+---
 
 
 
