@@ -453,6 +453,78 @@ df_inmuebles.to_csv('/content/drive/MyDrive/Mi_Carpeta/inmuebles.csv', index=Fal
 | 📍 Rutas relativas vs absolutas | Puedes usar rutas relativas si trabajas fuera de Colab  |
 
 ---
+## 📤 Exportar Archivos en Diferentes Formatos con Pandas
+
+Pandas permite guardar tus DataFrames en diversos formatos según las necesidades del proyecto. Esto facilita compartir datos con diferentes aplicaciones, sistemas o plataformas.
+
+---
+
+## 📁 Métodos de Exportación Más Usados
+
+| Método         | Formato de Salida | Extensión       | Ideal para...                    |
+|----------------|-------------------|------------------|----------------------------------|
+| `to_csv()`     | CSV               | `.csv`           | Hojas de cálculo, bases de datos |
+| `to_excel()`   | Excel             | `.xls`, `.xlsx`  | Informes formales                |
+| `to_json()`    | JSON              | `.json`          | APIs y apps web                  |
+| `to_xml()`     | XML               | `.xml`           | Integración con sistemas externos |
+
+---
+
+## ✏️ Ejemplos de Uso
+
+### 1. 📄 Guardar en CSV
+
+```python
+df.to_csv('archivo.csv', index=False, sep=';')
+````
+
+---
+
+### 2. 📊 Guardar en Excel
+
+```python
+df.to_excel('archivo.xlsx', index=False)
+```
+
+---
+
+### 3. 🌐 Guardar en JSON
+
+```python
+df.to_json('archivo.json', orient='records', indent=4)
+```
+
+---
+
+### 4. 🧾 Guardar en XML
+
+```python
+df.to_xml('archivo.xml', index=False)
+```
+
+📌 Puedes usar parámetros adicionales como:
+
+```python
+df.to_xml('archivo.xml', root_name='datos', row_name='registro', index=False)
+```
+
+| Parámetro     | Función                                        |
+| ------------- | ---------------------------------------------- |
+| `root_name`   | Define el nombre del nodo raíz del archivo XML |
+| `row_name`    | Define el nombre de cada fila/registro         |
+| `index=False` | No incluye el índice como columna adicional    |
+
+✅ Conclusión
+Con solo una línea puedes exportar tus datos a formatos estándar:
+
+    🗂 CSV para hojas de cálculo
+    📊 Excel para informes
+    🧬 JSON y 🧾 XML para aplicaciones y sistemas
+
+    🔁 Elige el formato que mejor se ajuste a tu flujo de trabajo 
+---
+
+
 
 
 
