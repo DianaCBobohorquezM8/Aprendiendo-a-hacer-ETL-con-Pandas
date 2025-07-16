@@ -190,6 +190,97 @@ df["nivel"] = df.apply(lambda fila: "Alto" if fila["ventas"] > 10000 else "Bajo"
 🧠 Cada una de estas formas nos permite manipular y enriquecer nuestros datos de manera clara y poderosa.
 
 ---
+# 🧱 Formas de Crear Columnas en un DataFrame
+
+Pandas nos permite crear nuevas columnas en un DataFrame de varias formas, ya sea asignando directamente valores, realizando operaciones, usando funciones personalizadas o métodos integrados como `.assign()` y `.apply()`.
+
+---
+
+## 1️⃣ Asignación Directa de Valores
+
+Permite crear una nueva columna manualmente, asignando una lista de valores.
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
+df['C'] = [7, 8, 9]
+````
+
+📌 Crea la columna `C` con los valores proporcionados directamente.
+
+---
+
+## 2️⃣ Operaciones entre Columnas
+
+Se pueden generar columnas a partir de operaciones matemáticas entre otras columnas.
+
+```python
+df['C'] = df['A'] + df['B']
+```
+
+📌 Suma los valores de las columnas `A` y `B` y los guarda en la nueva columna `C`.
+
+---
+
+## 3️⃣ Usar `assign()`
+
+El método `.assign()` permite crear columnas y devuelve una **nueva copia del DataFrame** con los cambios.
+
+```python
+df = df.assign(C=[7, 8, 9])
+```
+
+🧠 Ideal para cadenas de transformación, ya que no modifica el DataFrame original a menos que se reasigne.
+
+---
+
+## 4️⃣ Usar `apply()` con Funciones Personalizadas
+
+Permite aplicar funciones a cada valor de una columna.
+
+```python
+df['C'] = df['A'].apply(lambda x: x * 2)
+```
+
+🧠 En este caso, se multiplica por 2 cada valor de la columna `A` y se almacena en `C`.
+
+---
+
+## ✅ Comparación de Métodos
+
+| Método              | ¿Modifica el DataFrame original? | Ideal para...                      |
+| ------------------- | -------------------------------- | ---------------------------------- |
+| `df['C'] = ...`     | ✅ Sí                             | Asignaciones simples y directas    |
+| `df.assign(...)`    | ❌ No (requiere reasignar)        | Procesos en cadena (`.pipe`, etc.) |
+| `df['C'] = apply()` | ✅ Sí                             | Lógica personalizada               |
+
+---
+
+## 📚 Recomendaciones
+
+   🔹 Usa **asignación directa** para columnas simples o derivadas.   
+   🔹 Usa **`apply()`** cuando necesites lógica condicional o transformación compleja.   
+   🔹 Usa **`assign()`** en pipelines (`df.pipe(...)`) o para mantener tu código más funcional y limpio.   
+
+---
+
+## 💡 Ejemplo Combinado
+
+```python
+df = pd.DataFrame({'Precio': [1000, 2000, 1500], 'Impuesto': [160, 320, 240]})
+
+# Crear columna total
+df['Total'] = df['Precio'] + df['Impuesto']
+
+# Columna de categoría con apply
+df['Categoría'] = df['Total'].apply(lambda x: 'Alto' if x > 2000 else 'Medio')
+
+# Concatenación de texto
+df['Resumen'] = "Compra por " + df['Total'].astype(str) + " (" + df['Categoría'] + ")"
+```
+
+---
 
 
 
