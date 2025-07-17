@@ -187,7 +187,7 @@ df["resumen"] = df["producto"] + " - " + df["categoría"]
 df["nivel"] = df.apply(lambda fila: "Alto" if fila["ventas"] > 10000 else "Bajo", axis=1)
 ```
 
-🧠 Cada una de estas formas nos permite manipular y enriquecer nuestros datos de manera clara y poderosa.
+📌 Cada una de estas formas nos permite manipular y enriquecer nuestros datos de manera clara y poderosa.
 
 ---
 # 🧱 Formas de Crear Columnas en un DataFrame
@@ -231,22 +231,55 @@ El método `.assign()` permite crear columnas y devuelve una **nueva copia del D
 df = df.assign(C=[7, 8, 9])
 ```
 
-🧠 Ideal para cadenas de transformación, ya que no modifica el DataFrame original a menos que se reasigne.
+📌 Ideal para cadenas de transformación, ya que no modifica el DataFrame original a menos que se reasigne.
+
+---
+# 🧠 Usar `apply()` con Funciones Personalizadas en Pandas
+
+El método `apply()` de Pandas permite **aplicar una función a cada elemento de una columna** o fila de un DataFrame. Es muy útil cuando necesitas realizar transformaciones personalizadas.
 
 ---
 
-## 4️⃣ Usar `apply()` con Funciones Personalizadas
-
-Permite aplicar funciones a cada valor de una columna.
+## 📌 Ejemplo Básico
 
 ```python
 df['C'] = df['A'].apply(lambda x: x * 2)
 ```
 
-🧠 En este caso, se multiplica por 2 cada valor de la columna `A` y se almacena en `C`.
+---
+
+## ✅ ¿Qué hace este código?
+
+1. `df['A']`
+   Selecciona la columna **'A'** del DataFrame.
+
+2. `.apply(lambda x: x * 2)`
+   Aplica una función **lambda** a cada valor de la columna, en este caso:
+
+   ```python
+   lambda x: x * 2
+   ```
+
+   Lo que significa: **multiplica cada valor por 2**.
+
+3. `df['C'] = ...`
+   Asigna el resultado a una **nueva columna 'C'** en el DataFrame.
 
 ---
 
+## 🧾 Resultado
+
+La columna **'C'** contendrá los mismos valores que la columna **'A'**, pero multiplicados por 2.
+
+---
+
+## 🧠 Recuerda
+
+* Puedes usar `apply()` con **funciones lambda** o con funciones definidas por el usuario.
+* Es útil para operaciones fila por fila o celda por celda **cuando no puedes usar operaciones vectorizadas directamente**.
+* Si necesitas trabajar con **más de una columna**, puedes usar `.apply()` sobre el DataFrame completo y definir `axis=1`.
+
+---
 ## ✅ Comparación de Métodos
 
 | Método              | ¿Modifica el DataFrame original? | Ideal para...                      |
@@ -281,6 +314,7 @@ df['Resumen'] = "Compra por " + df['Total'].astype(str) + " (" + df['Categoría'
 ```
 
 ---
+
 
 
 
