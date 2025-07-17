@@ -314,6 +314,52 @@ df['Resumen'] = "Compra por " + df['Total'].astype(str) + " (" + df['Categoría'
 ```
 
 ---
+# ⚡ Funciones `lambda` en Python
+
+Las **funciones `lambda`** son una forma rápida de definir funciones pequeñas, **anónimas**, diseñadas para ejecutar operaciones simples en una sola línea.
+
+---
+
+## 🧩 Características Clave
+
+* **📛 Anónimas**: No tienen un nombre como las funciones normales (`def`).
+* **📏 Simples**: Solo pueden contener una **expresión** (no múltiples líneas).
+* **🔤 Sintaxis**:
+
+  ```python
+  lambda argumentos: expresión
+  ```
+
+---
+
+## 📌 Ejemplo Básico
+
+```python
+doble = lambda x: x * 2
+print(doble(5))  # Resultado: 10
+```
+
+---
+
+## 🔄 Uso Común en Pandas
+
+Las funciones `lambda` se utilizan frecuentemente con:
+
+* `map()`
+* `filter()`
+* `apply()` ✅
+
+---
+
+### 📊 Ejemplo en Pandas con `apply()`
+
+```python
+df['C'] = df['A'].apply(lambda x: x * 2)
+```
+
+🔍 Esto multiplica por 2 cada valor de la columna `'A'` y guarda el resultado en la nueva columna `'C'`.
+
+---
 
 
 
