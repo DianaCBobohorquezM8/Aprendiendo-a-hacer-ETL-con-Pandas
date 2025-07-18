@@ -286,5 +286,80 @@ Charlie,28,París
 * `encoding='utf-8'` → codificación del archivo
 
 ---
+# 📚 Lectura avanzada de archivos CSV con `read_csv()` 
+
+Cuando los archivos CSV no siguen un formato estándar (como separadores diferentes, encabezados extra o líneas innecesarias), puedes personalizar la lectura con varios parámetros de `read_csv()`.
+
+---
+
+## 🧩 Parámetros útiles
+
+### 🔸 `encoding='ISO-8859-1'`
+
+* Define la **codificación de caracteres** del archivo.
+* **`ISO-8859-1`** es común en archivos en idiomas latinos como portugués y español.
+
+```python
+df = pd.read_csv('archivo.csv', encoding='ISO-8859-1')
+```
+
+---
+
+### 🔸 `sep=';'`
+
+* Especifica el **separador de campos**.
+* En muchos países europeos, el **punto y coma (;)** se usa en lugar de la coma.
+
+```python
+df = pd.read_csv('archivo.csv', sep=';')
+```
+
+---
+
+### 🔸 `skiprows=3`
+
+* **Ignora las primeras 3 líneas** del archivo al leerlo.
+* Útil si el archivo tiene encabezados o notas previas que no forman parte de los datos.
+
+```python
+df = pd.read_csv('archivo.csv', skiprows=3)
+```
+
+---
+
+### 🔸 `skipfooter=9`
+
+* **Ignora las últimas 9 líneas** del archivo, típicamente usadas para totales o notas al pie.
+* Requiere usar el parámetro `engine='python'`.
+
+```python
+df = pd.read_csv('archivo.csv', skipfooter=9, engine='python')
+```
+
+---
+
+### 🔸 `engine='python'`
+
+* Indica que el **motor de lectura** será Python (en vez del predeterminado ‘C’).
+* Necesario cuando usas opciones como `skipfooter`.
+
+---
+
+## 🧪 Ejemplo completo
+
+```python
+import pandas as pd
+
+df = pd.read_csv(
+    'clientes.csv',
+    sep=';',
+    encoding='ISO-8859-1',
+    skiprows=3,
+    skipfooter=9,
+    engine='python'
+)
+```
+
+---
 
 
