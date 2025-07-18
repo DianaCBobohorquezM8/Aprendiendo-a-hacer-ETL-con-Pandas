@@ -90,3 +90,63 @@ datos.head()
 > Muestra las **primeras 5 filas** del DataFrame para verificar que se haya leído correctamente.
 
 ---
+# ⚙️ Parámetros clave de `pd.read_csv()`
+
+La función `read_csv()` de **Pandas** permite personalizar cómo se leen los archivos CSV. A continuación, se describen los **parámetros más útiles**:
+
+---
+
+## 🔸 `sep` — Separador de campos
+
+* Define el carácter que separa los campos del archivo.
+* **Por defecto**: coma (`,`).
+* Útil si el archivo usa punto y coma (`;`), tabulación (`\t`) u otro separador.
+
+### ✅ Ejemplo:
+
+```python
+import pandas as pd
+# Leer un archivo separado por punto y coma
+df = pd.read_csv('archivo.csv', sep=';')
+```
+
+---
+
+## 🔸 `nrows` — Número de filas a leer
+
+* Permite leer solo un número limitado de filas.
+* Muy útil para obtener una muestra cuando el archivo es muy grande.
+
+### ✅ Ejemplo:
+
+```python
+import pandas as pd
+# Leer solo las primeras 100 filas
+df = pd.read_csv('archivo.csv', nrows=100)
+```
+
+---
+
+## 🔸 `usecols` — Columnas específicas a leer
+
+* Permite seleccionar solo algunas columnas del archivo.
+* Se puede usar con **nombres de columna** o **índices de posición**.
+* Ayuda a reducir uso de memoria y enfocarse en los datos relevantes.
+
+### ✅ Ejemplo (por nombre):
+
+```python
+import pandas as pd
+# Leer solo las columnas 'nombre', 'edad' y 'ciudad'
+df = pd.read_csv('archivo.csv', usecols=['nombre', 'edad', 'ciudad'])
+```
+
+### ✅ Ejemplo (por posición):
+
+```python
+import pandas as pd
+# Leer solo las columnas en las posiciones 0, 2 y 5
+df = pd.read_csv('archivo.csv', usecols=[0, 2, 5])
+```
+
+---
