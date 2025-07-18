@@ -150,3 +150,59 @@ df = pd.read_csv('archivo.csv', usecols=[0, 2, 5])
 ```
 
 ---
+¡Exacto! Aquí tienes ese concepto organizado en un formato claro y breve en **Markdown**, ideal para complementar tus apuntes:
+
+---
+
+## ⚠️ Importancia del Parámetro `sep` en `pd.read_csv()`
+
+Cuando lees un archivo CSV con **Pandas**, es fundamental indicar el **separador correcto de los campos** usando el parámetro `sep`.
+
+### 🔹 Valor predeterminado:
+Cuando usamos pd.read_csv(), Pandas asume por defecto que el separador es una coma (,).  
+Si tu archivo utiliza otro carácter—por ejemplo, punto y coma (;)—es esencial especificarlo con el parámetro sep. 
+De lo contrario, los datos podrían cargarse incorrectamente.
+
+
+```python
+pd.read_csv('archivo.csv')
+```
+
+> Asume que los campos están separados por comas `,`.
+
+---
+
+### 🛑 Problema común
+
+Si el archivo utiliza **otro separador** (por ejemplo, punto y coma `;`), el DataFrame puede quedar con una sola columna mal estructurada.
+
+---
+
+### ✅ Solución: Usar `sep=';'`
+
+```python
+import pandas as pd
+
+# Leer un archivo CSV con punto y coma como separador
+df = pd.read_csv('archivo.csv', sep=';')
+```
+•	Aquí indicamos sep=';' para que Pandas divida las columnas correctamente.  
+•	Si no se especifica, todo se cargaría en una sola columna, con los valores como texto con ; incluido.
+
+  🧠 Resumen
+  
+    •	🗂️ sep=',' (por defecto): Archivos separados por comas.     
+    •	🗂️ sep=';' o sep='\t': Ideal para CSV con otros separadores.
+
+
+### 📌 Tip: ¿No sabes qué separador usa tu archivo?
+
+Abre el archivo `.csv` con un editor de texto o Excel y revisa si los campos están separados por:
+
+* `,` → coma
+* `;` → punto y coma
+* `\t` → tabulación
+
+Luego ajusta el valor de `sep` según corresponda.
+
+---
