@@ -206,3 +206,85 @@ Abre el archivo `.csv` con un editor de texto o Excel y revisa si los campos est
 Luego ajusta el valor de `sep` según corresponda.
 
 ---
+# 💾 Escribir Archivos CSV con `to_csv()` en Pandas
+
+El método `to_csv()` te permite **guardar un DataFrame como un archivo CSV**, ideal para compartir, respaldar o analizar los datos en otras plataformas.
+
+---
+
+## 🧩 Sintaxis Básica
+
+```python
+nombre_del_dataframe.to_csv('nombre_del_archivo.csv', opciones)
+```
+
+### Parámetros:
+
+* `nombre_del_dataframe`: el DataFrame que quieres exportar.
+* `'nombre_del_archivo.csv'`: nombre del archivo de salida (con extensión `.csv`).
+* `opciones`: parámetros opcionales para personalizar la exportación.
+
+---
+
+## 🔹 ¿Qué es el índice (`index`)?
+
+El **índice** es una etiqueta que identifica las filas del DataFrame.
+Por defecto, Pandas lo incluye como una **columna adicional** al exportar a CSV.
+
+### 🚫 ¿Por qué a veces no quieres incluir el índice?
+
+* Generalmente no es parte de los datos reales.
+* Puede generar confusión si solo es un número secuencial (0, 1, 2...).
+* No es necesario si ya tienes una columna que identifica las filas (como un ID de cliente).
+
+---
+
+## ✅ Cómo evitar que el índice se guarde
+
+Usa `index=False` dentro de `to_csv()`:
+
+```python
+df.to_csv('nombre_del_archivo.csv', index=False)
+```
+
+---
+
+## 🧪 Ejemplo Completo
+
+```python
+import pandas as pd
+
+# Crear un DataFrame
+data = {
+    'nombre': ['Alice', 'Bob', 'Charlie'],
+    'edad': [25, 30, 28],
+    'ciudad': ['Nueva York', 'Londres', 'París']
+}
+df = pd.DataFrame(data)
+
+# Exportar sin índice
+df.to_csv('clientes.csv', index=False)
+```
+
+### 🔎 Resultado en el archivo `clientes.csv`:
+
+```
+nombre,edad,ciudad
+Alice,25,Nueva York
+Bob,30,Londres
+Charlie,28,París
+```
+
+---
+
+## 📌 Recomendación
+
+🔍 Explora la [documentación oficial de `to_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html) para conocer más opciones útiles, como:
+
+* `sep=';'` → usar punto y coma como separador
+* `columns=[...]` → exportar solo columnas seleccionadas
+* `encoding='utf-8'` → codificación del archivo
+
+---
+
+
