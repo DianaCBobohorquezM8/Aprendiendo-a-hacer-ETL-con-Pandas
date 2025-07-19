@@ -112,3 +112,78 @@ archivo.sheet_names  # Lista con nombres de hojas
 | `head()`, `tail()`, `sample()` | Inspeccionar contenido rápidamente |
 
 ---
+# 📄 Formatos de Archivos Excel compatibles con `read_excel()` en Pandas
+
+`read_excel()` no solo permite leer archivos `.xlsx`, sino también múltiples formatos comunes y de estándares abiertos.
+
+---
+
+## 🧰 Formatos de Microsoft Excel
+
+### ✅ `.xlsx`
+
+* **Formato predeterminado** desde Excel 2007.
+* Basado en **XML (Extensible Markup Language)**.
+* Compatible con herramientas como **Google Sheets**.
+* 💡 Ideal para la mayoría de los usos.
+
+---
+
+### ✅ `.xls`
+
+* Formato **antiguo**, usado hasta Excel 2003.
+* Menos eficiente y menos seguro comparado con `.xlsx`.
+
+---
+
+### ✅ `.xlsm`
+
+* Igual a `.xlsx`, pero permite **guardar macros** (scripts automáticos).
+* ⚠️ Ideal para automatizaciones, pero puede presentar riesgos si contiene código malicioso.
+
+---
+
+### ✅ `.xlsb`
+
+* Formato **binario** que permite leer y guardar archivos más rápidamente.
+* ⚡ Recomendado para archivos de gran tamaño por su rapidez.
+
+---
+
+## 🌍 Formatos Abiertos Universales
+
+Estos formatos están diseñados para ser **multiplataforma** y **multisoftware**:
+
+### ✅ `.odf` (Open Document Format)
+
+* Formato abierto estándar para documentos.
+
+### ✅ `.ods` (Open Document Spreadsheet)
+
+* Formato de hoja de cálculo usado por herramientas como LibreOffice, OpenOffice y Google Docs.
+* Alternativa libre a `.xlsx`.
+
+### ✅ `.odt` (Open Document Text)
+
+* Formato para archivos de texto, no hojas de cálculo, pero también legible por algunas funciones de Pandas.
+
+> Estos formatos están respaldados por **OASIS**, organización internacional que promueve estándares abiertos para documentos.
+
+---
+
+## 🛠️ Compatibilidad en Pandas
+
+La función `pd.read_excel()` es capaz de manejar todos los formatos mencionados, siempre que tengas **las dependencias correctas instaladas** como:
+
+* `openpyxl` → para `.xlsx`
+* `xlrd` → para `.xls`
+* `pyxlsb` → para `.xlsb`
+* `odfpy` → para `.ods`, `.odf`, `.odt`
+
+Puedes instalar estas bibliotecas con:
+
+```bash
+pip install openpyxl xlrd pyxlsb odfpy
+```
+
+---
