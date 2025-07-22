@@ -187,3 +187,59 @@ pip install openpyxl xlrd pyxlsb odfpy
 ```
 
 ---
+# 📘 Parámetros de la Función `read_excel()`
+
+La función `read_excel()` permite leer archivos Excel en múltiples formatos y ofrece parámetros para personalizar la lectura según tus necesidades.
+
+---
+
+## 🔧 Parámetros comunes de `read_excel()`
+
+| Parámetro    | Descripción                                                              |
+| ------------ | ------------------------------------------------------------------------ |
+| `io`         | Ruta al archivo Excel que se desea leer.                                 |
+| `sheet_name` | Nombre o índice de la hoja a leer. Si no se indica, lee la primera hoja. |
+| `usecols`    | Permite seleccionar columnas específicas por nombre (`"A:D"`) o índice.  |
+| `nrows`      | Limita el número de filas que se leen del archivo.                       |
+
+---
+
+## 🧪 Parámetros usados en clase
+
+Durante la clase se usaron los siguientes parámetros:
+
+* `sheet_name="Emisiones CO2"`
+
+  > Especifica que se quiere leer la hoja **"Emisiones CO2"**.
+
+* `usecols="A:D"`
+
+  > Se seleccionan solo las columnas **de la A a la D**.
+
+* `nrows=10`
+
+  > Se leen únicamente las **primeras 10 filas** del archivo.
+
+---
+
+## 💡 Ejemplo de uso
+
+```python
+import pandas as pd
+
+# Leer una hoja específica, con columnas y filas limitadas
+intervalo_2 = pd.read_excel(
+    "archivo.xlsx",
+    sheet_name="Emisiones CO2",
+    usecols="A:D",
+    nrows=10
+)
+```
+
+🔍 Esto carga en el DataFrame `intervalo_2`:
+
+* Solo la hoja llamada **"Emisiones CO2"**
+* Las columnas **A a D**
+* Las **primeras 10 filas**
+
+---
