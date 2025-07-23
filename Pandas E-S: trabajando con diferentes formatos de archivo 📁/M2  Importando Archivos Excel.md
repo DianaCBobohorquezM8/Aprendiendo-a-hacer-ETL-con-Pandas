@@ -243,3 +243,46 @@ intervalo_2 = pd.read_excel(
 * Las **primeras 10 filas**
 
 ---
+# 📤 Escribiendo Archivos Excel
+
+Pandas ofrece el método `to_excel()` para guardar tus datos en un archivo Excel `.xlsx`.
+
+---
+
+## 🧾 Exportar un DataFrame a Excel
+
+```python
+df.to_excel('nombre_archivo.xlsx', index=False)
+```
+
+### 🔹 Detalles:
+
+* `to_excel()` → Método para **guardar un DataFrame en formato Excel**.
+* `'nombre_archivo.xlsx'` → Especifica el **nombre del archivo de salida** (con extensión `.xlsx`).
+* `index=False` → **Evita guardar la columna del índice** del DataFrame en el archivo (es opcional, pero recomendable si no necesitas el índice).
+
+---
+
+## 📥 Leer un archivo de Excel
+
+```python
+df = pd.read_excel('nombre_archivo.xlsx')
+```
+
+* Se usa `read_excel()` para cargar nuevamente el archivo `.xlsx` en un **DataFrame**.
+
+---
+
+## ✅ Verificación de la Exportación
+
+Después de guardar un archivo:
+
+1. **Leer el archivo** con `read_excel()`.
+2. **Usar `.head()`, `.info()` o `.shape()`** para asegurarte de que los datos están completos y bien estructurados.
+
+```python
+df_verificacion = pd.read_excel('nombre_archivo.xlsx')
+print(df_verificacion.head())
+```
+
+---
