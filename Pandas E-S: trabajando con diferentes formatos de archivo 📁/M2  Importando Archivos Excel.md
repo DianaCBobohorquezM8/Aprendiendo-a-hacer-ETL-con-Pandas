@@ -286,3 +286,100 @@ print(df_verificacion.head())
 ```
 
 ---
+# 📄 Leyendo Datos desde Google Sheets
+
+Google Sheets es una herramienta de hojas de cálculo online, parte de **Google Workspace**, que permite **crear, editar y colaborar** en hojas de cálculo en tiempo real desde la nube.
+
+---
+
+## 🛠️ Características de Google Sheets
+
+* ✅ Creación y edición de hojas de cálculo.
+* ➕ Funciones y fórmulas integradas.
+* 📊 Gráficos, tablas dinámicas y validación de datos.
+* ☁️ Acceso desde cualquier dispositivo con internet.
+* 👥 **Colaboración en tiempo real**: varios usuarios pueden trabajar al mismo tiempo en el mismo documento.
+* 🔄 Importación y exportación de archivos **CSV, XLSX, ODS, PDF**, entre otros.
+
+---
+
+## 📥 Cómo Importar un Archivo Excel (`.xlsx`) a Google Sheets
+
+1. Accede a [Google Sheets](https://sheets.google.com) e inicia sesión con tu cuenta de Google.
+2. Haz clic en **“+ Nueva hoja de cálculo”**.
+3. En la hoja abierta, ve al menú **Archivo → Importar**.
+4. Selecciona la pestaña **“Subir”**.
+5. Sube o arrastra el archivo `.xlsx`.
+6. Haz clic en **“Importar datos”**.
+7. Los datos se cargarán en la hoja.
+
+---
+
+## 🔗 Importar desde Google Sheets a Google Colab
+
+### 🧩 Paso a paso:
+
+1. **Subir el archivo a Google Sheets**
+   Importa tu archivo Excel (`.xlsx`) y abrelo como hoja de cálculo en Sheets.
+
+2. **Obtener y compartir el enlace**
+
+   * Haz clic en **"Compartir"**.
+   * Elige **"Cualquiera con el enlace puede ver"**.
+
+3. **Extraer el ID del archivo**
+
+   * El ID está entre `/d/` y la siguiente `/` en la URL.
+   * Ejemplo de URL:
+
+     ```
+     https://docs.google.com/spreadsheets/d/1A2B3C4D5E6F7G8H9I/edit#gid=0
+     ```
+
+     → ID: `1A2B3C4D5E6F7G8H9I`
+
+4. **Guardar el ID en una variable**
+
+```python
+file_id = '1A2B3C4D5E6F7G8H9I'
+```
+
+5. **Construir la URL**
+
+```python
+sheet_name = 'nombre_de_la_hoja'  # opcional
+url = f'https://docs.google.com/spreadsheets/d/{file_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}'
+```
+
+* `gviz/tq` → conecta con la API de Google Sheets
+* `tqx=out:csv` → especifica que el formato de salida es **CSV**
+* `sheet=` → selecciona una hoja específica (si no se indica, toma la primera por defecto)
+
+6. **Importar con Pandas**
+
+```python
+import pandas as pd
+
+df = pd.read_csv(url)
+```
+
+7. **Verificar contenido**
+
+```python
+df.head()
+```
+
+---
+
+## ✅ Resumen
+
+| Elemento                    | Acción                                                         |
+| --------------------------- | -------------------------------------------------------------- |
+| Subir archivo               | A Google Sheets                                                |
+| Compartir con enlace        | Permitir visualización pública                                 |
+| Extraer ID                  | Desde la URL entre `/d/` y la siguiente `/`                    |
+| Construir URL personalizada | Usando `gviz/tq`, `tqx=out:csv`, `sheet=` y f-strings          |
+| Leer con Pandas             | `pd.read_csv(url)` para cargar directamente desde Google Colab |
+| Hoja específica             | Añadir `sheet=nombre` en la URL para leer una hoja concreta    |
+
+---
