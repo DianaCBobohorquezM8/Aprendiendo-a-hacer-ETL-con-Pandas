@@ -41,7 +41,7 @@ Un archivo **JSON** (*JavaScript Object Notation*) es un **formato de texto lige
 
 ---
 
-## 🛠️ Lectura de JSON con Pandas
+## 🛠️ Lectura de JSON
 
 ### ✅ Pasos para leer un JSON
 
@@ -124,7 +124,7 @@ Cuando trabajamos con archivos JSON que contienen **estructura anidada** (listas
 
 ---
 
-## 🛠️ Lectura de JSON anidado con Pandas
+## 🛠️ Lectura de JSON anidado
 
 ```python
 import pandas as pd
@@ -198,7 +198,7 @@ Este método:
 ```
 
 ---
-# 🧾 Resumen: Normalización de JSON con `json_normalize()` (Pandas)
+# 🧾 Resumen: Normalización de JSON con `json_normalize()`
 
 ## 📌 ¿Qué es?
 
@@ -293,4 +293,38 @@ pd.json_normalize(datos, record_path='Pacientes', meta=['Investigación', 'Año'
 ## 🔗 Recurso útil
 
 * [📚 Pandas `json_normalize()` Docs](https://pandas.pydata.org/docs/reference/api/pandas.json_normalize.html)
+---
+# 📝 Escribiendo Archivos JSON
+
+## 📤 1. Exportar a JSON
+
+Usa el método `to_json()` para exportar un DataFrame a formato JSON.
+
+```python
+df.to_json("nombre_archivo.json")
+````
+
+---
+
+## 🗂️ 2. Nombre del Archivo
+
+* Asegúrate de incluir la extensión `.json` al definir el nombre del archivo de salida.
+
+---
+
+## ✅ 3. Verificación
+
+Para comprobar que el archivo se guardó correctamente, usa `read_json()`:
+
+```python
+pd.read_json("nombre_archivo.json")
+```
+
+---
+
+## 📌 4. Índice
+
+* A diferencia de `to_csv()`, **no necesitas** usar `index=False` al exportar a JSON.
+* Pandas maneja el índice automáticamente en este formato.
+
 ---
