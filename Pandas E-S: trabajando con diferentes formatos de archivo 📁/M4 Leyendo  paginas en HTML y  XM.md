@@ -1,5 +1,69 @@
 # 🐼 Módulo 4 : Leyendo  paginas en HTML y  XML 📁
 ---
+# 🌐 ¿Qué es HTML?
+
+**HTML** (*HyperText Markup Language* o *Lenguaje de Marcado de Hipertexto*) es el **lenguaje estándar** para **estructurar** el contenido de una página web.
+
+---
+
+## 🧱 Estructura básica de un documento HTML
+
+```html
+<html>
+  <head>
+    <title>Título de la página</title>
+  </head>
+  <body>
+    <!-- Aquí va el contenido visible -->
+  </body>
+</html>
+````
+
+* `<html>`: etiqueta raíz del documento.
+* `<head>`: contiene metadatos, título y enlaces a estilos/scripts.
+* `<body>`: contiene el contenido visible de la página web.
+
+---
+
+## 🧩 Principales etiquetas HTML
+
+| Etiqueta        | Función                        |
+| --------------- | ------------------------------ |
+| `<h1>` a `<h6>` | Títulos y subtítulos           |
+| `<p>`           | Párrafos                       |
+| `<ul>`, `<li>`  | Listas no ordenadas            |
+| `<ol>`, `<li>`  | Listas ordenadas               |
+| `<img>`         | Insertar imágenes              |
+| `<a>`           | Crear enlaces                  |
+| `<table>`       | Crear tablas                   |
+| `<tr>`          | Fila de tabla                  |
+| `<th>`          | Encabezado de celda de tabla   |
+| `<td>`          | Celda de contenido de la tabla |
+
+---
+
+## 🧪 Atributos Comunes
+
+Los atributos permiten **agregar información adicional** a una etiqueta.
+
+| Atributo | Uso                    | Ejemplo                                |
+| -------- | ---------------------- | -------------------------------------- |
+| `src`    | Fuente de imagen       | `<img src="imagen.jpg">`               |
+| `href`   | Enlace                 | `<a href="https://ejemplo.com">Ir</a>` |
+| `alt`    | Texto alternativo      | `<img alt="Descripción">`              |
+| `target` | Abrir en nueva pestaña | `<a href="..." target="_blank">`       |
+
+---
+
+## 📌 Resumen
+
+* HTML define **la estructura** de las páginas web.
+* Utiliza **etiquetas** para agrupar y representar contenido.
+* Los **atributos** modifican el comportamiento o apariencia de los elementos.
+* Es el **primer paso** en el desarrollo web, junto con CSS y JavaScript.
+
+---
+
 # 🎬 Importando Páginas Web con Pandas
 
 ## 🎯 Caso de Uso: Recomendador de Películas
