@@ -328,3 +328,98 @@ pd.read_json("nombre_archivo.json")
 * Pandas maneja el índice automáticamente en este formato.
 
 ---
+# 🍎 Acceso a APIs y Datos JSON: Caso Fruitvice
+
+## 🔍 ¿Qué es una API?
+
+- Una **API (Application Programming Interface)** es una interfaz que permite la comunicación entre aplicaciones o sistemas.
+- Las APIs permiten **obtener datos externos** de forma estructurada.
+- Uno de los formatos más comunes en las APIs es **JSON** (JavaScript Object Notation), un formato ligero, basado en texto, ideal para intercambiar datos.
+
+---
+
+## 📘 Caso Práctico: Empresa de Alimentos Saludables
+
+**Problema**:  
+Una empresa tiene baja aceptación de sus productos por la falta de información nutricional en sus etiquetas.
+
+**Solución propuesta**:
+- Acceder a la **API de Fruitvice** para obtener los **valores nutricionales de las frutas**.
+- Usar esta información para mejorar etiquetas, marketing y desarrollo de nuevos productos.
+
+---
+
+## 🛠️ Accediendo a la API Fruitvice con Python
+
+### 1. Importar bibliotecas necesarias
+
+```python
+import requests
+import json
+import pandas as pd
+````
+
+---
+
+### 2. Hacer la solicitud a la API
+
+```python
+datos_frutas = requests.get('https://fruityvice.com/api/fruit/all')
+```
+
+📌 Usamos `requests.get(url)` para hacer la petición.
+
+---
+
+### 3. Procesar la respuesta en JSON
+
+```python
+resultado = json.loads(datos_frutas.text)
+```
+
+* `datos_frutas.text`: devuelve la respuesta en texto.
+* `json.loads()`: convierte el texto en una estructura Python (lista de diccionarios).
+
+---
+
+### 4. Visualizar los datos como DataFrame
+
+```python
+df_frutas = pd.DataFrame(resultado)
+df_frutas.head()
+```
+
+📊 Ejemplo de salida:
+
+| genus  | name    | id | family    | order    | nutritions                                                               |
+| ------ | ------- | -- | --------- | -------- | ------------------------------------------------------------------------ |
+| Malus  | Apple   | 6  | Rosaceae  | Rosales  | {'carbohydrates': 11.4, 'protein': 0.3, 'fat': 0.4, 'calories': 52, ...} |
+| Prunus | Apricot | 35 | Rosaceae  | Rosales  | {'carbohydrates': 3.9, 'protein': 0.5, ...}                              |
+| Persea | Avocado | 84 | Lauraceae | Laurales | {'carbohydrates': 8.53, 'protein': 2, ...}                               |
+
+---
+
+## 📌 Conceptos Clave
+
+* **API**: puerta de acceso a datos o servicios externos.
+* **JSON**: formato estructurado y ligero para compartir datos.
+* **`requests.get()`**: realiza solicitudes HTTP.
+* **`json.loads()`**: convierte texto JSON a objetos de Python.
+* **`pd.DataFrame()`**: transforma listas/diccionarios en tablas legibles.
+
+---
+
+## ✅ Beneficios para la Empresa
+
+* Añadir **información nutricional confiable** a etiquetas.
+* Crear productos según necesidades nutricionales reales.
+* Generar **confianza** en consumidores preocupados por su salud.
+
+---
+
+## 🔗 Recursos
+
+* [🌐 Fruitvice API](https://www.fruityvice.com)
+* [📚 Documentación de `requests`](https://docs.python-requests.org)
+* [📘 JSON Viewer Online](https://jsoncrack.com/)
+---
