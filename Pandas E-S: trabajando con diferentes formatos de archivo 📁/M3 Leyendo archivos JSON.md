@@ -110,3 +110,91 @@ df = json_normalize(data)
 | Desafío          | Leer información anidada → `json_normalize()` o procesamiento adicional |
 
 ---
+# 🧩 Manejo y Normalización de Archivos JSON Anidados con Pandas
+
+Cuando trabajamos con archivos JSON que contienen **estructura anidada** (listas o diccionarios dentro de diccionarios), es necesario **transformar esos datos** para analizarlos de forma tabular en Pandas. Aquí entra en juego `json_normalize()`.
+
+---
+
+## 🧱 ¿Qué es un JSON?
+
+* **JSON (JavaScript Object Notation)** es un formato de texto usado para representar datos estructurados.
+* Es comúnmente utilizado para transmitir datos entre un servidor y una aplicación web mediante **APIs**.
+* Se organiza en pares **llave\:valor**, y puede tener valores anidados (listas o diccionarios dentro de diccionarios).
+
+---
+
+## 🛠️ Lectura de JSON anidado con Pandas
+
+```python
+import pandas as pd
+import json
+
+# Abrir el archivo JSON
+with open('Pacientes2.json') as archivo:
+    datos_pacientes_2 = json.load(archivo)
+```
+
+---
+
+## 🔍 Estructura del JSON
+
+Para entender mejor el archivo, se utilizó el visualizador [**JSON Crack**](https://jsoncrack.com/), donde se identificó:
+
+* El archivo contiene una clave principal `"pacientes"`, que guarda **una lista de diccionarios** (cada uno representa un paciente).
+* Dentro de cada diccionario (paciente), existe una clave `"problemas de salud"` que almacena **otro diccionario anidado** con más detalles.
+
+---
+
+## 🧪 Proceso de Normalización
+
+La estructura anidada **no se puede analizar directamente** con `read_json()`. Por eso se usó `pandas.json_normalize()`:
+
+```python
+from pandas import json_normalize
+
+df_normalizado = json_normalize(datos_pacientes_2, record_path=['pacientes'])
+```
+
+Este método:
+
+* Toma la **clave `'pacientes'` como el nivel que se desea descomponer**.
+* Crea columnas nuevas con los subcampos de cada paciente, incluyendo los que estaban en `"problemas de salud"`.
+
+---
+
+## ✅ Resultado
+
+* El DataFrame resultante `df_normalizado` contiene **columnas planas** (no anidadas).
+* Todos los campos dentro de `"problemas de salud"` ahora son **columnas independientes**.
+* Esto facilita:
+
+  * 🔍 Inspección de datos.
+  * 📈 Análisis estadístico.
+  * 📤 Exportación a CSV/Excel.
+
+---
+
+## 🧠 ¿Por qué usar `json_normalize()`?
+
+| Ventaja           | Descripción                                              |
+| ----------------- | -------------------------------------------------------- |
+| 📦 Organización   | Convierte estructuras complejas en tablas comprensibles. |
+| 🧩 Desanidamiento | Extrae claves internas como columnas.                    |
+| 💻 Análisis       | Permite usar `groupby`, `filter`, visualización, etc.    |
+
+---
+
+## 📝 Resumen visual del flujo
+
+```plaintext
+📁 Pacientes2.json (estructura anidada)
+       ↓
+🔎 Visualizado con JSON Crack
+       ↓
+🧪 Normalización con json_normalize()
+       ↓
+📊 df_normalizado (estructura tabular, columnas planas)
+```
+
+---
