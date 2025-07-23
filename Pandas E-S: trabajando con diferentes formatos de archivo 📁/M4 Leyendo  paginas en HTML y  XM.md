@@ -144,3 +144,64 @@ peliculas.head()
 * [📘 Pandas: `read_html()` Documentation](https://pandas.pydata.org/docs/reference/api/pandas.read_html.html)
 * [🌐 Wikipedia: Películas más exitosas](https://es.wikipedia.org/wiki/Anexo:Pel%C3%ADculas_m%C3%A1s_exitosas)
 ---
+# 📝 Exportando DataFrames a HTML y CSV
+
+Exportar tus datos te permite compartir, visualizar o reutilizar tus análisis fácilmente. Aquí te muestro cómo hacerlo en **HTML** y **CSV**.
+
+---
+
+## 📄 Exportar a HTML con `to_html()`
+
+### 🔧 ¿Qué hace?
+Convierte un DataFrame en una **tabla HTML**.
+
+### 🧪 Sintaxis básica:
+```python
+df.to_html('mi_tabla.html', index=False, classes='table table-striped')
+````
+
+### 🧰 Parámetros útiles:
+
+| Parámetro           | Función                           |
+| ------------------- | --------------------------------- |
+| `index=False`       | No incluye el índice en la tabla  |
+| `classes='...'`     | Aplica clases CSS para estilo     |
+| `escape=True/False` | Escapa caracteres HTML especiales |
+
+### ✅ Ventajas:
+
+* El archivo generado puede abrirse directamente en un navegador.
+* Permite aplicar estilos visuales fácilmente con clases CSS.
+
+---
+
+## 📁 Exportar a CSV con `to_csv()`
+
+### 🔧 ¿Qué hace?
+
+Convierte un DataFrame en un archivo **CSV (Comma Separated Values)**.
+
+### 🧪 Sintaxis básica:
+
+```python
+df.to_csv('mi_archivo.csv', sep=';', encoding='utf-8')
+```
+
+### 🧰 Parámetros útiles:
+
+| Parámetro          | Función                                        |
+| ------------------ | ---------------------------------------------- |
+| `sep=';'`          | Define el separador (coma, punto y coma, etc.) |
+| `encoding='utf-8'` | Define la codificación de caracteres           |
+| `quotechar='"'`    | Carácter para encerrar campos con comillas     |
+
+---
+
+## 🧠 Buenas prácticas
+
+* **🔍 Revisa los archivos exportados** antes de enviarlos o compartirlos.
+* Asegúrate de que los datos estén bien estructurados y legibles.
+* Verifica la codificación si vas a compartir con personas en otros sistemas operativos.
+
+---
+
