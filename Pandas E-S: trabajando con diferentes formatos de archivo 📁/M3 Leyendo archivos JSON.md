@@ -198,3 +198,99 @@ Este método:
 ```
 
 ---
+# 🧾 Resumen: Normalización de JSON con `json_normalize()` (Pandas)
+
+## 📌 ¿Qué es?
+
+La función `pd.json_normalize()` convierte estructuras JSON (diccionarios o listas anidadas) en DataFrames, lo que facilita su análisis en ciencia de datos.
+
+---
+
+## 🔹 Casos Comunes
+
+### 1. JSON Simple
+
+```python
+datos = {'Análisis': 'Indicadores', 'Año': 2020, 'Pacientes': 3}
+pd.json_normalize(datos)
+````
+
+🔸 Crea una fila con columnas según las llaves del diccionario.
+
+---
+
+### 2. Lista de Diccionarios
+
+```python
+json_lista = [{'ID': '01', 'Edad': '55-59'}, {'ID': '02', 'Edad': '80 ó +'}]
+pd.json_normalize(json_lista)
+```
+
+🔸 Cada objeto se convierte en una fila.
+
+---
+
+### 3. Diccionario con Subdiccionario
+
+```python
+json_obj = {'ID': '01', 'Salud': {'IMC': 16.6, 'Cardiaca': 'No'}}
+pd.json_normalize(json_obj)
+```
+
+🔸 Columnas con prefijo: `Salud.IMC`, `Salud.Cardiaca`.
+
+---
+
+### 4. Lista de Diccionarios con Subdiccionarios
+
+```python
+json_list = [
+  {'ID': '01', 'Salud': {'IMC': 16.6}},
+  {'ID': '02', 'Salud': {'IMC': 20.3}}
+]
+pd.json_normalize(json_list)
+```
+
+🔸 Cada registro se expande en columnas tabulares.
+
+---
+
+### 5. JSON con Lista Anidada (y meta)
+
+```python
+pd.json_normalize(
+  datos_dict,
+  record_path=['Pacientes'],
+  meta=['Investigación', 'Año']
+)
+```
+
+🔸 `record_path`: define la lista que se expandirá.
+🔸 `meta`: añade columnas externas como "Año" o "Investigación".
+
+---
+
+## 📁 Lectura desde archivo `.json`
+
+```python
+import json
+with open('archivo.json', 'r') as f:
+    datos = json.loads(f.read())
+
+pd.json_normalize(datos, record_path='Pacientes', meta=['Investigación', 'Año'])
+```
+
+---
+
+## ✅ Conclusión
+
+* `json_normalize()` permite trabajar con JSON estructurados de forma eficiente.
+* Usa `record_path` y `meta` para controlar qué se convierte en columnas.
+* Ideal para convertir datos de APIs, encuestas o registros médicos a DataFrame.
+
+---
+
+## 🔗 Recurso útil
+
+* [📚 Pandas `json_normalize()` Docs](https://pandas.pydata.org/docs/reference/api/pandas.json_normalize.html)
+---
