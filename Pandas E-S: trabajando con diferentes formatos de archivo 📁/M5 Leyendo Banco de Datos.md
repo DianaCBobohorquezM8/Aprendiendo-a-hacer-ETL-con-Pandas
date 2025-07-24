@@ -431,4 +431,131 @@ Esto le dice a SQLAlchemy que debe tratar la consulta como un texto SQL.
 | `to_sql()`         | Guarda un DataFrame como tabla en una base de datos | Para almacenar datos procesados desde Pandas   |
 
 ---
+# 📦 Actualizando un Banco de Datos
 
+## 🔍 ¿Qué se aprende?
+
+Cómo realizar operaciones básicas en una base de datos usando SQL y leer los resultados en **Python** con `SQLAlchemy` y `Pandas`.
+
+---
+
+## 🛠️ Crear Consultas SQL
+
+### 🔹 Seleccionar todos los registros
+
+```sql
+SELECT * FROM clientes;
+```
+
+### 🔹 Borrar un registro
+
+```sql
+DELETE FROM clientes WHERE id_cliente = 58804;
+```
+
+### 🔹 Actualizar un valor
+
+```sql
+UPDATE clientes SET grado_de_estudio = 'nivel superior' WHERE id_cliente = 58808;
+```
+
+---
+
+## ⚙️ Ejecutar la Consulta con SQLAlchemy
+
+### 1. 🔌 Conectar a la base de datos
+
+```python
+from sqlalchemy import create_engine
+
+engine = create_engine('sqlite:///:memory:')
+conexion = engine.connect()
+```
+
+> Se usa SQLite en memoria para practicar sin guardar datos en disco.
+
+### 2. 📄 Envolver la consulta con `text()`
+
+```python
+from sqlalchemy import text
+
+consulta_sql = text("SELECT * FROM clientes;")
+```
+
+### 3. ▶️ Ejecutar la consulta
+
+```python
+conexion.execute(consulta_sql)
+```
+
+---
+
+## 📥 Leer datos con Pandas
+
+### Usar `read_sql()` para traer los resultados
+
+```python
+import pandas as pd
+
+df = pd.read_sql(consulta_sql, conexion)
+print(df)
+```
+
+### Luego puedes acceder a los datos con:
+
+```python
+df.loc[0]
+df['nombre']
+```
+
+---
+
+## 🧪 Ejemplo Completo
+
+```python
+import pandas as pd
+from sqlalchemy import create_engine, text
+
+# Crear motor de base de datos en memoria
+engine = create_engine('sqlite:///:memory:')
+conexion = engine.connect()
+
+# Crear tabla
+conexion.execute(text("""
+    CREATE TABLE clientes (
+        id_cliente INTEGER PRIMARY KEY,
+        nombre VARCHAR(50),
+        grado_de_estudio VARCHAR(50)
+    );
+"""))
+
+# Insertar datos
+conexion.execute(text("""
+    INSERT INTO clientes (id_cliente, nombre, grado_de_estudio) VALUES
+    (58804, 'Ana Pérez', 'intermedio'),
+    (58805, 'Juan Gómez', 'superior'),
+    (58808, 'Luisa Torres', 'intermedio');
+"""))
+
+# Ejecutar consulta
+consulta_sql = text("SELECT * FROM clientes;")
+df = pd.read_sql(consulta_sql, conexion)
+print(df)
+
+# Cerrar conexión
+conexion.close()
+```
+
+---
+
+## ✅ Resumen de pasos
+
+| Paso                   | Acción                                |
+| ---------------------- | ------------------------------------- |
+| 1️⃣ Conectar a la base | `create_engine()` + `connect()`       |
+| 2️⃣ Escribir SQL       | SELECT, DELETE, UPDATE con `text()`   |
+| 3️⃣ Ejecutar SQL       | `conexion.execute(text(...))`         |
+| 4️⃣ Leer en Pandas     | `pd.read_sql()` devuelve un DataFrame |
+| 5️⃣ Analizar datos     | Acceso con `.loc[]`, `.iloc[]`, etc.  |
+
+---
