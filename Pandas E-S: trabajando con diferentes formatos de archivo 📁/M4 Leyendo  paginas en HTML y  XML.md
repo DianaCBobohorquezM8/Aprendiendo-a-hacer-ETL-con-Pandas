@@ -207,7 +207,9 @@ df.to_csv('mi_archivo.csv', sep=';', encoding='utf-8')
 # 🗃️ Introducción a XML
 
 ## 📝 ¿Qué es XML?
-**XML (eXtensible Markup Language)** es un lenguaje de marcación que permite **describir, estructurar y almacenar datos** de forma estandarizada. Su sintaxis se basa en **etiquetas (tags)** que definen elementos y atributos.
+
+*XML (eXtensible Markup Language)** es un lenguaje de marcación que permite **describir, estructurar y almacenar datos** de forma estandarizada. Su sintaxis se basa en **etiquetas (tags)** que definen elementos y atributos.
+
 ---
 
 ## 🧱 Estructura básica de un documento XML
