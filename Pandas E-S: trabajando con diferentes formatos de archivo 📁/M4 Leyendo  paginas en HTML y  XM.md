@@ -204,4 +204,127 @@ df.to_csv('mi_archivo.csv', sep=';', encoding='utf-8')
 * Verifica la codificación si vas a compartir con personas en otros sistemas operativos.
 
 ---
+# 🗃️ Introducción a XML
+
+## 📝 ¿Qué es XML?
+**XML (eXtensible Markup Language)** es un lenguaje de marcación que permite **describir, estructurar y almacenar datos** de forma estandarizada. Su sintaxis se basa en **etiquetas (tags)** que definen elementos y atributos.
+---
+
+## 🧱 Estructura básica de un documento XML
+
+1. **Declaración XML**  
+   Define la versión y la codificación del documento.
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+    ````
+
+2. **Elemento raíz**
+   Contiene a todos los demás elementos del archivo.
+   Ejemplo: `<animales>...</animales>`
+
+3. **Elementos secundarios**
+   Anidados dentro del elemento raíz. Pueden tener texto o más elementos.
+   Ejemplo: `<animal>`
+
+4. **Atributos**
+   Proporcionan información adicional sobre los elementos.
+   Ejemplo: `nombre="Mel"`
+
+---
+
+## 📦 Ejemplo completo
+
+   ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<animales>
+  <animal nombre="Mel" tipo="perro" color="marron"/>
+  <animal nombre="Vick" tipo="gato" color="blanco"/>
+</animales> 
+   ```
+
+* `<animales>` → Elemento raíz.
+* `<animal>` → Elemento secundario.
+* `nombre`, `tipo`, `color` → Atributos.
+* `"Mel"` y `"Vick"` → Valores dentro de los atributos.
+
+---
+
+## ✅ Ventajas de XML
+
+* Legible por humanos y máquinas.
+* Portátil entre sistemas y plataformas.
+* Ideal para estructurar datos jerárquicos.
+
+---
+## 📂 Lectura y Escritura de Archivos XML
+
+**🧾Estructura de un archivo XML
+Un archivo XML está organizado en forma jerárquica con etiquetas anidadas. Ejemplo:
+
+```xml
+<Data>
+  <Row>
+    <index>1</index>
+    <poster_link>https://example.com/poster1.jpg</poster_link>
+    <series_title>The Shawshank Redemption</series_title>
+  </Row>
+  <Row>
+    <index>2</index>
+    <poster_link>https://example.com/poster2.jpg</poster_link>
+    <series_title>The Dark Knight</series_title>
+  </Row>
+</Data>
+````
+
+* `<Data>`: Etiqueta raíz.
+* `<Row>`: Representa una fila de datos.
+* Las etiquetas internas son las columnas.
+
+---
+
+## 📥 Leer archivos XML con `read_xml()`
+
+### 🔧 ¿Qué hace?
+
+Convierte un archivo XML en un **DataFrame**.
+
+### 🧪 Ejemplo:
+
+```python
+import pandas as pd
+
+datos_imdb = pd.read_xml("IMDB Top 1000 XML.xml")
+print(datos_imdb.head(3))
+```
+
+🔹 `read_xml(filepath)`: Lee un XML desde la ruta especificada.
+🔹 `head(n)`: Muestra las primeras *n* filas del DataFrame.
+
+---
+
+## 📤 Escribir archivos XML con `to_xml()`
+
+### 🔧 ¿Qué hace?
+
+Convierte un DataFrame en un archivo XML.
+
+### 🧪 Ejemplo:
+
+```python
+datos_imdb.to_xml("peliculas_imdb.xml")
+```
+
+🔹 `to_xml(filepath)`: Guarda el DataFrame como XML en la ruta dada.
+
+---
+
+## ✅ Resumen rápido
+
+| Acción       | Método       | Descripción                                  |
+| ------------ | ------------ | -------------------------------------------- |
+| Leer XML     | `read_xml()` | Convierte archivo XML a DataFrame            |
+| Escribir XML | `to_xml()`   | Convierte DataFrame a archivo XML            |
+| Vista previa | `head(n)`    | Muestra las primeras *n* filas del DataFrame |
+
+---
 
