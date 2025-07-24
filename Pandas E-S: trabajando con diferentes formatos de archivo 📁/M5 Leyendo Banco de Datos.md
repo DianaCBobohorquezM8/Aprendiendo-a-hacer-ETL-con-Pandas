@@ -261,3 +261,44 @@ print(table_names)
 * Puedes usar esta función después de usar `df.to_sql()` para confirmar que la tabla fue creada.
 
 ---
+## 🧠 Introducción a SQL
+
+**SQL (Structured Query Language)** es un lenguaje usado para interactuar con bases de datos **relacionales**, permitiendo:
+
+* 📥 Insertar
+* 📝 Actualizar
+* 🔍 Consultar
+* 🗃️ Administrar datos
+
+---
+
+## 🧱 Cláusulas SQL Principales
+
+Las **cláusulas** son los bloques de construcción de las sentencias SQL. Permiten **filtrar, ordenar, agrupar o limitar** los datos consultados.
+
+| Cláusula   | Función                                           |
+| ---------- | ------------------------------------------------- |
+| `SELECT`   | Especifica las columnas a consultar               |
+| `FROM`     | Indica la tabla desde la que se extraen los datos |
+| `WHERE`    | Filtra los resultados según condiciones           |
+| `ORDER BY` | Ordena los resultados (ascendente o descendente)  |
+| `GROUP BY` | Agrupa los datos por una o más columnas           |
+| `LIMIT`    | Limita el número de filas devueltas               |
+
+---
+
+## 🧪 Ejemplo SQL
+
+```sql
+SELECT nombre, apellido, salario
+FROM empleados
+WHERE departamento = 'ventas';
+```
+
+### 🔍 Análisis del ejemplo:
+
+* `SELECT nombre, apellido, salario`: columnas que se quieren visualizar.
+* `FROM empleados`: tabla origen de los datos.
+* `WHERE departamento = 'ventas'`: condición que filtra solo los empleados del área de ventas.
+
+---
