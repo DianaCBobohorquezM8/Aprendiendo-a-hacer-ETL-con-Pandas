@@ -149,3 +149,73 @@ Python permite interactuar con múltiples sistemas de bases de datos, como:
 👉 [Documentación de SQLAlchemy](https://docs.sqlalchemy.org/)
 
 ---
+# 📝 Escribir en una base de datos con Pandas y SQLAlchemy
+
+## 📁 1. Importar datos desde un archivo CSV
+
+- Se utiliza la función `read_csv()` de **Pandas** para leer archivos `.csv`.
+- Los datos se cargan en un **DataFrame**, una estructura tabular similar a una hoja de cálculo o una tabla SQL.
+
+🔄 **Analogía**: El archivo CSV es una lista desordenada de ingredientes.  
+Pandas actúa como un chef que organiza esos ingredientes en una tabla bien estructurada.
+
+---
+
+## 🛠️ 2. Crear una tabla SQL con `to_sql()`
+
+- Se usa el método `to_sql()` de Pandas para exportar un DataFrame a una tabla SQL.
+- Es necesario un **motor (engine)** de SQLAlchemy que conecte Python con la base de datos.
+
+🔄 **Analogía**: Como guardar una tabla de Excel en una base de datos para hacer análisis avanzados.
+
+---
+
+## 🔍 3. Verificar la tabla con un inspector
+
+- SQLAlchemy ofrece un **Inspector** para comprobar la existencia y estructura de las tablas.
+- Permite revisar columnas, índices, claves, etc.
+
+---
+
+## 🧠 Conceptos clave
+
+| Término      | Definición |
+|--------------|------------|
+| **Engine**   | Objeto de SQLAlchemy que actúa como puente entre Python y una base de datos específica. |
+| **SQLAlchemy** | Biblioteca que facilita la conexión y manipulación de bases de datos SQL desde Python. |
+| **Inspector** | Objeto que permite explorar la estructura de la base de datos (tablas, columnas, etc.). |
+
+---
+
+## 📊 4. Realizar consultas SQL
+
+- Una vez exportados, puedes consultar los datos directamente con SQL.
+- Puedes hacer filtros, agrupamientos, cálculos y reportes.
+
+🔄 **Analogía**: Es como preguntar a una base de datos:  
+"¿Cuántos clientes tienen más de 30 años?" o  
+"¿Cuál es el ingreso promedio en cierta ciudad?"
+
+---
+
+## 🧪 Ejemplo de flujo completo
+
+```python
+import pandas as pd
+from sqlalchemy import create_engine, inspect
+
+# 1. Leer CSV
+df = pd.read_csv("clientes.csv")
+
+# 2. Crear engine (con SQLite en este ejemplo)
+engine = create_engine("sqlite:///mi_base_de_datos.db")
+
+# 3. Exportar a tabla SQL
+df.to_sql("clientes", con=engine, if_exists="replace", index=False)
+
+# 4. Verificar la tabla
+inspector = inspect(engine)
+print(inspector.get_table_names())
+````
+
+---
