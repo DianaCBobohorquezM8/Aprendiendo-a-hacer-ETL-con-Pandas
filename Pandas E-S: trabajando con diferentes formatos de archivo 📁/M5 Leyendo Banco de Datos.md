@@ -100,3 +100,52 @@ Sistema de gestión de bases de datos relacional.
 | `text`          | Convierte consultas SQL en objetos Python    | Traductor de SQL a Python |
 
 ---
+# 🗂️ Bases de Datos 
+
+## 🧾 ¿Qué es una base de datos?
+Un sistema que **almacena, organiza y recupera información** de forma estructurada y eficiente.  
+Se utiliza en muchos campos como la gestión empresarial, la ciencia, la tecnología, etc.
+
+### ✅ Beneficios
+- Aumenta la eficiencia y precisión de las operaciones.
+- Facilita el manejo y análisis de grandes volúmenes de datos.
+
+---
+
+## 🔍 Tipos de bases de datos
+
+| Tipo | Descripción | Ejemplo de uso |
+|------|-------------|----------------|
+| **Relacionales** | Organizan los datos en **tablas con filas y columnas**. | MySQL, PostgreSQL, SQLite |
+| **No relacionales (NoSQL)** | Usan estructuras como documentos, grafos o pares llave-valor. | MongoDB, Redis, Neo4j |
+
+---
+
+## 🐍 Bases de datos en Python
+
+Python permite interactuar con múltiples sistemas de bases de datos, como:
+
+- **Relacionales**: SQLite, MySQL, PostgreSQL, Oracle
+- **No relacionales**: MongoDB, Cassandra, etc.
+
+### 🧩 Módulos útiles
+- `sqlite3`: Integrado en Python. Ideal para bases de datos ligeras.
+- `SQLAlchemy`: Biblioteca ORM que permite usar objetos Python en lugar de escribir SQL directamente.
+
+---
+
+## 🛠️ SQLAlchemy: Ventajas principales
+
+| Característica | Beneficio |
+|----------------|-----------|
+| ORM (Object Relational Mapper) | Interactúas con la base de datos usando clases y objetos Python. |
+| Abstracción del SQL | Menos errores y código más limpio. |
+| Consultas complejas | Posible extraer datos fácilmente de grandes volúmenes. |
+| Compatible con varios motores | SQLite, PostgreSQL, MySQL, etc. |
+
+> ⚙️ Está instalado por defecto en **Google Colab** mediante SQLite, por lo que es ideal para prototipos y prácticas.
+
+📚 **Consulta oficial**:  
+👉 [Documentación de SQLAlchemy](https://docs.sqlalchemy.org/)
+
+---
