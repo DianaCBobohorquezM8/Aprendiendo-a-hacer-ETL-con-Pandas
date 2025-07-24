@@ -219,3 +219,45 @@ print(inspector.get_table_names())
 ````
 
 ---
+## 🔍 `get_table_names()` en SQLAlchemy
+
+### 📌 ¿Qué es?
+
+Es un método del objeto `inspector` en SQLAlchemy.
+
+### ✅ ¿Qué hace?
+
+Retorna una **lista con los nombres de todas las tablas** que existen dentro de la base de datos conectada mediante un `engine`.
+
+### 📅 ¿Cuándo se usa?
+
+* Para **verificar las tablas existentes** en una base de datos.
+* Después de crear una nueva tabla con `to_sql()` para confirmar que fue registrada correctamente.
+* Para **explorar** la estructura de una base de datos desconocida.
+
+---
+
+### 💻 Ejemplo de uso:
+
+```python
+from sqlalchemy import create_engine, inspect
+
+# Crear un engine para conectarse a la base de datos (en memoria en este caso)
+engine = create_engine('sqlite:///:memory:')
+
+# Crear un inspector a partir del engine
+inspector = inspect(engine)
+
+# Obtener la lista de nombres de las tablas
+table_names = inspector.get_table_names()
+
+# Imprimir la lista de tablas
+print(table_names)
+```
+
+### 📝 Notas:
+
+* Si no se han creado tablas todavía, `table_names` será una **lista vacía**: `[]`.
+* Puedes usar esta función después de usar `df.to_sql()` para confirmar que la tabla fue creada.
+
+---
