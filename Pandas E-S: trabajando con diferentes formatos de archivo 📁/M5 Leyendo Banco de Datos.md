@@ -302,3 +302,133 @@ WHERE departamento = 'ventas';
 * `WHERE departamento = 'ventas'`: condición que filtra solo los empleados del área de ventas.
 
 ---
+## 🧠 Lectura y Escritura de SQL con Pandas
+
+### 🔧 1. `read_sql()`: Leer resultados de una consulta SQL
+
+```python
+pd.read_sql(sql, con)
+```
+
+Este método te permite **ejecutar una consulta SQL** y obtener el resultado directamente en un DataFrame de Pandas.
+
+#### 🔹 Parámetros importantes:
+
+* `sql`: la **consulta SQL** (puede ser una cadena o un objeto `sqlalchemy.text()`).
+* `con`: el **motor de conexión** a la base de datos (por ejemplo, un `engine` de SQLAlchemy).
+
+#### ✅ Ventajas:
+
+* Permite ejecutar consultas complejas con `JOIN`, `WHERE`, `GROUP BY`, etc.
+* Carga automáticamente los resultados como un DataFrame, listo para análisis.
+
+#### 🧪 Ejemplo:
+
+```python
+from sqlalchemy import text
+
+consulta = text("SELECT nombre, salario FROM empleados WHERE departamento = 'ventas'")
+df = pd.read_sql(consulta, con=engine.connect())
+```
+
+---
+
+### 📚 2. `read_sql_table()`: Leer una tabla completa
+
+```python
+pd.read_sql_table(table_name, con, columns=None)
+```
+
+Este método se usa para **cargar una tabla completa de una base de datos SQL** a un DataFrame.
+
+#### 🔹 Parámetros importantes:
+
+* `table_name`: nombre de la tabla a leer.
+* `con`: el motor de conexión (`engine`).
+* `columns` *(opcional)*: una lista con las columnas que deseas importar.
+
+#### ✅ Ventajas:
+
+* Rápido para cargar tablas completas.
+* Útil para exploración o análisis inicial.
+
+#### 🧪 Ejemplo:
+
+```python
+df = pd.read_sql_table('clientes', con=engine, columns=['nombre', 'correo'])
+```
+
+---
+
+### 💾 3. `to_sql()`: Guardar un DataFrame como tabla en SQL
+
+```python
+df.to_sql(name, con, if_exists='fail', index=True)
+```
+
+Este método **exporta un DataFrame a una base de datos SQL** como una nueva tabla.
+
+#### 🔹 Parámetros importantes:
+
+* `name`: nombre de la tabla en la base de datos.
+* `con`: motor de conexión (`engine`).
+* `if_exists`:
+
+  * `'fail'`: lanza error si la tabla ya existe.
+  * `'replace'`: borra la tabla existente y la reemplaza.
+  * `'append'`: agrega los datos al final de la tabla existente.
+* `index`: si deseas incluir el índice del DataFrame como una columna.
+
+#### ✅ Ventajas:
+
+* Muy útil después de limpiar o transformar datos en Pandas.
+* Permite actualizar la base de datos con nuevos registros desde Python.
+
+#### 🧪 Ejemplo:
+
+```python
+df.to_sql('empleados_nuevo', con=engine, if_exists='replace', index=False)
+```
+
+---
+
+## ⚙️ Extras Técnicos
+
+### 🧱 `engine` de SQLAlchemy
+
+Para que todo funcione, necesitas un **motor de conexión**, que se crea así:
+
+```python
+from sqlalchemy import create_engine
+
+engine = create_engine('sqlite:///mi_base_de_datos.db')
+```
+
+Este motor se pasa a todos los métodos (`read_sql`, `read_sql_table`, `to_sql`).
+
+---
+
+### 📦 `text()` de SQLAlchemy
+
+Cuando usas una cadena SQL con variables o condiciones, es buena práctica convertirla a `text`:
+
+```python
+from sqlalchemy import text
+
+consulta = text("SELECT * FROM empleados WHERE salario > 3000")
+```
+
+Esto le dice a SQLAlchemy que debe tratar la consulta como un texto SQL.
+
+---
+
+## 🧩 Resumen de Métodos
+
+| Método             | ¿Qué hace?                                          | ¿Cuándo usarlo?                                |
+| ------------------ | --------------------------------------------------- | ---------------------------------------------- |
+| `read_sql()`       | Ejecuta una consulta SQL                            | Cuando necesitas filtrar, unir o agrupar datos |
+| `read_sql_table()` | Carga una tabla completa como DataFrame             | Cuando necesitas todos los datos de una tabla  |
+| `to_sql()`         | Guarda un DataFrame como tabla en una base de datos | Para almacenar datos procesados desde Pandas   |
+
+---
+
