@@ -160,4 +160,86 @@ Un **algoritmo de precios inteligentes** ajusta automáticamente las tarifas dia
 ✅ Se adapta automáticamente a condiciones del mercado  
 
 ---
+# 🧩 Comprendiendo los Datos JSON y Preparación para Análisis
+
+## 📦 ¿Qué es `json_normalize()`?
+
+### 🔧 Función:
+
+`pandas.json_normalize()` es una función de Pandas utilizada para **convertir estructuras de datos JSON anidadas** (como diccionarios o listas dentro de listas) en un **DataFrame plano**, es decir, en **una tabla con columnas y filas** fácilmente analizable.
+
+### 🔍 ¿Por qué usarla?
+
+* JSON es un formato flexible y común en APIs y bases de datos web.
+* Muchos archivos JSON tienen **datos anidados**, lo que dificulta el análisis directo.
+* Esta función **extrae las claves de diccionarios** y las convierte en **columnas**.
+
+### 📌 Ejemplo:
+
+```python
+from pandas import json_normalize
+
+# Suponiendo que ya leíste el JSON en una variable llamada datos
+df = json_normalize(datos['info_inmuebles'])  # Accede al diccionario anidado
+```
+
+---
+
+## 🧱 Extracción de Diccionarios como Columnas
+
+### 🧩 ¿Qué significa?
+
+Si tienes una columna (por ejemplo, `info_inmuebles`) donde cada celda contiene un **diccionario** como:
+
+```json
+{"habitaciones": 3, "baños": 2}
+```
+
+Al extraerlo, tendrás columnas separadas:
+
+| habitaciones | baños |
+| ------------ | ----- |
+| 3            | 2     |
+
+### ✅ ¿Por qué es útil?
+
+* 📊 Facilita el análisis y la visualización.
+* 🧮 Permite aplicar funciones estadísticas directamente sobre las columnas.
+* 🔎 Hace más sencillo filtrar, agrupar y graficar.
+
+---
+
+## 🔍 Exploración de Tipos de Variables
+
+### 📘 ¿Qué es?
+
+Implica identificar qué tipo de datos contiene cada columna después de la normalización:
+
+| Tipo de Dato | Ejemplo                          |
+| ------------ | -------------------------------- |
+| Numérico     | `habitaciones = 3`               |
+| Texto        | `descripción = "Cómodo estudio"` |
+| Lista        | `comodidades = ["WiFi", "TV"]`   |
+| Booleano     | `tiene_parqueadero = True`       |
+
+### 🎯 ¿Por qué es importante?
+
+* 🧠 Cada tipo de dato tiene **distintas funciones y tratamientos**.
+* 🛠️ Evita errores en cálculos, gráficos o modelos.
+* 🧪 Permite elegir la mejor técnica para limpieza y transformación.
+
+---
+
+## 🖼️ Visualización de los Datos
+
+### 🔍 ¿Qué significa?
+
+Representar los datos de forma gráfica o tabular para **detectar patrones y errores** más fácilmente.
+
+### 💡 ¿Por qué es útil?
+
+* Permite ver **tendencias**.
+* Facilita la **detección de valores atípicos**.
+* Mejora la **comprensión de la distribución** de los datos.
+---
 
