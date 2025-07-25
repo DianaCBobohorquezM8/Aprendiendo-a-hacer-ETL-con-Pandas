@@ -197,4 +197,87 @@ datos['precio'] = datos['precio'].astype(np.float64)
 | Limpiar texto antes de convertir | `df['col'] = df['col'].str.replace(...).astype(...)`  |
 
 ---
+# 🎯 Valores Numéricos en Python (Pandas + Numpy)
+
+## 🧠 ¿Por qué importa la precisión?
+
+Cuando se trabaja con grandes volúmenes de datos o recursos limitados de memoria, es importante encontrar un equilibrio entre:
+
+* **Precisión** (qué tan exactos son los datos).
+* **Uso de memoria** (qué tanto espacio ocupan).
+
+---
+
+## 🧮 Conceptos clave
+
+| Término       | Definición                                                                                                             |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **Bit**       | Unidad mínima de información (0 o 1).                                                                                  |
+| **Byte**      | Grupo de 8 bits.                                                                                                       |
+| **Precisión** | Número de bits utilizados para representar un valor. A mayor precisión, mayor rango de valores y mayor uso de memoria. |
+
+---
+
+## 🔢 Tipos de datos **enteros** en Numpy
+
+Los enteros pueden ocupar diferentes cantidades de **bits**, lo que afecta el **rango** de valores representables.
+
+| Tipo    | Bits | Rango Mínimo               | Rango Máximo              |
+| ------- | ---- | -------------------------- | ------------------------- |
+| `int8`  | 8    | -128                       | 127                       |
+| `int16` | 16   | -32.768                    | 32.767                    |
+| `int32` | 32   | -2.147.483.648             | 2.147.483.647             |
+| `int64` | 64   | -9.223.372.036.854.775.808 | 9.223.372.036.854.775.807 |
+
+✅ **`int64`**: común por defecto en Pandas.   
+💡 Usa **`int32`, `int16`, o `int8`** si sabes que los valores serán pequeños → **ahorras memoria**.
+
+---
+
+## 🌊 Tipos de datos **decimales** (float)
+
+Los números de **punto flotante** también tienen distintas precisiones:
+
+| Tipo      | Bits | Precisión decimal aproximada |
+| --------- | ---- | ---------------------------- |
+| `float32` | 32   | \~7 dígitos decimales        |
+| `float64` | 64   | \~15 dígitos decimales       |
+
+✅ **`float64`**: recomendado para datos científicos y financieros.   
+✅ **`float32`**: útil cuando se necesita reducir uso de memoria (por ejemplo, en modelos de machine learning).
+
+---
+
+## 🧪 Ejemplos de conversión en Pandas
+
+```python
+import numpy as np
+
+# Convertir columna a int32
+datos['edad'] = datos['edad'].astype(np.int32)
+
+# Convertir columna a float32
+datos['precio'] = datos['precio'].astype(np.float32)
+```
+
+---
+
+## 📌 ¿Qué tipo elegir?
+
+| Situación                       | Tipo recomendado   | Razón                                   |
+| ------------------------------- | ------------------ | --------------------------------------- |
+| Datos pequeños                  | `int8`, `int16`    | Ahorro de memoria                       |
+| Rango moderado de enteros       | `int32`            | Buen equilibrio entre rango y memoria   |
+| Datos científicos o financieros | `int64`, `float64` | Máxima precisión necesaria              |
+| Modelos de Machine Learning     | `float32`          | Menor carga de memoria sin perder mucho |
+
+---
+
+## 💡 Buenas prácticas
+
+* Siempre **verifica el rango** de tus datos antes de convertir el tipo.
+* Ahorra memoria cuando sea posible, **sin comprometer precisión**.
+* Utiliza `astype()` para conversiones específicas y controladas.
+
+---
 
