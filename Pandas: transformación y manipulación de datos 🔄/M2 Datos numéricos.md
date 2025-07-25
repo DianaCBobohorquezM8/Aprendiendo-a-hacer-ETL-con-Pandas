@@ -280,4 +280,90 @@ datos['precio'] = datos['precio'].astype(np.float32)
 * Utiliza `astype()` para conversiones específicas y controladas.
 
 ---
+# 🧹 Limpieza de Datos Numéricos en Texto usando `apply()`
 
+Cuando los valores numéricos vienen como texto (`str`), debemos limpiarlos para convertirlos en números válidos (`float`). Esto es común con datos como precios o cantidades que tienen símbolos, comas o espacios.
+
+---
+
+## 🚩 Problema
+
+**Los valores numéricos están mal formateados:**
+
+Ejemplos comunes:
+
+```plaintext
+"$1,200.00"
+" 3,450 "
+"USD 500.75"
+```
+
+Python no puede interpretarlos como `float` sin limpiar primero los caracteres no deseados.
+
+---
+
+## 🎯 Objetivo
+
+Convertir strings como `"$1,200.00"` en valores numéricos `float`, como `1200.00`.
+
+---
+
+## 🧰 Herramientas utilizadas
+
+| Método      | Descripción                                        |
+| ----------- | -------------------------------------------------- |
+| `apply()`   | Aplica una función a cada elemento de una columna. |
+| `lambda`    | Función anónima en línea.                          |
+| `replace()` | Reemplaza texto dentro de strings.                 |
+| `strip()`   | Elimina espacios en blanco alrededor del texto.    |
+
+---
+
+## 🧪 Ejemplo práctico
+
+```python
+import pandas as pd
+
+# Supongamos que tenemos un DataFrame con precios en texto
+df = pd.DataFrame({'precio': ['$1,200.00', ' $3,450.50 ', '$500.75']})
+
+# Limpieza del texto y conversión a float
+df['precio'] = df['precio'].apply(lambda x: x.replace('$', '').replace(',', '').strip())
+df['precio'] = df['precio'].astype(float)
+
+print(df)
+```
+
+### 🔍 ¿Qué hace cada parte?
+
+```python
+lambda x: x.replace('$', '').replace(',', '').strip()
+```
+
+| Operación         | Función usada       | Resultado                           |
+| ----------------- | ------------------- | ----------------------------------- |
+| Eliminar símbolo  | `.replace('$', '')` | "\$1,200.00" → "1,200.00"           |
+| Eliminar comas    | `.replace(',', '')` | "1,200.00" → "1200.00"              |
+| Eliminar espacios | `.strip()`          | " 1200.00 " → "1200.00"             |
+| Convertir a float | `.astype(float)`    | "1200.00" (str) → 1200.00 (`float`) |
+
+---
+
+## ✅ Resultado final
+
+```plaintext
+   precio
+0  1200.00
+1  3450.50
+2   500.75
+```
+
+---
+
+## 📌 Recomendaciones
+
+* Verifica siempre que los datos limpios puedan convertirse a `float`.
+* Si tienes símbolos diferentes (€, %, etc.), agrégalos también en `.replace()`.
+* Si los datos están en otras columnas, aplica la misma lógica cambiando el nombre de la columna.
+
+---
