@@ -367,3 +367,120 @@ lambda x: x.replace('$', '').replace(',', '').strip()
 * Si los datos están en otras columnas, aplica la misma lógica cambiando el nombre de la columna.
 
 ---
+# 🔄 Limpieza de Datos con `apply` y `applymap` en Pandas
+
+## 🎯 Objetivo
+
+Limpiar datos numéricos que vienen en formato de texto (strings) y pueden tener símbolos como `$`, comas `,` o espacios.
+
+---
+
+## 🧪 Inspección del problema
+
+* Algunas columnas contienen valores como: `"$1,200.50"`, `" 3,450 "`, etc.
+* Estos caracteres impiden convertir directamente los valores a `float`.
+* Se requiere una limpieza previa.
+
+---
+
+## 🔧 Herramientas usadas
+
+| Método       | Se aplica a       | Propósito                                     |
+| ------------ | ----------------- | --------------------------------------------- |
+| `apply()`    | Serie (columna)   | Aplica función a cada elemento de una columna |
+| `applymap()` | DataFrame (tabla) | Aplica función a cada elemento del DataFrame  |
+
+---
+
+## 🧩 ¿Cómo funciona `apply()`?
+
+```python
+import pandas as pd
+
+s = pd.Series([1, 2, 3, 4])
+
+def cuadrado(x):
+    return x ** 2
+
+s_cuadrado = s.apply(cuadrado)
+
+print(s_cuadrado)
+```
+
+📌 **Resultado**: cada valor de la Serie se eleva al cuadrado.
+
+✅ **Cuándo usarlo**: si solo quieres transformar una **columna específica**.
+
+---
+
+## 🧩 ¿Cómo funciona `applymap()`?
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({
+    'A': [1, 2, 3],
+    'B': [4, 5, 6]
+})
+
+def sumar_diez(x):
+    return x + 10
+
+df_sumado = df.applymap(sumar_diez)
+
+print(df_sumado)
+```
+
+📌 **Resultado**: cada valor del DataFrame aumenta en 10.
+
+✅ **Cuándo usarlo**: si quieres transformar **todas las columnas** de un DataFrame.
+
+---
+
+## 🧹 Ejemplo de limpieza de símbolos (uso real)
+
+```python
+import pandas as pd
+
+# Datos con símbolos
+df = pd.DataFrame({
+    'precio1': ['$1,200.00', '$2,500.50'],
+    'precio2': ['$3,000.00', '$4,750.75']
+})
+
+# Función de limpieza
+def limpiar(x):
+    return float(x.replace('$', '').replace(',', '').strip())
+
+# Aplicar a todas las columnas
+df_limpio = df.applymap(limpiar)
+
+print(df_limpio)
+```
+
+📌 **Resultado**:
+
+| precio1 | precio2 |
+| ------- | ------- |
+| 1200.0  | 3000.0  |
+| 2500.5  | 4750.75 |
+
+---
+
+## 🔍 Diferencias clave
+
+| Característica       | `apply()`                      | `applymap()`                                   |
+| -------------------- | ------------------------------ | ---------------------------------------------- |
+| Objeto de aplicación | Serie (una columna)            | DataFrame (todas las columnas)                 |
+| Función aplicada     | A cada elemento de una columna | A cada elemento del DataFrame                  |
+| Flexibilidad         | Más control por columna        | Más automatizado, ideal para limpiar en bloque |
+
+---
+
+## ✅ Recomendaciones
+
+* Usa `apply()` si solo necesitas transformar **una columna** (por ejemplo: `'precio'`).
+* Usa `applymap()` cuando quieras limpiar **varias columnas al mismo tiempo**.
+* Siempre revisa los tipos de datos antes y después de aplicar transformaciones con `.dtypes`.
+
+---
