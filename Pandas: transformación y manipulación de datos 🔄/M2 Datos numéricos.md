@@ -105,3 +105,96 @@ datos.info()
 ```
 
 ---
+# 🔁 Transformar Datos Textuales en Datos Numéricos con `astype()`
+
+## 🎯 ¿Por qué convertir datos?
+
+Los modelos de análisis y las visualizaciones necesitan **datos numéricos**. Si tienes datos en formato de texto como `"5"` o `"250.00"`, primero necesitas convertirlos al tipo adecuado (entero o decimal) para poder operar con ellos.
+
+---
+
+## 🔢 Tipos de datos numéricos más comunes
+
+| Tipo de Dato | Descripción                        | Numpy        |
+| ------------ | ---------------------------------- | ------------ |
+| `int64`      | Entero de 64 bits (sin decimales)  | `np.int64`   |
+| `float64`    | Decimal de 64 bits (con decimales) | `np.float64` |
+
+> ℹ️ **Numpy (`np`)** es una biblioteca que facilita el trabajo con datos numéricos en Python.
+
+---
+
+## 📦 Importar Numpy
+
+```python
+import numpy as np
+```
+
+---
+
+## 🔧 Conversión con `astype()`
+
+### 🧠 ¿Qué es `astype()`?
+
+Es un método de Pandas que permite **cambiar el tipo de dato** de una columna en un DataFrame.
+
+### 🧪 Sintaxis
+
+```python
+df['columna'] = df['columna'].astype(np.tipo_de_dato)
+```
+
+---
+
+## 📍 Ejemplos prácticos
+
+### ✅ Convertir una columna a entero (`int64`)
+
+```python
+datos['Max_Hospedes'] = datos['Max_Hospedes'].astype(np.int64)
+```
+
+### ✅ Convertir una columna a decimal (`float64`)
+
+```python
+datos['evaluacion_general'] = datos['evaluacion_general'].astype(np.float64)
+```
+
+---
+
+### 🔁 Convertir varias columnas a entero
+
+```python
+columnas_numericas = ['cantidad_baños', 'cantidad_cuartos', 'cantidad_camas']
+for columna in columnas_numericas:
+    datos[columna] = datos[columna].astype(np.int64)
+```
+
+---
+
+## ⚠️ Problemas comunes: caracteres no numéricos
+
+Si una columna contiene caracteres como `$`, `%` o comas (`,`), **no se puede convertir directamente**. Es necesario limpiarla antes.
+
+### 🧹 Ejemplo de limpieza previa
+
+```python
+datos['precio'] = datos['precio'].str.replace('$', '').str.replace(',', '')
+datos['precio'] = datos['precio'].astype(np.float64)
+```
+
+> ✅ Usa `.str.replace()` para eliminar caracteres no deseados **antes** de aplicar `astype()`.
+
+---
+
+## 📌 Resumen Visual de Uso
+
+| Acción                           | Código                                                |
+| -------------------------------- | ----------------------------------------------------- |
+| Convertir a entero               | `df['col'] = df['col'].astype(np.int64)`              |
+| Convertir a decimal              | `df['col'] = df['col'].astype(np.float64)`            |
+| Convertir múltiples columnas     | `for col in cols: df[col] = df[col].astype(np.int64)` |
+| Limpiar texto antes de convertir | `df['col'] = df['col'].str.replace(...).astype(...)`  |
+
+---
+
