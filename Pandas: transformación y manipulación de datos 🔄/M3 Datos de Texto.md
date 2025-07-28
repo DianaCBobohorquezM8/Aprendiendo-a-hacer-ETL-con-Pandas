@@ -289,3 +289,108 @@ print(limpio)  # → ['ejemplo', 'texto', 'stop', 'words']
 | **Normalización**    | Unificar el texto (minúsculas, sin puntuación, etc.) |
 
 ---
+### 🧹 **Limpieza de texto con expresiones regulares en Pandas**
+
+#### 🛠️ **¿Qué hicimos?**
+
+Se aplicaron expresiones regulares (regex) sobre la columna `descripción_local` para limpiar el texto:
+
+#### 1️⃣ **Eliminar caracteres especiales (excepto letras, números, guiones y comillas simples)**
+
+```python
+datos['descripción_local'] = datos['descripción_local'].str.replace('[^a-zA-Z0-9\-\' ]', ' ', regex=True)
+```
+
+##### ✔️ ¿Qué hace esta expresión?
+
+* Reemplaza cualquier carácter que **no** sea:
+
+  * Letras minúsculas (`a-z`)
+  * Letras mayúsculas (`A-Z`)
+  * Números (`0-9`)
+  * Guiones (`-`)
+  * Comillas simples (`'`)
+  * Espacios (` `)
+* Los caracteres encontrados se reemplazan por un espacio.
+
+##### 🔍 Explicación de la regex:
+
+* `[^...]`: busca todo lo que **no** esté dentro del conjunto.
+* `a-zA-Z0-9\-\'`: los caracteres permitidos (notar el uso de `\` para escapar `-` y `'`).
+* `regex=True`: indica que `pat` es una expresión regular.
+
+---
+
+#### 2️⃣ **Eliminar guiones que estén aislados (no rodeados por letras o números)**
+
+```python
+datos['descripción_local'] = datos['descripción_local'].str.replace(r'(\W|^)-(\W|$)', ' ', regex=True)
+```
+
+##### ✔️ ¿Qué hace esta expresión?
+
+* Busca guiones que:
+
+  * Están al inicio o fin de cadena (`^`, \`\$)
+  * O están rodeados por caracteres no alfanuméricos (`\W`)
+
+##### 🔍 Explicación:
+
+* `(\W|^)`: carácter no alfanumérico o inicio de cadena.
+* `-`: guion literal.
+* `(\W|$)`: carácter no alfanumérico o fin de cadena.
+
+---
+
+### 🔎 **Conceptos clave de regex**
+
+| Símbolo | Significado                                                  |            |
+| ------- | ------------------------------------------------------------ | ---------- |
+| `[]`    | Conjunto de caracteres permitidos                            |            |
+| `^`     | Negación (dentro de `[]`) o inicio de cadena (fuera de `[]`) |            |
+| `\W`    | Cualquier carácter que **no** sea alfanumérico               |            |
+| `\s`    | Espacio en blanco                                            |            |
+| `$`     | Fin de cadena                                                |            |
+| \`      | \`                                                           | "O" lógico |
+| `\`     | Escapa caracteres especiales                                 |            |
+
+---
+
+### 🧠 **Métodos importantes en Pandas**
+
+#### `str.replace(pat, repl, regex=True)`
+
+* Reemplaza valores que coincidan con un patrón.
+* `pat`: el patrón a buscar.
+* `repl`: el valor nuevo.
+* `regex=True`: indica que `pat` es una expresión regular.
+
+#### `str.strip()`
+
+* Elimina espacios al inicio y final de la cadena.
+* Útil luego de aplicar `.replace()`.
+
+---
+
+### 💡 **Ejemplo práctico**
+
+```python
+import pandas as pd
+
+texto = pd.Series(["¡Hola, mundo! 123. ¿Cómo estás?"])
+texto_limpio = texto.str.replace('[^a-zA-Z0-9\s]', '', regex=True)
+
+print(texto_limpio[0])  # Output: Holamundo 123 Cómoestás
+```
+
+---
+
+### 📌 **Resumen**
+
+* **Regex** permite definir patrones complejos para limpiar texto automáticamente.
+* Es ideal para tareas de **preprocesamiento de texto**, fundamentales en **análisis de datos** y **NLP** (procesamiento de lenguaje natural).
+* Usar métodos como `.str.replace()` con `regex=True` permite personalizar la limpieza.
+* Los métodos `.apply()` y `.applymap()` también ayudan a aplicar funciones personalizadas a columnas o DataFrames completos.
+
+---
+
