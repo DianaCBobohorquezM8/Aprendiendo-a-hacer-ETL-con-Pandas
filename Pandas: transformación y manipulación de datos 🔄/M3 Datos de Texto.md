@@ -140,22 +140,22 @@ df.applymap(lambda x: x + 10)
 * **Clasificación** (spam/no spam, sentimientos, categorías)
 
 ---
+### 🧪 Metacaracteres comunes en Regex
 
-## 🧪 Metacaracteres comunes en Regex
+| Símbolo | Significado                                                                 |
+|---------|------------------------------------------------------------------------------|
+| `.`     | Cualquier carácter (excepto salto de línea)                                 |
+| `*`     | Cero o más repeticiones del carácter o grupo anterior                       |
+| `+`     | Una o más repeticiones del carácter o grupo anterior                        |
+| `?`     | Cero o una repetición del carácter o grupo anterior                         |
+| `[]`    | Conjunto de caracteres (ej: `[abc]` busca "a", "b" o "c")                   |
+| `[^]`   | Negación del conjunto (ej: `[^abc]` busca cualquier carácter excepto "a,b,c")|
+| `()`    | Agrupación de patrones (para capturar o aplicar operadores)                 |
+| `\|`    | O lógico (ej: `a\|b` coincide con "a" o "b")                                 |
+| `\`     | Escape de carácter especial (ej: `\.` busca un punto literal)               |
+| `^`     | Inicio de línea                                                              |
+| `$`     | Fin de línea                                                                 |
 
-| Símbolo | Significado                                                  |                   |      |
-| ------- | ------------------------------------------------------------ | ----------------- | ---- |
-| `.`     | Cualquier carácter (excepto salto de línea)                  |                   |      |
-| `*`     | Cero o más repeticiones                                      |                   |      |
-| `+`     | Una o más repeticiones                                       |                   |      |
-| `?`     | Cero o una repetición                                        |                   |      |
-| `[]`    | Conjunto de caracteres (ej: `[abc]`)                         |                   |      |
-| `[^]`   | Negación del conjunto (ej: `[^abc]`)                         |                   |      |
-| `()`    | Agrupación de patrones                                       |                   |      |
-| \`      | \`                                                           | O lógico (ej: \`a | b\`) |
-| `\`     | Escape de carácter especial (ej: `\.` para un punto literal) |                   |      |
-| `^`     | Inicio de línea                                              |                   |      |
-| `$`     | Fin de línea                                                 |                   |      |
 
 ---
 
@@ -341,18 +341,17 @@ datos['descripción_local'] = datos['descripción_local'].str.replace(r'(\W|^)-(
 * `(\W|$)`: carácter no alfanumérico o fin de cadena.
 
 ---
-
 ### 🔎 **Conceptos clave de regex**
 
-| Símbolo | Significado                                                  |            |
-| ------- | ------------------------------------------------------------ | ---------- |
-| `[]`    | Conjunto de caracteres permitidos                            |            |
-| `^`     | Negación (dentro de `[]`) o inicio de cadena (fuera de `[]`) |            |
-| `\W`    | Cualquier carácter que **no** sea alfanumérico               |            |
-| `\s`    | Espacio en blanco                                            |            |
-| `$`     | Fin de cadena                                                |            |
-| \`      | \`                                                           | "O" lógico |
-| `\`     | Escapa caracteres especiales                                 |            |
+| Símbolo | Significado                                                  | Ejemplo o nota adicional         |
+| ------- | ------------------------------------------------------------ | -------------------------------- |
+| `[]`    | Conjunto de caracteres permitidos                            | `[abc]` coincide con 'a', 'b', 'c' |
+| `^`     | Negación (dentro de `[]`) o inicio de cadena (fuera de `[]`) | `[^abc]` o `^Hola`               |
+| `\W`    | Cualquier carácter que **no** sea alfanumérico               | Coincide con símbolos como `@` o `#` |
+| `\s`    | Espacio en blanco                                            | Incluye espacios, tabs, saltos de línea |
+| `$`     | Fin de cadena                                                | `mundo$` coincide con "Hola mundo" |
+| `\|`     | “O” lógico                                                    | `promo\|descuento`                |
+| `\`     | Escapa caracteres especiales                                 | `\.` busca un punto literal      |
 
 ---
 
@@ -448,23 +447,15 @@ df['spam'] = df['mensaje'].str.contains(r'(gratis|oferta|haz clic aquí)', case=
 
 ## ✏️ Ejemplos útiles
 
-| Objetivo                       | Regex                    | Descripción                                 |                                                 |
-| ------------------------------ | ------------------------ | ------------------------------------------- | ----------------------------------------------- |
-| Eliminar caracteres especiales | `[^a-zA-Z0-9 ]`          | Todo lo que no sea letra, número o espacio. |                                                 |
-| Extraer dígitos                | `\d+`                    | Uno o más dígitos seguidos.                 |                                                 |
-| Detectar correos electrónicos  | `[\w\.-]+@[\w\.-]+\.\w+` | Coincide con correos básicos.               |                                                 |
-| Palabras específicas           | \`\b(promo               | descuento)\b\`                              | Detecta palabras exactas "promo" o "descuento". |
+| Objetivo                       | Regex                           | Descripción                                        |
+|-------------------------------|----------------------------------|----------------------------------------------------|
+| Eliminar caracteres especiales| `[^a-zA-Z0-9 ]`                  | Todo lo que no sea letra, número o espacio.        |
+| Extraer dígitos               | `\d+`                            | Uno o más dígitos seguidos.                        |
+| Detectar correos electrónicos| `[\w\.-]+@[\w\.-]+\.\w+`         | Coincide con correos electrónicos básicos.         |
+| Palabras específicas          | `\b(promo|descuento)\b`         | Detecta palabras exactas "promo" o "descuento".    |
 
----
+✅ **Notas**:
 
-## 💬 Conclusión
-
-Las expresiones regulares son esenciales para **preprocesamiento de texto**, especialmente en tareas como:
-
-* Preparar datos para modelos de machine learning.
-* Limpiar entradas antes de almacenarlas en bases de datos.
-* Automatizar procesos de validación y búsqueda.
-
-Al dominarlas, puedes ahorrar tiempo y procesar grandes volúmenes de texto con **precisión y eficiencia**.
-
+* Los símbolos `\b` indican **límites de palabra**, para que no detecte partes de otras palabras (por ejemplo, "promocionar").
+* Todo está alineado para que se vea bien tanto en editores Markdown como en Jupyter Notebooks.
 ---
