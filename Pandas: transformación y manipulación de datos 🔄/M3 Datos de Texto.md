@@ -393,4 +393,78 @@ print(texto_limpio[0])  # Output: Holamundo 123 Cómoestás
 * Los métodos `.apply()` y `.applymap()` también ayudan a aplicar funciones personalizadas a columnas o DataFrames completos.
 
 ---
+## 🧩 ¿Qué son las Expresiones Regulares (Regex)?
 
+**Regex** (del inglés *regular expressions*) es una **secuencia de caracteres especiales** que define un **patrón de búsqueda** dentro de un texto. Es una herramienta poderosa que permite:
+
+* Buscar coincidencias en cadenas.
+* Reemplazar fragmentos de texto.
+* Extraer o validar información estructurada.
+* Limpiar datos de forma automatizada.
+
+---
+
+## 🧪 Aplicaciones en Ciencia de Datos
+
+### 🔹 **1. Limpieza de datos**
+
+* **Eliminar símbolos no deseados** como `$`, `%`, `#`, etc.
+* **Normalizar texto**, por ejemplo, convertir a minúsculas o eliminar espacios dobles.
+
+```python
+df['columna'] = df['columna'].str.replace('[^a-zA-Z0-9 ]', '', regex=True)
+```
+
+### 🔹 **2. Extracción de información**
+
+* Extraer **números de teléfono**, **correos electrónicos**, **fechas**, etc., desde texto sin estructurar.
+
+```python
+# Buscar correos en una columna
+df['email'] = df['texto'].str.extract(r'[\w\.-]+@[\w\.-]+\.\w+')
+```
+
+### 🔹 **3. Clasificación de texto**
+
+* Detectar **patrones repetitivos** que indiquen si un correo es *spam*.
+* Buscar palabras clave específicas en reseñas, publicaciones o mensajes.
+
+```python
+df['spam'] = df['mensaje'].str.contains(r'(gratis|oferta|haz clic aquí)', case=False)
+```
+
+---
+
+## 🧠 Ventajas del uso de Regex en Ciencia de Datos
+
+| Ventaja                        | Descripción                                                                                     |
+| ------------------------------ | ----------------------------------------------------------------------------------------------- |
+| 🔍 Búsqueda avanzada           | Permite identificar patrones complejos que un simple `.contains()` no podría.                   |
+| ⚙️ Automatización              | Facilita la limpieza masiva de texto sin necesidad de bucles.                                   |
+| 📊 Mejora del análisis textual | Ayuda a preprocesar datos antes de aplicar algoritmos de NLP o Machine Learning.                |
+| 🔐 Validación de datos         | Puedes verificar si una cadena cumple con un formato (como una cédula, correo o código postal). |
+
+---
+
+## ✏️ Ejemplos útiles
+
+| Objetivo                       | Regex                    | Descripción                                 |                                                 |
+| ------------------------------ | ------------------------ | ------------------------------------------- | ----------------------------------------------- |
+| Eliminar caracteres especiales | `[^a-zA-Z0-9 ]`          | Todo lo que no sea letra, número o espacio. |                                                 |
+| Extraer dígitos                | `\d+`                    | Uno o más dígitos seguidos.                 |                                                 |
+| Detectar correos electrónicos  | `[\w\.-]+@[\w\.-]+\.\w+` | Coincide con correos básicos.               |                                                 |
+| Palabras específicas           | \`\b(promo               | descuento)\b\`                              | Detecta palabras exactas "promo" o "descuento". |
+
+---
+
+## 💬 Conclusión
+
+Las expresiones regulares son esenciales para **preprocesamiento de texto**, especialmente en tareas como:
+
+* Preparar datos para modelos de machine learning.
+* Limpiar entradas antes de almacenarlas en bases de datos.
+* Automatizar procesos de validación y búsqueda.
+
+Al dominarlas, puedes ahorrar tiempo y procesar grandes volúmenes de texto con **precisión y eficiencia**.
+
+---
