@@ -459,3 +459,105 @@ df['spam'] = df['mensaje'].str.contains(r'(gratis|oferta|haz clic aquí)', case=
 * Los símbolos `\b` indican **límites de palabra**, para que no detecte partes de otras palabras (por ejemplo, "promocionar").
 * Todo está alineado para que se vea bien tanto en editores Markdown como en Jupyter Notebooks.
 ---
+## 🧠 ¿Dónde se aplica Regex?
+
+Las expresiones regulares (Regex) se utilizan ampliamente para buscar, validar, extraer o modificar cadenas de texto en diversas áreas. A continuación, se presentan algunos ejemplos comunes:
+
+---
+
+### 1. 🔍 **Consultas en bases de datos**
+
+Regex puede usarse en motores de bases de datos compatibles para realizar búsquedas avanzadas.
+
+```sql
+SELECT * FROM filmes WHERE titulo REGEXP '^[era uma vez]';
+```
+
+**Explicación:**
+
+* `^`: indica que la coincidencia debe comenzar al inicio de la cadena.
+* `[era uma vez]`: esta notación está incorrecta para expresar “era una vez”. Aquí se está buscando títulos que empiecen con cualquiera de los caracteres `e`, `r`, `a`, etc.
+  ✔️ **Forma correcta esperada**: `'^(era|uma|vez)'`
+
+---
+
+### 2. ✅ **Validación de entradas (Java)**
+
+Regex es útil para validar correos electrónicos, contraseñas, números, etc.
+
+```java
+private void setEmail(String email) {
+    String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+    if (!email.matches(regex)) {
+        throw new IllegalArgumentException("Email Inválido!");
+    }
+    this.email = email;
+}
+```
+
+**Explicación:**
+
+* `^[A-Za-z0-9+_.-]+`: permite letras, números y símbolos comunes antes del `@`.
+* `@(.+)$`: garantiza que después del `@` haya al menos un carácter.
+
+---
+
+### 3. 🧾 **Extracción de datos (ejemplo: CPF brasileño)**
+
+```regex
+[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}
+```
+
+**Explicación:**
+
+* `[0-9]{3}`: tres dígitos numéricos.
+* `\.?`: punto opcional (el `\` escapa el punto).
+* `\-?`: guion opcional.
+* Esta expresión busca coincidencias como `123.456.789-00`.
+
+---
+
+### 4. 📊 **Procesamiento de datos (Ejemplo: Tableau)**
+
+#### 🧩 a) `REGEXP_REPLACE(cadena, patrón, reemplazo)`
+
+Reemplaza caracteres según un patrón.
+
+```text
+REGEXP_REPLACE([categoria_produto], '[0-9]|[-]|[_]', ' ')
+```
+
+**Objetivo:** Eliminar números, guiones y guiones bajos, reemplazándolos por espacios.
+
+#### 🧪 b) `REGEXP_MATCH(cadena, patrón)`
+
+Devuelve `TRUE` si la cadena coincide con el patrón, `FALSE` si no.
+
+```text
+REGEXP_MATCH([categoria], '([0-9])')
+```
+
+**Objetivo:** Verificar si hay al menos un dígito en el campo `categoria`.
+
+#### 🧬 c) `REGEXP_EXTRACT(cadena, patrón)`
+
+Extrae parte de la cadena que coincida con un patrón.
+
+```text
+REGEXP_EXTRACT([categoria_produto], '(\d+)')
+```
+
+**Objetivo:** Extraer el número de identificación (`id`) que aparece al inicio del texto (como `1-` en `1-agro_industria`).
+
+---
+
+## ✅ Resumen
+
+| Aplicación                 | Herramienta/función                  | Descripción breve                                         |
+| -------------------------- | ------------------------------------ | --------------------------------------------------------- |
+| Consultas SQL              | `REGEXP`                             | Filtra registros por patrones de texto                    |
+| Validación en código Java  | `String.matches(regex)`              | Verifica si una cadena cumple con el formato esperado     |
+| Extracción en datos crudos | Regex manual o con herramientas      | Identifica patrones como números, fechas o correos        |
+| Procesamiento en Tableau   | `REGEXP_REPLACE`, `MATCH`, `EXTRACT` | Limpia, verifica o extrae valores específicos en columnas |
+
+---
