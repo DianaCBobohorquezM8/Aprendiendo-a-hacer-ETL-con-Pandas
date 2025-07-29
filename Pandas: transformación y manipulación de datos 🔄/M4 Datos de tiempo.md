@@ -183,3 +183,130 @@ object
 ```
 
 ---
+# 📅 Manejo de columnas `datetime` en Pandas
+
+---
+
+## 🔹 1. Transformar datos al tipo `datetime`
+
+### 📌 Carga de datos
+
+* **Concepto:** Se cargan datos desde archivos externos (ej. JSON) a un DataFrame.
+* **Método clave:** `pd.read_json()`
+
+```python
+import pandas as pd
+data_dt = pd.read_json('inmuebles_disponibles.json')
+```
+
+---
+
+### 📌 Exploración de datos
+
+* **Concepto:** Entender la estructura y tipos de datos del DataFrame.
+* **Métodos clave:**
+
+```python
+data_dt.head()   # Muestra primeras 5 filas
+data_dt.info()   # Tipos de datos y valores no nulos
+```
+
+---
+
+### 📌 Transformación a `datetime`
+
+* **Problema:** Las fechas suelen cargarse como `object` (strings).
+* **Solución:** Convertir con `pd.to_datetime()`.
+
+```python
+data_dt['fecha'] = pd.to_datetime(data_dt['fecha'])
+```
+
+Con formato específico:
+
+```python
+data_dt['Fecha de venta'] = pd.to_datetime(
+    data_dt['Fecha de venta'],
+    format='%d/%m/%Y'
+)
+```
+
+📌 **Analogía de relojes:**
+
+* `pd.read_json()` → abrir la caja de relojes.
+* `.head()` / `.info()` → inspeccionar los relojes.
+* `pd.to_datetime()` → sacar relojes de la bolsa plástica (strings) y dejarlos listos.
+* Asignación → guardar los relojes ya ajustados en la caja (DataFrame).
+
+---
+
+## 🔹 2. Manipular columnas `datetime`
+
+### 📌 Variables de tiempo
+
+* Columnas `datetime` permiten usar métodos para extraer año, mes, día, hora, etc.
+
+---
+
+### 📌 Agrupación por meses
+
+* Sirve para identificar **tendencias o estacionalidad**.
+
+```python
+# Extraer año-mes
+data_dt['año_mes'] = data_dt['fecha'].dt.strftime('%Y-%m')
+
+# Agrupar por año-mes y contar disponibilidad
+reporte = data_dt.groupby('año_mes')['disponible'].sum()
+print(reporte)
+```
+
+---
+
+### 📌 Métodos clave
+
+* `.dt` → acceder a propiedades `datetime`.
+* `.strftime('%Y-%m')` → formatear fechas.
+* `.groupby()` → agrupar por columnas.
+* `.sum()` → sumar valores (ej. contar disponibles).
+
+---
+
+### 📌 Ejemplo práctico
+
+```python
+# Transformar fecha
+data_dt['fecha'] = pd.to_datetime(data_dt['fecha'])
+
+# Agrupar por año y mes
+reporte_tiempo = (
+    data_dt
+    .groupby(data_dt['fecha'].dt.strftime('%Y-%m'))['disponible']
+    .sum()
+)
+
+print(reporte_tiempo)
+```
+
+---
+
+## 🔹 3. Informes de tiempo
+
+* **Qué permiten:**
+
+  * Ver disponibilidad de propiedades a lo largo del tiempo.
+  * Detectar **patrones estacionales** (ej. mayor demanda en ciertos meses).
+  * Apoyar decisiones (precios, marketing, oferta).
+
+---
+
+✅ **Resumen final:**
+
+1. Cargar datos → `pd.read_json()`
+2. Explorar → `.head()`, `.info()`
+3. Convertir fechas → `pd.to_datetime()`
+4. Extraer año/mes → `.dt.strftime('%Y-%m')`
+5. Agrupar datos → `.groupby()`
+6. Generar reportes de tiempo → `.sum()`
+
+---
