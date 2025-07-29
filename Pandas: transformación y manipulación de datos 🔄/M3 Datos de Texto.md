@@ -561,3 +561,93 @@ REGEXP_EXTRACT([categoria_produto], '(\d+)')
 | Procesamiento en Tableau   | `REGEXP_REPLACE`, `MATCH`, `EXTRACT` | Limpia, verifica o extrae valores específicos en columnas |
 
 ---
+# ✂️ Transformar textos en listas (Tokenización en Pandas)
+
+La **tokenización** es el proceso de dividir una cadena de texto en unidades más pequeñas llamadas **tokens**, que suelen ser palabras, frases o símbolos.
+En **ciencia de datos**, la tokenización es fundamental para preparar texto antes de análisis o modelado.
+
+---
+
+## 🔑 Conceptos Clave
+
+| Concepto                          | Definición                                                                              |
+| --------------------------------- | --------------------------------------------------------------------------------------- |
+| **Tokenización**                  | Proceso de dividir texto en unidades más pequeñas (palabras, frases, símbolos).         |
+| **Strings (cadenas)**             | Secuencias de caracteres que representan texto. En Pandas, se manejan con `Series.str`. |
+| **Regex (Expresiones regulares)** | Patrones que permiten buscar, limpiar y manipular texto de forma flexible.              |
+
+---
+
+## 🛠️ Métodos Utilizados en Pandas
+
+| Método                                | Función                                                                                        | Ejemplo                                     |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `.str.split(sep)`                     | Divide el texto en una lista de tokens usando un separador (por defecto espacio).              | `"hola mundo".split()` → `['hola','mundo']` |
+| `.str.replace(pat, repl, regex=True)` | Reemplaza partes de un texto según un patrón regex. Útil para eliminar caracteres no deseados. | `texto.str.replace('[{}"]','',regex=True)`  |
+
+---
+
+## ⚙️ Ejemplo práctico en Pandas
+
+Supongamos que tenemos un DataFrame con una columna de descripciones:
+
+```python
+import pandas as pd
+
+data = {'descripcion': ["Este es un ejemplo de frase con algunas palabras."]}
+df = pd.DataFrame(data)
+
+# Tokenización por espacios
+df['descripcion_tokenizada'] = df['descripcion'].str.split()
+
+print(df)
+```
+
+### ✅ Resultado:
+
+| descripcion                                         | descripcion\_tokenizada                                                        |
+| --------------------------------------------------- | ------------------------------------------------------------------------------ |
+| "Este es un ejemplo de frase con algunas palabras." | \['Este', 'es', 'un', 'ejemplo', 'de', 'frase', 'con', 'algunas', 'palabras.'] |
+
+---
+
+## 🧹 Limpieza con Regex antes de tokenizar
+
+Si el texto contiene **caracteres no deseados** como `{}`, `"` o puntuación, podemos limpiarlo primero:
+
+```python
+df['descripcion_limpia'] = df['descripcion'].str.replace('[{}"]', '', regex=True)
+df['descripcion_tokenizada'] = df['descripcion_limpia'].str.split()
+```
+
+Esto genera una columna **limpia** y luego la **lista de tokens** sin caracteres especiales.
+
+---
+
+## 📌 Variantes de Tokenización
+
+1. **Separación por espacios (default):**
+
+   ```python
+   df['columna'].str.split()
+   ```
+
+   → Divide en palabras por espacio.
+
+2. **Separación por comas:**
+
+   ```python
+   df['columna'].str.split(',')
+   ```
+
+   → Útil si tenemos listas tipo `"python,pandas,numpy"`.
+
+3. **Regex como separador:**
+
+   ```python
+   df['columna'].str.split('[,;.]')
+   ```
+
+   → Divide usando comas, punto y coma o punto.
+
+---
