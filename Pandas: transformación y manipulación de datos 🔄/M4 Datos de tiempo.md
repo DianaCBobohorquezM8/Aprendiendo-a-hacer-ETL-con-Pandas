@@ -310,3 +310,134 @@ print(reporte_tiempo)
 6. Generar reportes de tiempo → `.sum()`
 
 ---
+# 📅 Fechas y Horas en Python (`datetime`)
+
+## 🔹 1. Formatear fechas en cadenas
+
+### 📌 Usando `.format()`
+
+```python
+data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month, data_atual.year)
+# Resultado → 1/3/2018
+```
+
+⚠️ Problema: días y meses < 10 no muestran el prefijo `0`.
+
+```python
+# Intento con ceros fijos
+data_em_texto = '0{}/0{}/{}'.format(data_atual.day, data_atual.month, data_atual.year)
+# Resultado → 010/010/2018 (incorrecto)
+```
+
+---
+
+### 📌 Usando `.strftime()` (solución correcta ✅)
+
+```python
+data_em_texto = data_atual.strftime('%d/%m/%Y')
+print(data_em_texto)  # 01/03/2018
+```
+
+📌 **Ventaja:** Control total sobre el formato con códigos (`%d`, `%m`, `%Y`, etc.).
+
+---
+
+## 🔹 2. Manejo de `datetime` (fecha + hora)
+
+```python
+from datetime import datetime
+data_e_hora_atuais = datetime.now()
+print(data_e_hora_atuais.strftime('%d/%m/%Y %H:%M'))
+# Ejemplo → 01/03/2018 12:30
+```
+
+✔ Permite manejar **fecha y hora simultáneamente**.
+✔ Se usa `.now()` en lugar de `.today()`.
+
+---
+
+## 🔹 3. Convertir cadenas en fechas (`strptime`)
+
+```python
+from datetime import datetime
+
+data_em_texto = '01/03/2018 12:30'
+data_e_hora = datetime.strptime(data_em_texto, '%d/%m/%Y %H:%M')
+print(data_e_hora)
+```
+
+👉 Convierte **string → objeto datetime**.
+
+---
+
+## 🔹 4. Problema de zonas horarias
+
+El resultado puede variar entre máquinas porque cada una tiene configuraciones distintas de **zona horaria**.
+
+✅ Solución: fijar la zona horaria con `timezone` o librerías externas como **pytz**.
+
+---
+
+## 🔹 5. Zona horaria con `timezone` y `timedelta`
+
+```python
+from datetime import datetime, timezone, timedelta
+
+data_e_hora_atuais = datetime.now()
+diferenca = timedelta(hours=-3)  # UTC-3 (São Paulo)
+fuso_horario = timezone(diferenca)
+
+data_sao_paulo = data_e_hora_atuais.astimezone(fuso_horario)
+print(data_sao_paulo.strftime('%d/%m/%Y %H:%M'))
+# Resultado → 01/03/2018 12:30
+```
+
+⚡ Nota: `timedelta(hours=-3)` corrige la diferencia horaria respecto a UTC.
+
+---
+
+## 🔹 6. Zona horaria con **pytz** (recomendado)
+
+Instalación:
+
+```bash
+pip install pytz
+```
+
+Uso:
+
+```python
+from datetime import datetime
+from pytz import timezone
+
+data_e_hora_atuais = datetime.now()
+fuso_horario = timezone('America/Sao_Paulo')
+data_sao_paulo = data_e_hora_atuais.astimezone(fuso_horario)
+
+print(data_sao_paulo.strftime('%d/%m/%Y %H:%M'))
+```
+
+📌 Con `pytz.all_timezones` puedes listar todas las zonas horarias disponibles.
+
+---
+
+## 🔹 7. Códigos comunes en `strftime`
+
+| Código | Significado         | Ejemplo |
+| ------ | ------------------- | ------- |
+| `%d`   | Día del mes (01-31) | 01      |
+| `%m`   | Mes (01-12)         | 03      |
+| `%Y`   | Año con siglo       | 2018    |
+| `%H`   | Hora (00-23)        | 12      |
+| `%M`   | Minuto (00-59)      | 30      |
+
+---
+
+## ✅ Resumen final
+
+1. **Formatear fechas** → usar `.strftime()`.
+2. **Convertir string → fecha** → usar `.strptime()`.
+3. **Manejar zona horaria** → usar `timezone` + `timedelta` o librería `pytz`.
+4. **Evitar errores entre máquinas** → siempre fijar zona horaria explícita.
+
+---
