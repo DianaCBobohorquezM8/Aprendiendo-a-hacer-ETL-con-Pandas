@@ -651,3 +651,72 @@ Esto genera una columna **limpia** y luego la **lista de tokens** sin caracteres
    → Divide usando comas, punto y coma o punto.
 
 ---
+## 📝 Apunte: Limpieza de texto con Regex en Pandas
+
+### 🔹 Problema
+
+Algunas columnas tienen texto extra dentro de paréntesis, por ejemplo:
+
+```
+A101 (blocoAP)
+A102 (blocoAP)
+```
+
+y necesitamos eliminar esa parte.
+
+---
+
+### 🔹 Errores comunes
+
+1. **Paréntesis en regex**
+   Los `()` son grupos en regex, por eso se deben **escapar** con `\(` y `\)`.
+   Ejemplo: `\(blocoAP\)` busca exactamente `(blocoAP)`.
+
+2. **Uso de `\` en Python**
+   En Python, la barra invertida también es especial.
+   Para evitar problemas, usamos **raw strings** (`r''`).
+   Ejemplo: `r'\(blocoAP\)'`.
+
+3. **Espacios alrededor**
+   En los datos aparece `" (blocoAP)"`, no solo `"(blocoAP)"`.
+   Por eso conviene incluir el espacio en el patrón.
+
+---
+
+### 🔹 Solución
+
+Código para eliminar `" (blocoAP)"` de la columna:
+
+```python
+datos2['apartamento'] = datos2['apartamento'].str.replace(r'\s*\(blocoAP\)', '', regex=True)
+```
+
+✅ Explicación del patrón:
+
+* `\s*` → cero o más espacios antes.
+* `\(blocoAP\)` → literal `(blocoAP)`.
+
+---
+
+### 🔹 Extra (más general)
+
+Si quieres eliminar **cualquier cosa entre paréntesis**, usa:
+
+```python
+datos2['apartamento'] = datos2['apartamento'].str.replace(r'\s*\(.*?\)', '', regex=True)
+```
+
+👉 `.*?` significa “cualquier cosa” dentro de los paréntesis.
+
+---
+
+📌 **Resultado esperado**:
+
+```
+A101
+A101
+A102
+A102
+```
+
+---
