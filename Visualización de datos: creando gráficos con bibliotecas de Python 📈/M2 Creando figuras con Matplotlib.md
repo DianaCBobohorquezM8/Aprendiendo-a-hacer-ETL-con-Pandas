@@ -371,3 +371,67 @@ fig.suptitle("Comparación de Inmigración Colombiana (2000-2010)", fontsize=14,
 Con `plt.subplots()` podemos organizar gráficos en una cuadrícula, unificar escalas con `set_ylim()`, iterar sobre ellos con `axs.ravel()` y mejorar la lectura con cuadrículas y un título general. Esto hace que las comparaciones entre gráficos sean **justas, claras y visualmente consistentes**.
 
 ---
+# 🎨 Buenas Prácticas para la Visualización de Datos con Subplots 🙌
+
+Cuando trabajamos con **subplots** en Matplotlib, es importante mantener claridad, consistencia y legibilidad en la figura. Aquí algunas recomendaciones:
+
+---
+
+## 1️⃣ Usar títulos claros y concisos
+
+* Cada subplot debe tener un **título breve y descriptivo** para que el lector entienda rápidamente qué está mostrando.
+* Si se comparan diferentes conjuntos de datos, puede añadirse un **subtítulo** explicando la relación o diferencia entre ellos.
+
+```python
+axs[0, 0].set_title("Tendencia de inmigración")
+axs[0, 1].set_title("Distribución por año")
+```
+
+---
+
+## 2️⃣ Mantener la misma escala en los ejes
+
+* Para comparaciones justas, es recomendable mantener la **misma escala en los ejes X e Y** en todos los subplots.
+* Esto se logra con:
+
+```python
+for ax in axs.ravel():
+    ax.set_xlim(1980, 2013)   # Escala uniforme en eje X
+    ax.set_ylim(0, 2500)      # Escala uniforme en eje Y
+```
+
+---
+
+## 3️⃣ Evitar la superposición de gráficos
+
+* Cada subplot debe estar **claramente separado** de los demás.
+* Para evitar que los gráficos se amontonen:
+
+  * Ajusta el tamaño de la figura con `figsize`.
+  * Usa **espaciado adecuado** con `fig.subplots_adjust()`:
+
+```python
+fig.subplots_adjust(hspace=0.4, wspace=0.3)
+```
+
+📌 Parámetros importantes:
+
+* `hspace` → controla el espacio **vertical** entre subplots.
+* `wspace` → controla el espacio **horizontal** entre subplots.
+* El valor es un **decimal** que representa la fracción del tamaño de la figura (ej. `0.5` = 50% de la altura/anchura de la figura).
+
+---
+
+## 4️⃣ Otros consejos adicionales
+
+* **Agregar un título general** con `fig.suptitle()` para contextualizar toda la figura.
+* Usar **colores consistentes** entre subplots cuando representen la misma categoría de datos.
+* Añadir **cuadrículas (`ax.grid()`)** para facilitar la lectura de valores.
+* Evitar saturar los gráficos con demasiada información → cada subplot debe enfocarse en un aspecto particular.
+
+---
+
+✅ **Resumen Final:**
+Al usar subplots, cuida que cada gráfico tenga **títulos claros**, **escalas uniformes**, **espaciado suficiente** y un **formato visual consistente**. Esto garantiza que la comparación entre subplots sea **clara, justa y fácil de interpretar**.
+
+---
