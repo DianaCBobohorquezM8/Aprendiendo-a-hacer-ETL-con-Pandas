@@ -253,3 +253,139 @@ print(datos_col.describe())
 * `datos.describe()` → estadísticas numéricas que complementan la visualización.
 
 ---
+# 📊 Creando Subplots en Dos Direcciones con Matplotlib
+
+---
+
+## 1️⃣ Creación de la matriz de subplots
+
+```python
+import matplotlib.pyplot as plt
+
+fig, axs = plt.subplots(2, 2, figsize=(10, 8))
+```
+
+* `(2, 2)` → matriz de **2 filas y 2 columnas** = 4 subplots.
+* `axs` → ahora es una **matriz bidimensional de ejes**:
+
+  * `axs[0, 0]` → primer subplot (fila 0, col 0).
+  * `axs[0, 1]` → segundo subplot (fila 0, col 1).
+  * `axs[1, 0]` → tercer subplot (fila 1, col 0).
+  * `axs[1, 1]` → cuarto subplot (fila 1, col 1).
+
+---
+
+## 2️⃣ Graficación en subplots individuales
+
+```python
+axs[0, 0].plot(años, inmigrantes, marker='o')
+axs[0, 0].set_title("Gráfico de Línea")
+
+axs[0, 1].boxplot(inmigrantes)
+axs[0, 1].set_title("Boxplot")
+
+axs[1, 0].bar(años, inmigrantes)
+axs[1, 0].set_title("Gráfico de Barras")
+
+axs[1, 1].hist(inmigrantes, bins=5)
+axs[1, 1].set_title("Histograma")
+```
+
+Cada subplot puede tener **tipos de gráficos distintos** (línea, boxplot, barras, histograma, etc.).
+
+---
+
+## 3️⃣ Ajuste de espacios entre subplots
+
+```python
+fig.subplots_adjust(hspace=0.4, wspace=0.3)
+```
+
+* `hspace` → espacio vertical entre subplots.
+* `wspace` → espacio horizontal entre subplots.
+
+Esto evita que títulos, ejes y etiquetas se encimen.
+
+---
+
+## 4️⃣ Iteración sobre los subplots
+
+En lugar de configurar cada subplot manualmente:
+
+```python
+for ax in axs.flat:  
+    ax.set_xlabel("Año")  
+    ax.set_ylabel("Inmigrantes")  
+    ax.grid(True)  
+```
+
+* `axs.flat` → convierte la matriz de ejes en una lista 1D.
+* Permite aplicar ajustes de forma rápida a todos los subplots.
+
+---
+
+## 5️⃣ Mejora de la visualización
+
+```python
+import matplotlib.ticker as ticker
+
+for ax in axs.flat:
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(5))  # ticks cada 5 años
+```
+
+👉 Hace que los ejes X sean más claros, especialmente en series temporales.
+
+---
+
+## 🔎 Ejemplo completo
+
+```python
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+
+años = list(range(2000, 2010))
+inmigrantes = [500, 700, 800, 1200, 1500, 1600, 1400, 1800, 2000, 2200]
+
+# Crear figura con 2x2 subplots
+fig, axs = plt.subplots(2, 2, figsize=(10, 8))
+
+# Subplot 1 - Línea
+axs[0, 0].plot(años, inmigrantes, marker='o', color='b')
+axs[0, 0].set_title("Gráfico de Línea")
+
+# Subplot 2 - Boxplot
+axs[0, 1].boxplot(inmigrantes)
+axs[0, 1].set_title("Boxplot")
+
+# Subplot 3 - Barras
+axs[1, 0].bar(años, inmigrantes, color='g')
+axs[1, 0].set_title("Gráfico de Barras")
+
+# Subplot 4 - Histograma
+axs[1, 1].hist(inmigrantes, bins=5, color='orange')
+axs[1, 1].set_title("Histograma")
+
+# Ajustes generales
+fig.subplots_adjust(hspace=0.4, wspace=0.3)
+
+# Personalización de ejes
+for ax in axs.flat:
+    ax.set_xlabel("Año")
+    ax.set_ylabel("Número de Inmigrantes")
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(2))  # ticks cada 2 años
+    ax.grid(True)
+
+plt.show()
+```
+
+---
+
+✅ **Resumen:**
+
+* `plt.subplots(filas, columnas)` → crea una matriz de gráficos.
+* `axs[fila, col]` → accede a cada subplot.
+* `fig.subplots_adjust()` → mejora el espacio entre gráficos.
+* `axs.flat` → itera fácil sobre todos los subplots.
+* Cada subplot puede mostrar un gráfico distinto → ¡perfecto para comparaciones!
+
+---
