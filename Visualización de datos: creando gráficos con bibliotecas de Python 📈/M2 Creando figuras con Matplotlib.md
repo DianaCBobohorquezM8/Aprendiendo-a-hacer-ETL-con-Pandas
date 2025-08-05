@@ -118,3 +118,138 @@ plt.show()
 * `plt.show()` → muestra el gráfico final.
 
 ---
+# 📊 Creando Subplots en una Dirección con Matplotlib
+
+---
+
+## 1️⃣ ¿Qué son los subplots?
+
+Son **gráficos múltiples en una misma figura**.
+
+* Sirven para comparar datos de forma clara y organizada.
+* Se pueden organizar en **filas** y **columnas**.
+
+👉 Ejemplo: una fila con 2 gráficos → un gráfico de línea + un boxplot.
+
+---
+
+## 2️⃣ Creación de la figura y subgráficos
+
+```python
+import matplotlib.pyplot as plt
+
+fig, axs = plt.subplots(1, 2, figsize=(12, 5))  
+```
+
+* `1, 2` → significa **1 fila y 2 columnas** (dos gráficos en horizontal).
+* `axs` es un **array de ejes**:
+
+  * `axs[0]` → primer gráfico.
+  * `axs[1]` → segundo gráfico.
+
+---
+
+## 3️⃣ Gráfico de líneas en el primer subplot
+
+```python
+axs[0].plot(años, inmigrantes, marker='o', color='b')
+axs[0].set_title("Inmigración de colombianos hacia Canadá")
+axs[0].set_xlabel("Año")
+axs[0].set_ylabel("Número de inmigrantes")
+axs[0].grid()
+```
+
+* Línea de inmigrantes a lo largo del tiempo.
+* `grid()` ayuda a leer mejor los valores.
+
+---
+
+## 4️⃣ Boxplot en el segundo subplot
+
+```python
+axs[1].boxplot(inmigrantes)
+axs[1].set_title("Distribución de inmigración")
+axs[1].set_xlabel("Colombia")
+axs[1].set_ylabel("Número de inmigrantes")
+axs[1].grid()
+```
+
+* 📦 El **boxplot** muestra:
+
+  * Línea dentro → **mediana (50%)**.
+  * Caja inferior y superior → **Q1 (25%) y Q3 (75%)**.
+  * Bigotes → **mínimo y máximo**.
+  * Outliers → puntos extremos.
+
+---
+
+## 5️⃣ Mostrar todo
+
+```python
+plt.show()
+```
+
+---
+
+## 6️⃣ Estadísticas descriptivas con Pandas
+
+```python
+import pandas as pd
+
+# Ejemplo usando el DataFrame datos_col
+print(datos_col.describe())
+```
+
+📌 Devuelve:
+
+* **count** → número de registros.
+* **mean** → promedio.
+* **std** → desviación estándar.
+* **min, 25%, 50%, 75%, max** → resumen de la distribución.
+
+---
+
+## 🔎 Ejemplo completo
+
+```python
+import matplotlib.pyplot as plt
+import pandas as pd
+
+años = list(range(2000, 2010))
+inmigrantes = [500, 700, 800, 1200, 1500, 1600, 1400, 1800, 2000, 2200]
+
+# Crear figura con 2 subplots en una fila
+fig, axs = plt.subplots(1, 2, figsize=(12, 5))
+
+# Gráfico de línea
+axs[0].plot(años, inmigrantes, marker='o', color='b')
+axs[0].set_title("Inmigración de colombianos hacia Canadá")
+axs[0].set_xlabel("Año")
+axs[0].set_ylabel("Número de inmigrantes")
+axs[0].grid()
+
+# Boxplot
+axs[1].boxplot(inmigrantes)
+axs[1].set_title("Distribución de inmigración")
+axs[1].set_xlabel("Colombia")
+axs[1].set_ylabel("Número de inmigrantes")
+axs[1].grid()
+
+# Mostrar
+plt.show()
+
+# Estadísticas descriptivas
+datos_col = pd.DataFrame({"año": años, "inmigrantes": inmigrantes})
+print(datos_col.describe())
+```
+
+---
+
+✅ **Resumen:**
+
+* `plt.subplots(filas, columnas)` → define distribución de subplots.
+* `axs[i].plot()` → gráfico de líneas en un subplot.
+* `axs[i].boxplot()` → boxplot en otro subplot.
+* `datos.describe()` → estadísticas numéricas que complementan la visualización.
+
+---
