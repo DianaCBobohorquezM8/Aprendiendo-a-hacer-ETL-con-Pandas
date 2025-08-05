@@ -255,8 +255,6 @@ print(datos_col.describe())
 ---
 # 📊 Creando Subplots en Dos Direcciones con Matplotlib
 
----
-
 ## 1️⃣ Creación de la matriz de subplots
 
 ```python
@@ -304,8 +302,6 @@ fig.subplots_adjust(hspace=0.4, wspace=0.3)
 * `hspace` → espacio vertical entre subplots.
 * `wspace` → espacio horizontal entre subplots.
 
-Esto evita que títulos, ejes y etiquetas se encimen.
-
 ---
 
 ## 4️⃣ Iteración sobre los subplots
@@ -319,73 +315,59 @@ for ax in axs.flat:
     ax.grid(True)  
 ```
 
-* `axs.flat` → convierte la matriz de ejes en una lista 1D.
+* `axs.flat` → convierte la matriz de ejes en lista 1D.
 * Permite aplicar ajustes de forma rápida a todos los subplots.
 
 ---
 
-## 5️⃣ Mejora de la visualización
+## 5️⃣ Creación de Subgráficos
 
-```python
-import matplotlib.ticker as ticker
-
-for ax in axs.flat:
-    ax.xaxis.set_major_locator(ticker.MultipleLocator(5))  # ticks cada 5 años
-```
-
-👉 Hace que los ejes X sean más claros, especialmente en series temporales.
+* **Concepto:** `plt.subplots()` crea una cuadrícula de subgráficos dentro de una sola figura.
+* **Ventaja:** permite mostrar y comparar múltiples visualizaciones en un mismo lienzo.
 
 ---
 
-## 🔎 Ejemplo completo
+## 6️⃣ Ajuste de la escala del eje Y
+
+* **Problema:** al comparar varios gráficos, cada uno puede tener escalas distintas.
+* **Solución:** unificamos el rango de valores del eje Y para que la comparación sea justa.
 
 ```python
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
+Ymin, Ymax = 0, 2500  
 
-años = list(range(2000, 2010))
-inmigrantes = [500, 700, 800, 1200, 1500, 1600, 1400, 1800, 2000, 2200]
-
-# Crear figura con 2x2 subplots
-fig, axs = plt.subplots(2, 2, figsize=(10, 8))
-
-# Subplot 1 - Línea
-axs[0, 0].plot(años, inmigrantes, marker='o', color='b')
-axs[0, 0].set_title("Gráfico de Línea")
-
-# Subplot 2 - Boxplot
-axs[0, 1].boxplot(inmigrantes)
-axs[0, 1].set_title("Boxplot")
-
-# Subplot 3 - Barras
-axs[1, 0].bar(años, inmigrantes, color='g')
-axs[1, 0].set_title("Gráfico de Barras")
-
-# Subplot 4 - Histograma
-axs[1, 1].hist(inmigrantes, bins=5, color='orange')
-axs[1, 1].set_title("Histograma")
-
-# Ajustes generales
-fig.subplots_adjust(hspace=0.4, wspace=0.3)
-
-# Personalización de ejes
-for ax in axs.flat:
-    ax.set_xlabel("Año")
-    ax.set_ylabel("Número de Inmigrantes")
-    ax.xaxis.set_major_locator(ticker.MultipleLocator(2))  # ticks cada 2 años
-    ax.grid(True)
-
-plt.show()
+for ax in axs.ravel():  
+    ax.set_ylim(Ymin, Ymax)  # misma escala para todos  
 ```
+
+📌 `axs.ravel()` transforma la matriz 2D de subplots en un array 1D → más fácil de iterar.
 
 ---
 
-✅ **Resumen:**
+## 7️⃣ Mejora de la visualización
 
-* `plt.subplots(filas, columnas)` → crea una matriz de gráficos.
-* `axs[fila, col]` → accede a cada subplot.
-* `fig.subplots_adjust()` → mejora el espacio entre gráficos.
-* `axs.flat` → itera fácil sobre todos los subplots.
-* Cada subplot puede mostrar un gráfico distinto → ¡perfecto para comparaciones!
+```python
+for ax in axs.ravel():  
+    ax.grid(True)  # cuadrícula en cada subplot  
+
+fig.suptitle("Comparación de Inmigración Colombiana (2000-2010)", fontsize=14, fontweight="bold")
+```
+
+* `ax.grid()` → añade cuadrícula en cada gráfico.
+* `fig.suptitle()` → título general que resume el contenido de toda la figura.
+
+---
+
+## 🔧 Métodos Clave Utilizados
+
+* `plt.subplots()` → crea figura y subplots en cuadrícula.
+* `axs.flat` / `axs.ravel()` → recorren todos los subgráficos fácilmente.
+* `ax.set_ylim(Ymin, Ymax)` → define límites del eje Y.
+* `ax.grid()` → añade cuadrícula.
+* `fig.suptitle()` → añade título general a la figura.
+
+---
+
+✅ **Resumen Final:**
+Con `plt.subplots()` podemos organizar gráficos en una cuadrícula, unificar escalas con `set_ylim()`, iterar sobre ellos con `axs.ravel()` y mejorar la lectura con cuadrículas y un título general. Esto hace que las comparaciones entre gráficos sean **justas, claras y visualmente consistentes**.
 
 ---
